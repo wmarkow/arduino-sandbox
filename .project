@@ -36,5 +36,10 @@
 			<type>2</type>
 			<location>/home/witek/dev/tools/eclipse-cpp-mars/arduinoPlugin/packages/arduino/hardware/avr/1.6.9/variants/standard</location>
 		</link>
+		<link>
+			<name>libraries/LiquidCrystal</name>
+			<type>2</type>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars/arduinoPlugin/libraries/LiquidCrystal/1.0.4</location>
+		</link>
 	</linkedResources>
 </projectDescription>
