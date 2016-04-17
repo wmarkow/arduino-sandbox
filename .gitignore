@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+Release/**
+.settings/**
+core/**
+libraries/**
+
