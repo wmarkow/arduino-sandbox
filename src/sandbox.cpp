@@ -1,19 +1,35 @@
 #include "sandbox.h"
 
-#include "LCDKeypadShield.h"
+#include <LCDKeypadShield.h>
+#include <LCDKeypadShield_I2C.h>
+#include <Terminal.h>
+#include <Array.h>
+#include <FixedSizeArray.h>
+#include <AbstractCommand.h>
+#include <UptimeCommand.h>
 
-LCDKeypadShield lcd(8, 9, 4, 5, 6, 7);
+LCDKeypadShield_I2C lcd(0x3F,16,2);
+
+FixedSizeArray<AbstractCommand*, 5> commands;
+Array<AbstractCommand*> *cmd = &commands;
+UptimeCommand uptimeCommand;
+
+Terminal terminal(&Serial, cmd);
 
 void setup() {
-  Serial.begin(9600);
+	Serial.begin(9600);
 
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
-  // Print a message to the LCD.
-  lcd.print(F("Witaj!"));
+	lcd.init();
+	lcd.backlight();
+
+	// Print a message to the LCD.
+	lcd.print(F("Hello world!"));
+
+	commands.add(&uptimeCommand);
 }
 
 void loop() {
+	terminal.loop();
 	// set the cursor to column 0, line 1
 	// (note: line 1 is the second row, since counting begins with 0):
 	lcd.setCursor(9, 1);

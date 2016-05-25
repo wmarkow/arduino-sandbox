@@ -6,6 +6,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>it.baeyens.arduino.core.inoToCpp</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<triggers>clean,full,incremental,</triggers>
 			<arguments>
@@ -29,17 +34,42 @@
 		<link>
 			<name>core/core</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars/arduinoPlugin/packages/arduino/hardware/avr/1.6.9/cores/arduino</location>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/cores/arduino</location>
 		</link>
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars/arduinoPlugin/packages/arduino/hardware/avr/1.6.9/variants/standard</location>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/variants/standard</location>
 		</link>
 		<link>
 			<name>libraries/LiquidCrystal</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars/arduinoPlugin/libraries/LiquidCrystal/1.0.4</location>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/libraries/LiquidCrystal/1.0.4</location>
+		</link>
+		<link>
+			<name>libraries/LiquidCrystal_I2C</name>
+			<type>2</type>
+			<location>/home/witek/Arduino/libraries/LiquidCrystal_I2C</location>
+		</link>
+		<link>
+			<name>libraries/Wire</name>
+			<type>2</type>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/libraries/Wire</location>
+		</link>
+		<link>
+			<name>libraries/arduino-array</name>
+			<type>2</type>
+			<location>/home/witek/Arduino/libraries/arduino-array</location>
+		</link>
+		<link>
+			<name>libraries/arduino-lcd-keypad-shield</name>
+			<type>2</type>
+			<location>/home/witek/Arduino/libraries/arduino-lcd-keypad-shield</location>
+		</link>
+		<link>
+			<name>libraries/arduino-terminal</name>
+			<type>2</type>
+			<location>/home/witek/Arduino/libraries/arduino-terminal</location>
 		</link>
 	</linkedResources>
 </projectDescription>
