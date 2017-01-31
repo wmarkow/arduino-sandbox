@@ -14,7 +14,7 @@
 
 
 //add your function definitions for the project test here
-
+void MIDI_TX(byte MESSAGE, byte PITCH, byte VELOCITY);
 
 
 //Do not add code below this line
