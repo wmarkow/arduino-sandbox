@@ -16,6 +16,9 @@
 //add your function definitions for the project test here
 void MIDI_TX(byte MESSAGE, byte PITCH, byte VELOCITY);
 
+void MIDI_NOTE_ON(byte PITCH, byte VELOCITY);
+
+void MIDI_NOTE_OFF(byte PITCH, byte VELOCITY);
 
 //Do not add code below this line
 #endif /* _test_H_ */

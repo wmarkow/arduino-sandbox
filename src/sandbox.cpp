@@ -40,11 +40,11 @@ void loop() {
   //Serial.println("Test");
 
   for (uint8_t index = 0; index < 16; index++) {
-    MIDI_TX(144, PadNote[index], 127);
+    MIDI_NOTE_ON(PadNote[index], 127);
     delay(500);
   }
 
-  //MIDI_TX(128, PadNote[0], 0);
+  //MIDI_NOTE_OFF(128, PadNote[0], 0);
 //  for (int pin = 0; pin < 16; pin++)                          //
 //      {
 //    //int pin = 3;
@@ -61,7 +61,7 @@ void loop() {
 //        } else {
 //          hitavg = 127;
 //        }
-//        MIDI_TX(144, PadNote[pin], hitavg);  //note on
+//        MIDI_TX(144 PadNote[pin], hitavg);  //note on
 //
 //        PinPlayTime[pin] = 0;
 //        activePad[pin] = true;
@@ -89,4 +89,12 @@ void MIDI_TX(byte MESSAGE, byte PITCH, byte VELOCITY) {
   Serial.write(PITCH);
   Serial.write(VELOCITY);
 
+}
+
+void MIDI_NOTE_ON(byte PITCH, byte VELOCITY) {
+  MIDI_TX(144, PITCH, VELOCITY);
+}
+
+void MIDI_NOTE_OFF(byte PITCH, byte VELOCITY) {
+  MIDI_TX(128, PITCH, VELOCITY);
 }
