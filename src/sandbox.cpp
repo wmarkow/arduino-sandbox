@@ -8,11 +8,18 @@
 // User settable variables
 //*******************************************************************************************************************
 
+uint8_t TOM_LOW = 41;
+uint8_t TOM_MID = 43;
+uint8_t TOM_LHIGH = 45;
+uint8_t SNARE_ROCK = 40;
+uint8_t HH_CLOSED = 42;
+uint8_t RIDE_ROCK = 50;
+
 int pinRead;
-char pinAssignments[16] = { 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10', 'A11' };
-byte PadNote[16] = { 41, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51 };  // MIDI notes from 0 to 127 (Mid C = 60)
-int PadCutOff[16] = { 40, 400, 200, 800, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };  // Minimum Analog value to cause a drum hit
-int MaxPlayTime[16] = { 500, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90 };  // Cycles before a 2nd hit is allowed
+uint8_t pinAssignments[16] = { A0, A1, A2, A3, A4, A5 };
+byte PadNote[16] = { TOM_LOW, TOM_MID, TOM_LHIGH, SNARE_ROCK, HH_CLOSED, RIDE_ROCK };  // MIDI notes from 0 to 127 (Mid C = 60)
+int PadCutOff[16] = { 70, 70, 70, 70, 70, 70 };  // Minimum Analog value to cause a drum hit
+int MaxPlayTime[16] = { 100, 100, 100, 100, 100, 100 };  // Cycles before a 2nd hit is allowed
 #define  midichannel 1;                              // MIDI channel from 0 to 15 (+1 in "real world")
 boolean VelocityFlag = false;                           // Velocity ON (true) or OFF (false)
 
@@ -44,39 +51,38 @@ void loop() {
 //    delay(500);
 //  }
 
-  //hitavg = analogRead(pinAssignments[pin]);
-  hitavg = analogRead(A0);
+  for (pin = 0; pin < 6; pin++) {
+    hitavg = analogRead(pinAssignments[pin]);
 //  if(hitavg > 500){
 //    MIDI_NOTE_ON(PadNote[pin], hitavg);
 //    delay(1000);
 //  }
-  //Serial.println(hitavg);
-  //Serial.println(hitavg);
-  // read the input pin
+    //Serial.println(hitavg);
+    // read the input pin
 
-  if ((hitavg > PadCutOff[pin])) {
-    if ((activePad[pin] == false)) {
-      if (VelocityFlag == true) {
-        //          hitavg = 127 / ((1023 - PadCutOff[pin]) / (hitavg - PadCutOff[pin]));    // With full range (Too sensitive ?)
-        hitavg = (hitavg / 8) - 1;                                                 // Upper range
+    if ((hitavg > PadCutOff[pin])) {
+      if ((activePad[pin] == false)) {
+        if (VelocityFlag == true) {
+          //          hitavg = 127 / ((1023 - PadCutOff[pin]) / (hitavg - PadCutOff[pin]));    // With full range (Too sensitive ?)
+          hitavg = (hitavg / 8) - 1;                                                 // Upper range
+        } else {
+          hitavg = 127;
+        }
+        MIDI_NOTE_ON(PadNote[pin], hitavg);  //note on
+
+        PinPlayTime[pin] = 0;
+        activePad[pin] = true;
       } else {
-        hitavg = 127;
+        PinPlayTime[pin] = PinPlayTime[pin] + 1;
       }
-      MIDI_NOTE_ON(PadNote[pin], hitavg);  //note on
-
-      PinPlayTime[pin] = 0;
-      activePad[pin] = true;
-    } else {
+    } else if ((activePad[pin] == true)) {
       PinPlayTime[pin] = PinPlayTime[pin] + 1;
-    }
-  } else if ((activePad[pin] == true)) {
-    PinPlayTime[pin] = PinPlayTime[pin] + 1;
-    if (PinPlayTime[pin] > MaxPlayTime[pin]) {
-      activePad[pin] = false;
-      //MIDI_NOTE_ON(PadNote[pin], 0);
+      if (PinPlayTime[pin] > MaxPlayTime[pin]) {
+        activePad[pin] = false;
+        //MIDI_NOTE_ON(PadNote[pin], 0);
+      }
     }
   }
-
 }
 
 //*******************************************************************************************************************
