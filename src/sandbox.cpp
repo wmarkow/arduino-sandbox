@@ -22,6 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Arduino.h"
+
 // Number of cycles from external counter needed to generate a signal event
 #define CYCLES_PER_SIGNAL 5000
 
@@ -64,6 +66,8 @@ SIGNAL(TIMER1_COMPA_vect)
   // Reset OCR1A
   OCR1A += CYCLES_PER_SIGNAL;
 }
+
+float mapFloat(int input, int inMin, int inMax, float outMin, float outMax);
 
 void setup()
 {
