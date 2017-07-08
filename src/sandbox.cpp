@@ -24,9 +24,9 @@
 
 #include "sandbox.h"
 
-const byte npulse = 3;
+const byte npulse = 1;
 const bool sound = true;
-const bool debug = false;
+const bool debug = true;
 
 const byte pin_pulse=A0;
 const byte pin_cap  =A1;
@@ -45,6 +45,8 @@ void setup() {
   digitalWrite(pin_LED2, LOW);
   if(sound)pinMode(pin_tone, OUTPUT);
   if(sound)digitalWrite(pin_tone, LOW);
+
+//  analogReference(INTERNAL);
 }
 
 const int nmeas=256;  //measurements to take
