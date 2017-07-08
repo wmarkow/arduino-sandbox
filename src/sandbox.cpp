@@ -1,157 +1,122 @@
-// Metal detector
-// Runs a pulse over the search loop in series with resistor
-// Voltage over search loop spikes
-// Through a diode this charges a capacitor
-// Value of capacitor after series of pulses is read by ADC
+/*
+ * Copyright (c) 2016 Evan Kale
+ * Media: @EvanKale91
+ * Email: EvanKale91@gmail.com
+ * Website: www.ISeeDeadPixel.com
+ *          www.evankale.blogspot.ca
+ *          www.youtube.com/EvanKale91
+ *
+ * This file is part of ArduinoMetalDetector.
+ *
+ * ArduinoMetalDetector is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-// Metal objects near search loop change inductance.
-// ADC reading depends on inductance.
-// changes wrt long-running mean are indicated by LEDs
-// LED1 indicates rise in inductance
-// LED2 indicates fall in inductance
-// the flash rate indicates how large the difference is
+// Number of cycles from external counter needed to generate a signal event
+#define CYCLES_PER_SIGNAL 5000
 
-// wiring:
-// 220Ohm resistor on D2
-// 10-loop D=10cm seach loop between ground and resistor
-// diode (-) on pin A0 and (+) on loop-resistor connection
-// 10nF capacitor between A0 and ground
-// LED1 in series with 220Ohm resistor on pin 8
-// LED2 in series with 220Ohm resistor on pin 9
+// Base tone frequency (speaker)
+#define BASE_TONE_FREQUENCY 280
 
-// First time, run with with serial print on and tune value of npulse
-// to get capacitor reading between 200 and 300
+// Frequency delta threshold for fancy spinner to trigger
+#define SPINNER_THRESHOLD 700
 
-#include "sandbox.h"
+// Pin definitions
+#define SENSITIVITY_POT_APIN 1
+#define SPEAKER_PIN 2
+#define SPINNER_PIN 9
+#define TRIGGER_BTN_PIN 11
+#define RESET_BTN_PIN 12
 
-const byte npulse = 1;
-const bool sound = true;
-const bool debug = true;
+unsigned long lastSignalTime = 0;
+unsigned long signalTimeDelta = 0;
 
-const byte pin_pulse=A0;
-const byte pin_cap  =A1;
-const byte pin_LED1 =12;
-const byte pin_LED2 =11;
-const byte pin_tone =10;
+boolean firstSignal = true;
+unsigned long storedTimeDelta = 0;
 
-void setup() {
-  if (debug) Serial.begin(9600);
-  pinMode(pin_pulse, OUTPUT);
-  digitalWrite(pin_pulse, LOW);
-  pinMode(pin_cap, INPUT);
-  pinMode(pin_LED1, OUTPUT);
-  digitalWrite(pin_LED1, LOW);
-  pinMode(pin_LED2, OUTPUT);
-  digitalWrite(pin_LED2, LOW);
-  if(sound)pinMode(pin_tone, OUTPUT);
-  if(sound)digitalWrite(pin_tone, LOW);
+// This signal is called whenever OCR1A reaches 0
+// (Note: OCR1A is decremented on every external clock cycle)
+SIGNAL(TIMER1_COMPA_vect)
+{
+  unsigned long currentTime = micros();
+  signalTimeDelta =  currentTime - lastSignalTime;
+  lastSignalTime = currentTime;
 
-//  analogReference(INTERNAL);
+  if (firstSignal)
+  {
+    firstSignal = false;
+  }
+  else if (storedTimeDelta == 0)
+  {
+    storedTimeDelta = signalTimeDelta;
+  }
+
+  // Reset OCR1A
+  OCR1A += CYCLES_PER_SIGNAL;
 }
 
-const int nmeas=256;  //measurements to take
-long int sumsum=0; //running sum of 64 sums
-long int skip=0;   //number of skipped sums
-long int diff=0;        //difference between sum and avgsum
-long int flash_period=0;//period (in ms)
-long unsigned int prev_flash=0; //time stamp of previous flash
+void setup()
+{
+  // Set WGM(Waveform Generation Mode) to 0 (Normal)
+  TCCR1A = 0b00000000;
 
-void loop() {
+  // Set CSS(Clock Speed Selection) to 0b111 (External clock source on T0 pin
+  // (ie, pin 5 on UNO). Clock on rising edge.)
+  TCCR1B = 0b00000111;
 
-  int minval=1023;
-  int maxval=0;
+  // Enable timer compare interrupt A (ie, SIGNAL(TIMER1_COMPA_VECT))
+  TIMSK1 |= (1 << OCIE1A);
 
-  //perform measurement
-  long unsigned int sum=0;
-  for (int imeas=0; imeas<nmeas+2; imeas++){
-    //reset the capacitor
-    pinMode(pin_cap,OUTPUT);
-    digitalWrite(pin_cap,LOW);
-    delayMicroseconds(20);
-    pinMode(pin_cap,INPUT);
-    //apply pulses
-    for (int ipulse = 0; ipulse < npulse; ipulse++) {
-      digitalWrite(pin_pulse,HIGH); //takes 3.5 microseconds
-      delayMicroseconds(3);
-      digitalWrite(pin_pulse,LOW);  //takes 3.5 microseconds
-      delayMicroseconds(3);
-    }
-    //read the charge on the capacitor
-    int val = analogRead(pin_cap); //takes 13x8=104 microseconds
-    minval = min(val,minval);
-    maxval = max(val,maxval);
-    sum+=val;
+  // Set OCR1A (timer A counter) to 1 to trigger interrupt on next cycle
+  OCR1A = 1;
 
-    //determine if LEDs should be on or off
-    long unsigned int timestamp=millis();
-    byte ledstat=0;
-    if (timestamp<prev_flash+10){
-      if (diff>0)ledstat=1;
-      if (diff<0)ledstat=2;
-    }
-    if (timestamp>prev_flash+flash_period){
-      if (diff>0)ledstat=1;
-      if (diff<0)ledstat=2;
-      prev_flash=timestamp;
-    }
-    if (flash_period>1000)ledstat=0;
+  pinMode(SPEAKER_PIN, OUTPUT);
+  pinMode(SPINNER_PIN, OUTPUT);
+  pinMode(TRIGGER_BTN_PIN, INPUT_PULLUP);
+  pinMode(RESET_BTN_PIN, INPUT_PULLUP);
+}
 
-    //switch the LEDs to this setting
-    if (ledstat==0){
-      digitalWrite(pin_LED1,LOW);
-      digitalWrite(pin_LED2,LOW);
-      if(sound)noTone(pin_tone);
-    }
-    if (ledstat==1){
-      digitalWrite(pin_LED1,HIGH);
-      digitalWrite(pin_LED2,LOW);
-      if(sound)tone(pin_tone,2000);
-    }
-    if (ledstat==2){
-      digitalWrite(pin_LED1,LOW);
-      digitalWrite(pin_LED2,HIGH);
-      if(sound)tone(pin_tone,500);
-    }
+void loop()
+{
+  if (digitalRead(TRIGGER_BTN_PIN) == LOW)
+  {
+    float sensitivity = mapFloat(analogRead(SENSITIVITY_POT_APIN), 0, 1023, 0.5, 10.0);
+    int storedTimeDeltaDifference = (storedTimeDelta - signalTimeDelta) * sensitivity;
+    tone(SPEAKER_PIN, BASE_TONE_FREQUENCY + storedTimeDeltaDifference);
 
+    if (storedTimeDeltaDifference > SPINNER_THRESHOLD)
+    {
+      digitalWrite(SPINNER_PIN, HIGH);
+    }
+    else
+    {
+      digitalWrite(SPINNER_PIN, LOW);
+    }
+  }
+  else
+  {
+    noTone(SPEAKER_PIN);
+    digitalWrite(SPINNER_PIN, LOW);
   }
 
-  //subtract minimum and maximum value to remove spikes
-  sum-=minval; sum-=maxval;
-
-  //process
-  if (sumsum==0) sumsum=sum<<6; //set sumsum to expected value
-  long int avgsum=(sumsum+32)>>6;
-  diff=sum-avgsum;
-  if (abs(diff)<avgsum>>10){      //adjust for small changes
-    sumsum=sumsum+sum-avgsum;
-    skip=0;
-  } else {
-    skip++;
+  if (digitalRead(RESET_BTN_PIN) == LOW)
+  {
+    storedTimeDelta = 0;
   }
-  if (skip>64){     // break off in case of prolonged skipping
-    sumsum=sum<<6;
-    skip=0;
-  }
+}
 
-  // one permille change = 2 ticks/s
-  if (diff==0) flash_period=1000000;
-  else flash_period=avgsum/(2*abs(diff));
-
-  if (debug){
-    Serial.print(nmeas);
-    Serial.print(" ");
-    Serial.print(minval);
-    Serial.print(" ");
-    Serial.print(maxval);
-    Serial.print(" ");
-    Serial.print(sum);
-    Serial.print(" ");
-    Serial.print(avgsum);
-    Serial.print(" ");
-    Serial.print(diff);
-    Serial.print(" ");
-    Serial.print(flash_period);
-    Serial.println();
-  }
-
+float mapFloat(int input, int inMin, int inMax, float outMin, float outMax)
+{
+  float scale = (float)(input - inMin) / (inMax - inMin);
+  return ((outMax - outMin) * scale) + outMin;
 }
