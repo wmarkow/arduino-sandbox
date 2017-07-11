@@ -25,7 +25,7 @@
 #include "Arduino.h"
 
 // Number of cycles from external counter needed to generate a signal event
-#define CYCLES_PER_SIGNAL 5000
+#define CYCLES_PER_SIGNAL 2500
 
 // Base tone frequency (speaker)
 #define BASE_TONE_FREQUENCY 280
@@ -35,7 +35,7 @@
 
 // Pin definitions
 #define SENSITIVITY_POT_APIN 1
-#define SPEAKER_PIN 2
+#define SPEAKER_PIN 10 // D10
 #define SPINNER_PIN 9
 #define TRIGGER_BTN_PIN 11
 #define RESET_BTN_PIN 12
@@ -43,8 +43,18 @@
 unsigned long lastSignalTime = 0;
 unsigned long signalTimeDelta = 0;
 
-boolean firstSignal = true;
-unsigned long storedTimeDelta = 0;
+//boolean firstSignal = true;
+//unsigned long storedTimeDelta = 0;
+
+#define BASE_MES_TO_MAKE 8 // the power of 2
+#define MES_TO_MAKE BASE_MES_TO_MAKE + 2
+uint8_t mesCounter = 0;
+unsigned long mesSum = 0;
+unsigned long minValue = 1000000;
+unsigned long maxValue = 0;
+
+unsigned storedAvgValue = 0;
+unsigned long lastStoredAvgValue = 0;
 
 // This signal is called whenever OCR1A reaches 0
 // (Note: OCR1A is decremented on every external clock cycle)
@@ -54,20 +64,19 @@ SIGNAL(TIMER1_COMPA_vect)
   signalTimeDelta =  currentTime - lastSignalTime;
   lastSignalTime = currentTime;
 
-  if (firstSignal)
-  {
-    firstSignal = false;
+  mesSum += signalTimeDelta;
+  mesCounter ++;
+  if(signalTimeDelta < minValue){
+	  minValue = signalTimeDelta;
   }
-  else if (storedTimeDelta == 0)
-  {
-    storedTimeDelta = signalTimeDelta;
-  }
+
+  if(signalTimeDelta > maxValue){
+	  maxValue = signalTimeDelta;
+    }
 
   // Reset OCR1A
   OCR1A += CYCLES_PER_SIGNAL;
 }
-
-float mapFloat(int input, int inMin, int inMax, float outMin, float outMax);
 
 void setup()
 {
@@ -88,39 +97,54 @@ void setup()
   pinMode(SPINNER_PIN, OUTPUT);
   pinMode(TRIGGER_BTN_PIN, INPUT_PULLUP);
   pinMode(RESET_BTN_PIN, INPUT_PULLUP);
+
+  Serial.begin(57600);
 }
 
 void loop()
 {
-  if (digitalRead(TRIGGER_BTN_PIN) == LOW)
-  {
-    float sensitivity = mapFloat(analogRead(SENSITIVITY_POT_APIN), 0, 1023, 0.5, 10.0);
-    int storedTimeDeltaDifference = (storedTimeDelta - signalTimeDelta) * sensitivity;
-    tone(SPEAKER_PIN, BASE_TONE_FREQUENCY + storedTimeDeltaDifference);
 
-    if (storedTimeDeltaDifference > SPINNER_THRESHOLD)
-    {
-      digitalWrite(SPINNER_PIN, HIGH);
-    }
-    else
-    {
-      digitalWrite(SPINNER_PIN, LOW);
-    }
-  }
-  else
-  {
-    noTone(SPEAKER_PIN);
-    digitalWrite(SPINNER_PIN, LOW);
-  }
+	if(mesCounter == MES_TO_MAKE) {
+		mesSum -= minValue;
+		mesSum -= maxValue;
+		unsigned long average = (mesSum >> 3);
+		signed long diff = storedAvgValue - average ;
+		Serial.print(average);
+		Serial.print(" ");
+		Serial.print(minValue);
+		Serial.print(" ");
+		Serial.print(maxValue);
+		Serial.print(" ");
+		Serial.print(storedAvgValue);
+		Serial.print(" ");
+		Serial.print(diff);
+		Serial.println();
 
-  if (digitalRead(RESET_BTN_PIN) == LOW)
-  {
-    storedTimeDelta = 0;
-  }
-}
+		if(storedAvgValue == 0){
+			storedAvgValue = average;
+		}
 
-float mapFloat(int input, int inMin, int inMax, float outMin, float outMax)
-{
-  float scale = (float)(input - inMin) / (inMax - inMin);
-  return ((outMax - outMin) * scale) + outMin;
+		if(diff >= -1 && diff <= 1){
+			tone(SPEAKER_PIN, 1000, 25);
+		}
+
+		if(diff >= 2){
+			tone(SPEAKER_PIN, 2000, 25);
+		}
+
+		if(diff <= -2){
+			tone(SPEAKER_PIN, 500, 25);
+		}
+
+		unsigned long current = millis();
+		if(lastStoredAvgValue == 0 || current - lastStoredAvgValue >= 1000){
+			storedAvgValue = average;
+			lastStoredAvgValue = current;
+		}
+
+		mesCounter = 0;
+		mesSum = 0;
+		minValue = 1000000;
+		maxValue = 0;
+	}
 }
