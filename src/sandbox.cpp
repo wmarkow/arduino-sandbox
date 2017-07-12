@@ -43,9 +43,6 @@
 unsigned long lastSignalTime = 0;
 unsigned long signalTimeDelta = 0;
 
-//boolean firstSignal = true;
-//unsigned long storedTimeDelta = 0;
-
 #define BASE_MES_TO_MAKE 8 // the power of 2
 #define MES_TO_MAKE BASE_MES_TO_MAKE + 2
 uint8_t mesCounter = 0;
@@ -55,6 +52,12 @@ unsigned long maxValue = 0;
 
 unsigned storedAvgValue = 0;
 unsigned long lastStoredAvgValue = 0;
+signed long diff = 0;
+unsigned long lastPlaySoundMillis = 0;
+
+#define STATE_IDLE 0
+#define STATE_METAL 1
+uint8_t state = STATE_IDLE;
 
 // This signal is called whenever OCR1A reaches 0
 // (Note: OCR1A is decremented on every external clock cycle)
@@ -101,14 +104,18 @@ void setup()
   Serial.begin(57600);
 }
 
+void playGeiger();
+void updateStateAndDiff(signed long diff);
+
 void loop()
 {
+	playGeiger();
 
 	if(mesCounter == MES_TO_MAKE) {
 		mesSum -= minValue;
 		mesSum -= maxValue;
 		unsigned long average = (mesSum >> 3);
-		signed long diff = storedAvgValue - average ;
+		diff = storedAvgValue - average ;
 		Serial.print(average);
 		Serial.print(" ");
 		Serial.print(minValue);
@@ -124,20 +131,10 @@ void loop()
 			storedAvgValue = average;
 		}
 
-		if(diff >= -1 && diff <= 1){
-			tone(SPEAKER_PIN, 1000, 25);
-		}
-
-		if(diff >= 2){
-			tone(SPEAKER_PIN, 2000, 25);
-		}
-
-		if(diff <= -2){
-			tone(SPEAKER_PIN, 500, 25);
-		}
+		updateStateAndDiff(diff);
 
 		unsigned long current = millis();
-		if(lastStoredAvgValue == 0 || current - lastStoredAvgValue >= 1000){
+		if(lastStoredAvgValue == 0 || current - lastStoredAvgValue >= 1500){
 			storedAvgValue = average;
 			lastStoredAvgValue = current;
 		}
@@ -147,4 +144,49 @@ void loop()
 		minValue = 1000000;
 		maxValue = 0;
 	}
+}
+
+void playGeiger(){
+	if(diff <= 1){
+		if(millis() - lastPlaySoundMillis >= 1000){
+			tone(SPEAKER_PIN, 1000, 5);
+
+			lastPlaySoundMillis = millis();
+		}
+
+		return;
+	}
+
+	unsigned long deltaTime = diff * 50;
+	if(millis() - lastPlaySoundMillis >= deltaTime){
+		tone(SPEAKER_PIN, 1000, 5);
+
+		lastPlaySoundMillis = millis();
+	}
+}
+
+void updateStateAndDiff(signed long newDiff) {
+	if(newDiff < 0){
+		newDiff = -newDiff;
+	}
+
+	switch(state){
+	case STATE_IDLE:
+		if(newDiff <= 1){
+			state = STATE_IDLE;
+		} else {
+			state = STATE_METAL;
+			lastPlaySoundMillis = 0;
+		}
+		break;
+	case STATE_METAL:
+		if(newDiff <= 1){
+			state = STATE_IDLE;
+		} else {
+			state = STATE_METAL;
+		}
+		break;
+	}
+
+	diff = newDiff;
 }
