@@ -54,6 +54,7 @@ unsigned storedAvgValue = 0;
 unsigned long lastStoredAvgValue = 0;
 signed long diff = 0;
 unsigned long lastPlaySoundMillis = 0;
+double deltaTimeInMillis = 1000;
 
 #define STATE_IDLE 0
 #define STATE_METAL 1
@@ -147,43 +148,40 @@ void loop()
 }
 
 void playGeiger(){
-	if(diff <= 1){
-		if(millis() - lastPlaySoundMillis >= 1000){
-			tone(SPEAKER_PIN, 1000, 5);
-
-			lastPlaySoundMillis = millis();
-		}
-
-		return;
-	}
-
-	unsigned long deltaTime = diff * 50;
-	if(millis() - lastPlaySoundMillis >= deltaTime){
-		tone(SPEAKER_PIN, 1000, 5);
+	if(millis() - lastPlaySoundMillis >= deltaTimeInMillis){
+		tone(SPEAKER_PIN, 2000, 5);
 
 		lastPlaySoundMillis = millis();
 	}
 }
 
 void updateStateAndDiff(signed long newDiff) {
-	if(newDiff < 0){
-		newDiff = -newDiff;
-	}
+	newDiff = abs(newDiff);
 
 	switch(state){
 	case STATE_IDLE:
 		if(newDiff <= 1){
 			state = STATE_IDLE;
+			deltaTimeInMillis = 1000;
 		} else {
 			state = STATE_METAL;
+			deltaTimeInMillis = -0.5102 * min(newDiff, 100) + 101.0;
+			Serial.print("[] = ");
+			Serial.print(deltaTimeInMillis);
+			Serial.println();
 			lastPlaySoundMillis = 0;
 		}
 		break;
 	case STATE_METAL:
 		if(newDiff <= 1){
 			state = STATE_IDLE;
+			deltaTimeInMillis = 1000;
 		} else {
 			state = STATE_METAL;
+			deltaTimeInMillis = -0.5102 * min(newDiff, 100) + 101.0;
+			Serial.print("[] = ");
+			Serial.print(deltaTimeInMillis);
+			Serial.println();
 		}
 		break;
 	}
