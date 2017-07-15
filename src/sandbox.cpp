@@ -107,6 +107,7 @@ void setup()
 
 void playGeiger();
 void updateStateAndDiff(signed long diff);
+void beep(uint8_t durationInMillis);
 
 void loop()
 {
@@ -149,7 +150,7 @@ void loop()
 
 void playGeiger(){
 	if(millis() - lastPlaySoundMillis >= deltaTimeInMillis){
-		tone(SPEAKER_PIN, 2000, 5);
+		beep(5);
 
 		lastPlaySoundMillis = millis();
 	}
@@ -187,4 +188,10 @@ void updateStateAndDiff(signed long newDiff) {
 	}
 
 	diff = newDiff;
+}
+
+void beep(uint8_t durationInMillis) {
+	digitalWrite(SPEAKER_PIN, HIGH);
+	delay(durationInMillis);
+	digitalWrite(SPEAKER_PIN, LOW);
 }
