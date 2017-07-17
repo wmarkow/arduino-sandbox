@@ -137,7 +137,7 @@ void loop()
 		updateStateAndDiff(diff);
 
 		unsigned long current = millis();
-		if(lastStoredAvgValue == 0 || current - lastStoredAvgValue >= 1500){
+		if(lastStoredAvgValue == 0 || current - lastStoredAvgValue >= 500){
 			storedAvgValue = average;
 			lastStoredAvgValue = current;
 		}
