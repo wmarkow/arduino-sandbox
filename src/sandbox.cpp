@@ -35,8 +35,7 @@
 
 // Pin definitions
 #define SENSITIVITY_POT_APIN 1
-#define SPEAKER_PIN 10 // D10
-#define SPINNER_PIN 9
+#define SPEAKER_PIN 9
 #define TRIGGER_BTN_PIN 11
 #define RESET_BTN_PIN 12
 
@@ -98,11 +97,13 @@ void setup()
   OCR1A = 1;
 
   pinMode(SPEAKER_PIN, OUTPUT);
-  pinMode(SPINNER_PIN, OUTPUT);
   pinMode(TRIGGER_BTN_PIN, INPUT_PULLUP);
   pinMode(RESET_BTN_PIN, INPUT_PULLUP);
 
   Serial.begin(57600);
+
+  Serial.print("Setup ready.");
+  Serial.println();
 }
 
 void playGeiger();
