@@ -27,17 +27,8 @@
 // Number of cycles from external counter needed to generate a signal event
 #define CYCLES_PER_SIGNAL 2500
 
-// Base tone frequency (speaker)
-#define BASE_TONE_FREQUENCY 280
-
-// Frequency delta threshold for fancy spinner to trigger
-#define SPINNER_THRESHOLD 700
-
 // Pin definitions
-#define SENSITIVITY_POT_APIN 1
 #define SPEAKER_PIN 9
-#define TRIGGER_BTN_PIN 11
-#define RESET_BTN_PIN 12
 
 unsigned long lastSignalTime = 0;
 unsigned long signalTimeDelta = 0;
@@ -97,8 +88,6 @@ void setup()
   OCR1A = 1;
 
   pinMode(SPEAKER_PIN, OUTPUT);
-  pinMode(TRIGGER_BTN_PIN, INPUT_PULLUP);
-  pinMode(RESET_BTN_PIN, INPUT_PULLUP);
 
   Serial.begin(57600);
 
