@@ -1,74 +1,39 @@
-#include "sandbox.h"
+/*
+  Blink
 
-#include <LCDKeypadShield.h>
-#include <LCDKeypadShield_I2C.h>
-#include <Terminal.h>
-#include <Array.h>
-#include <FixedSizeArray.h>
-#include <AbstractCommand.h>
-#include <UptimeCommand.h>
+  Turns an LED on for one second, then off for one second, repeatedly.
 
-LCDKeypadShield_I2C lcd(0x3F,16,2);
+  Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO
+  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to
+  the correct LED pin independent of which board is used.
+  If you want to know what pin the on-board LED is connected to on your Arduino
+  model, check the Technical Specs of your board at:
+  https://www.arduino.cc/en/Main/Products
 
-FixedSizeArray<AbstractCommand*, 5> commands;
-Array<AbstractCommand*> *cmd = &commands;
-UptimeCommand uptimeCommand;
+  modified 8 May 2014
+  by Scott Fitzgerald
+  modified 2 Sep 2016
+  by Arturo Guadalupi
+  modified 8 Sep 2016
+  by Colby Newman
 
-Terminal terminal(&Serial, cmd);
+  This example code is in the public domain.
 
+  http://www.arduino.cc/en/Tutorial/Blink
+*/
+
+#include "Arduino.h"
+
+// the setup function runs once when you press reset or power the board
 void setup() {
-	Serial.begin(9600);
-
-	lcd.init();
-	lcd.backlight();
-
-	// Print a message to the LCD.
-	lcd.print(F("Hello world!"));
-
-	commands.add(&uptimeCommand);
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
+// the loop function runs over and over again forever
 void loop() {
-	terminal.loop();
-	// set the cursor to column 0, line 1
-	// (note: line 1 is the second row, since counting begins with 0):
-	lcd.setCursor(9, 1);
-	// print the number of seconds since reset:
-	lcd.print(millis() / 1000);
-
-	lcd.setCursor(0,1);
-
-	switch (lcd.getButton())
-	{
-		case BUTTON_RIGHT:
-		{
-			lcd.print("PRAWO ");
-			break;
-		}
-		case BUTTON_LEFT:
-		{
-			lcd.print("LEWO  ");
-			break;
-		}
-		case BUTTON_UP:
-		{
-			lcd.print("GORA  ");
-			break;
-		}
-		case BUTTON_DOWN:
-		{
-			lcd.print("DOL   ");
-	    	break;
-		}
-		case BUTTON_SELECT:
-		{
-			lcd.print("SELECT");
-			break;
-		}
-		case BUTTON_NONE:
-		{
-			lcd.print("NIC   ");
-			break;
-		}
-	}
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
 }

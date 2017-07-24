@@ -39,37 +39,7 @@
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/variants/standard</location>
-		</link>
-		<link>
-			<name>libraries/LiquidCrystal</name>
-			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/libraries/LiquidCrystal/1.0.4</location>
-		</link>
-		<link>
-			<name>libraries/LiquidCrystal_I2C</name>
-			<type>2</type>
-			<location>/home/witek/Arduino/libraries/LiquidCrystal_I2C</location>
-		</link>
-		<link>
-			<name>libraries/Wire</name>
-			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/libraries/Wire</location>
-		</link>
-		<link>
-			<name>libraries/arduino-array</name>
-			<type>2</type>
-			<location>/home/witek/Arduino/libraries/arduino-array</location>
-		</link>
-		<link>
-			<name>libraries/arduino-lcd-keypad-shield</name>
-			<type>2</type>
-			<location>/home/witek/Arduino/libraries/arduino-lcd-keypad-shield</location>
-		</link>
-		<link>
-			<name>libraries/arduino-terminal</name>
-			<type>2</type>
-			<location>/home/witek/Arduino/libraries/arduino-terminal</location>
+			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/variants/eightanaloginputs</location>
 		</link>
 	</linkedResources>
 </projectDescription>
