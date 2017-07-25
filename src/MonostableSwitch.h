@@ -22,9 +22,11 @@ private:
 	uint8_t state;
 	unsigned long firstTimestamp;
 	void (*onSwitchOn)();
+	void (*onSwitchOff)();
 public:
 	MonostableSwitch(uint8_t pin);
 	void setOnSwitchOn(void (*onSwitchOn)());
+	void setOnSwitchOff(void (*onSwitchOff)());
 	void loop();
 	bool isOn();
 };

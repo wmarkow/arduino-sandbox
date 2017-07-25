@@ -32,6 +32,7 @@ DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
 
 void onDoorBellSwitchPressed();
+void onDoorBellSwitchReleased();
 
 MonostableSwitch doorSwitch(2);
 
@@ -45,6 +46,7 @@ void setup() {
 	  Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
 	  doorSwitch.setOnSwitchOn(&onDoorBellSwitchPressed);
+	  doorSwitch.setOnSwitchOff(&onDoorBellSwitchReleased);
 
 	  if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
 	    Serial.println(F("Unable to begin:"));
@@ -54,7 +56,7 @@ void setup() {
 	  }
 	  Serial.println(F("DFPlayer Mini online."));
 
-	  myDFPlayer.volume(10);  //Set volume value. From 0 to 30
+	  myDFPlayer.volume(15);  //Set volume value. From 0 to 30
 	  //myDFPlayer.playMp3Folder(1);  //Play the first mp3
 }
 
@@ -134,14 +136,11 @@ void printDetail(uint8_t type, int value){
 void onDoorBellSwitchPressed()
 {
 	Serial.println(F("Door bell switch pressed."));
+	myDFPlayer.playMp3Folder(11);
+}
 
-	long randoma = random(0, 2);
-	switch(randoma){
-	case 0:
-		myDFPlayer.playMp3Folder(1);
-		break;
-	case 1:
-		myDFPlayer.playMp3Folder(5);
-		break;
-	}
+void onDoorBellSwitchReleased()
+{
+	Serial.println(F("Door bell switch released."));
+	myDFPlayer.playMp3Folder(12);
 }

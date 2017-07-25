@@ -14,6 +14,7 @@ MonostableSwitch::MonostableSwitch(uint8_t pin)
 	this->pin = pin;
 	this->state = STATE_OFF;
 	this->onSwitchOn = NULL;
+	this->onSwitchOff = NULL;
 
 	pinMode(pin, INPUT);
 	digitalWrite(pin, HIGH);
@@ -69,7 +70,10 @@ void MonostableSwitch::loop()
 		{
 			// STATE_OFF detected
 			state = STATE_OFF;
-			Serial.println(F("State OFF"));
+			if(this->onSwitchOff != NULL)
+			{
+				this->onSwitchOff();
+			}
 		}
 		break;
 	}
@@ -78,4 +82,9 @@ void MonostableSwitch::loop()
 void MonostableSwitch::setOnSwitchOn(void (*onSwitchOn)())
 {
 	this->onSwitchOn = onSwitchOn;
+}
+
+void MonostableSwitch::setOnSwitchOff(void (*onSwitchOff)())
+{
+	this->onSwitchOff = onSwitchOff;
 }
