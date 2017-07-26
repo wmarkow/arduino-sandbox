@@ -8,29 +8,20 @@
 #ifndef MONOSTABLESWITCH_H_
 #define MONOSTABLESWITCH_H_
 
-#include <stdint.h>
+#include "AbstractSwitch.h"
 
-#define STATE_OFF 0
-#define STATE_FIRST_ON 1
-#define STATE_ON 2
-#define STATE_FIRST_OFF 3
-
-class MonostableSwitch
+class MonostableSwitch : public AbstractSwitch
 {
-private:
-	uint8_t pin;
-	uint8_t state;
-	unsigned long firstTimestamp;
+protected:
 	void (*onSwitchOn)();
 	void (*onSwitchOff)();
+	void onSwitchOnInternal();
+	void onSwitchOffInternal();
+
 public:
 	MonostableSwitch(uint8_t pin);
 	void setOnSwitchOn(void (*onSwitchOn)());
 	void setOnSwitchOff(void (*onSwitchOff)());
-	void loop();
-	bool isOn();
 };
-
-
 
 #endif /* MONOSTABLESWITCH_H_ */

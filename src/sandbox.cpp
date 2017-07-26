@@ -2,6 +2,7 @@
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 #include "MonostableSwitch.h"
+#include "BistableOverMonostableSwitch.h"
 
 SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
@@ -9,8 +10,11 @@ void printDetail(uint8_t type, int value);
 
 void onDoorBellSwitchPressed();
 void onDoorBellSwitchReleased();
+void onKitchenLightSwitchPressed();
+void onKitchenLightSwitchReleased();
 
 MonostableSwitch doorSwitch(2);
+BistableOverMonostableSwitch kitchenLightSwitch(2);
 
 void setup() {
 	mySoftwareSerial.begin(9600);
@@ -22,6 +26,8 @@ void setup() {
 
 	  doorSwitch.setOnSwitchOn(&onDoorBellSwitchPressed);
 	  doorSwitch.setOnSwitchOff(&onDoorBellSwitchReleased);
+	  kitchenLightSwitch.setOnSwitchOn(&onKitchenLightSwitchPressed);
+	  kitchenLightSwitch.setOnSwitchOff(&onKitchenLightSwitchReleased);
 
 	  if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
 	    Serial.println(F("Unable to begin:"));
@@ -36,18 +42,29 @@ void setup() {
 
 void loop() {
 	doorSwitch.loop();
+	kitchenLightSwitch.loop();
 }
 
 void onDoorBellSwitchPressed()
 {
 	Serial.println(F("Door bell switch pressed."));
-	myDFPlayer.playMp3Folder(11);
+	myDFPlayer.playMp3Folder(13);
 }
 
 void onDoorBellSwitchReleased()
 {
 	Serial.println(F("Door bell switch released."));
 	myDFPlayer.playMp3Folder(12);
+}
+
+void onKitchenLightSwitchPressed()
+{
+	Serial.println(F("Kitchen light switch pressed."));
+}
+
+void onKitchenLightSwitchReleased()
+{
+	Serial.println(F("Kitchen light switch released."));
 }
 
 void printDetail(uint8_t type, int value){
