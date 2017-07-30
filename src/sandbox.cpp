@@ -28,7 +28,7 @@
 #define CYCLES_PER_SIGNAL 2500
 
 // Pin definitions
-#define SPEAKER_PIN 9
+#define SPEAKER_PIN 19
 
 unsigned long lastSignalTime = 0;
 unsigned long signalTimeDelta = 0;
