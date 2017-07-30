@@ -159,9 +159,6 @@ void updateStateAndDiff(signed long newDiff) {
 		} else {
 			state = STATE_METAL;
 			deltaTimeInMillis = -0.5102 * min(newDiff, 100) + 101.0;
-			Serial.print("[] = ");
-			Serial.print(deltaTimeInMillis);
-			Serial.println();
 			lastPlaySoundMillis = 0;
 		}
 		break;
@@ -172,9 +169,6 @@ void updateStateAndDiff(signed long newDiff) {
 		} else {
 			state = STATE_METAL;
 			deltaTimeInMillis = -0.5102 * min(newDiff, 100) + 101.0;
-			Serial.print("[] = ");
-			Serial.print(deltaTimeInMillis);
-			Serial.println();
 		}
 		break;
 	}
