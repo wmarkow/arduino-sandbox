@@ -30,6 +30,8 @@
 // Pin definitions
 #define SPEAKER_PIN 19
 
+#define METAL_DETECTION_MIN_DIFF 1
+
 unsigned long lastSignalTime = 0;
 unsigned long signalTimeDelta = 0;
 
@@ -151,7 +153,7 @@ void updateStateAndDiff(signed long newDiff) {
 
 	switch(state){
 	case STATE_IDLE:
-		if(newDiff <= 1){
+		if(newDiff <= METAL_DETECTION_MIN_DIFF){
 			state = STATE_IDLE;
 			deltaTimeInMillis = 1000;
 		} else {
@@ -164,7 +166,7 @@ void updateStateAndDiff(signed long newDiff) {
 		}
 		break;
 	case STATE_METAL:
-		if(newDiff <= 1){
+		if(newDiff <= METAL_DETECTION_MIN_DIFF){
 			state = STATE_IDLE;
 			deltaTimeInMillis = 1000;
 		} else {
