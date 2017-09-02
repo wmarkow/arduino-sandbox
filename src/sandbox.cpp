@@ -3,6 +3,7 @@
 #include "DFRobotDFPlayerMini.h"
 #include "MonostableSwitch.h"
 #include "BistableOverMonostableSwitch.h"
+#include "LightDriver.h"
 
 SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
@@ -10,11 +11,12 @@ void printDetail(uint8_t type, int value);
 
 void onDoorBellSwitchPressed();
 void onDoorBellSwitchReleased();
-void onKitchenLightSwitchPressed();
-void onKitchenLightSwitchReleased();
+void onAtticLightSwitchOn();
+void onAtticLightSwitchOff();
 
-MonostableSwitch doorSwitch(2);
-BistableOverMonostableSwitch kitchenLightSwitch(2);
+MonostableSwitch doorSwitch(A0);
+BistableOverMonostableSwitch atticLightSwitch(A5);
+LightDriver atticLightDriver(6);
 
 void setup() {
 	mySoftwareSerial.begin(9600);
@@ -26,8 +28,8 @@ void setup() {
 
 	  doorSwitch.setOnSwitchOn(&onDoorBellSwitchPressed);
 	  doorSwitch.setOnSwitchOff(&onDoorBellSwitchReleased);
-	  kitchenLightSwitch.setOnSwitchOn(&onKitchenLightSwitchPressed);
-	  kitchenLightSwitch.setOnSwitchOff(&onKitchenLightSwitchReleased);
+	  atticLightSwitch.setOnSwitchOn(&onAtticLightSwitchOn);
+	  atticLightSwitch.setOnSwitchOff(&onAtticLightSwitchOff);
 
 	  if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
 	    Serial.println(F("Unable to begin:"));
@@ -37,12 +39,14 @@ void setup() {
 	  }
 	  Serial.println(F("DFPlayer Mini online."));
 
-	  myDFPlayer.volume(10);  //Set volume value. From 0 to 30
+	  myDFPlayer.volume(15);  //Set volume value. From 0 to 30
+
+	  atticLightDriver.switchOn();
 }
 
 void loop() {
 	doorSwitch.loop();
-	kitchenLightSwitch.loop();
+	atticLightSwitch.loop();
 }
 
 void onDoorBellSwitchPressed()
@@ -57,14 +61,14 @@ void onDoorBellSwitchReleased()
 	myDFPlayer.playMp3Folder(12);
 }
 
-void onKitchenLightSwitchPressed()
+void onAtticLightSwitchOn()
 {
-	Serial.println(F("Kitchen light switch pressed."));
+	atticLightDriver.switchOn();
 }
 
-void onKitchenLightSwitchReleased()
+void onAtticLightSwitchOff()
 {
-	Serial.println(F("Kitchen light switch released."));
+	atticLightDriver.switchOff();
 }
 
 void printDetail(uint8_t type, int value){
