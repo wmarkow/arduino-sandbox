@@ -11,7 +11,10 @@
 LightDriver::LightDriver(uint8_t pin)
 {
 	this->pin = pin;
+}
 
+void LightDriver::init()
+{
 	pinMode(pin, OUTPUT);
 	switchOff();
 }

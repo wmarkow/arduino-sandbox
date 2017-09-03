@@ -19,6 +19,7 @@ class AbstractSwitch
 {
 public:
 	AbstractSwitch(uint8_t pin);
+	void init();
 	void loop();
 
 protected:

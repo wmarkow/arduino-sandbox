@@ -13,11 +13,13 @@ AbstractSwitch::AbstractSwitch(uint8_t pin)
 	this->pin = pin;
 	this->state = STATE_OFF;
 	this->firstTimestamp = 0;
+}
 
+void AbstractSwitch::init()
+{
 	pinMode(pin, INPUT);
 	digitalWrite(pin, HIGH);
 }
-
 
 void AbstractSwitch::loop()
 {

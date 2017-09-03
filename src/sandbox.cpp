@@ -19,6 +19,11 @@ BistableOverMonostableSwitch atticLightSwitch(A5);
 LightDriver atticLightDriver(6);
 
 void setup() {
+	atticLightDriver.init();
+	atticLightDriver.switchOn();
+	doorSwitch.init();
+	atticLightSwitch.init();
+
 	mySoftwareSerial.begin(9600);
 	  Serial.begin(9600);
 

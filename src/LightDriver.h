@@ -14,6 +14,7 @@ class LightDriver
 {
 public:
 	LightDriver(uint8_t pin);
+	void init();
 	void switchOn();
 	void switchOff();
 	bool isOn();
