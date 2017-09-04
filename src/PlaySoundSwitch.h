@@ -8,7 +8,7 @@
 #ifndef PLAYSOUNDSWITCH_H_
 #define PLAYSOUNDSWITCH_H_
 
-#include "MonostableSwitch.h"
+#include "drivers/MonostableSwitch.h"
 
 class PlaySoundSwitch : public MonostableSwitch
 {

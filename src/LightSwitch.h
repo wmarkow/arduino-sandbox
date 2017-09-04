@@ -8,8 +8,8 @@
 #ifndef LIGHTSWITCH_H_
 #define LIGHTSWITCH_H_
 
-#include "BistableOverMonostableSwitch.h"
-#include "LightDriver.h"
+#include "drivers/BistableOverMonostableSwitch.h"
+#include "drivers/LightDriver.h"
 
 class LightSwitch : public BistableOverMonostableSwitch
 {

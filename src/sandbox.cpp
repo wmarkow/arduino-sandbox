@@ -13,6 +13,9 @@ LightSwitch atticLightSwitch(A5, 6);
 
 void setup() {
 	doorSwitch.init();
+	doorSwitch.setOnSwitchOnSoundId(13);
+	doorSwitch.setOnSwitchOffSoundId(12);
+
 	atticLightSwitch.init();
 	atticLightSwitch.switchOn();
 
@@ -22,9 +25,6 @@ void setup() {
 	  Serial.println();
 	  Serial.println(F("DFRobot DFPlayer Mini Demo"));
 	  Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
-
-	  doorSwitch.setOnSwitchOnSoundId(13);
-	  doorSwitch.setOnSwitchOffSoundId(12);
 
 	  if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
 	    Serial.println(F("Unable to begin:"));
