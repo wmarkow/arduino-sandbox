@@ -19,6 +19,10 @@ private:
 protected:
 	void onSwitchOnInternal();
 	void onSwitchOffInternal();
+	void setStateOn();
+	void setStateOff();
+	virtual void onSwitchOn();
+	virtual void onSwitchOff();
 
 public:
 	BistableOverMonostableSwitch(uint8_t pin);

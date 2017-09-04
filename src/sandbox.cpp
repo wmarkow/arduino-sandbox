@@ -1,28 +1,20 @@
 #include "Arduino.h"
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
-#include "MonostableSwitch.h"
-#include "BistableOverMonostableSwitch.h"
-#include "LightDriver.h"
+#include "PlaySoundSwitch.h"
+#include "LightSwitch.h"
 
 SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
 
-void onDoorBellSwitchPressed();
-void onDoorBellSwitchReleased();
-void onAtticLightSwitchOn();
-void onAtticLightSwitchOff();
-
-MonostableSwitch doorSwitch(A0);
-BistableOverMonostableSwitch atticLightSwitch(A5);
-LightDriver atticLightDriver(6);
+PlaySoundSwitch doorSwitch(A0);
+LightSwitch atticLightSwitch(A5, 6);
 
 void setup() {
-	atticLightDriver.init();
-	atticLightDriver.switchOn();
 	doorSwitch.init();
 	atticLightSwitch.init();
+	atticLightSwitch.switchOn();
 
 	mySoftwareSerial.begin(9600);
 	  Serial.begin(9600);
@@ -31,10 +23,8 @@ void setup() {
 	  Serial.println(F("DFRobot DFPlayer Mini Demo"));
 	  Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
-	  doorSwitch.setOnSwitchOn(&onDoorBellSwitchPressed);
-	  doorSwitch.setOnSwitchOff(&onDoorBellSwitchReleased);
-	  atticLightSwitch.setOnSwitchOn(&onAtticLightSwitchOn);
-	  atticLightSwitch.setOnSwitchOff(&onAtticLightSwitchOff);
+	  doorSwitch.setOnSwitchOnSoundId(13);
+	  doorSwitch.setOnSwitchOffSoundId(12);
 
 	  if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
 	    Serial.println(F("Unable to begin:"));
@@ -45,35 +35,11 @@ void setup() {
 	  Serial.println(F("DFPlayer Mini online."));
 
 	  myDFPlayer.volume(15);  //Set volume value. From 0 to 30
-
-	  atticLightDriver.switchOn();
 }
 
 void loop() {
 	doorSwitch.loop();
 	atticLightSwitch.loop();
-}
-
-void onDoorBellSwitchPressed()
-{
-	Serial.println(F("Door bell switch pressed."));
-	myDFPlayer.playMp3Folder(13);
-}
-
-void onDoorBellSwitchReleased()
-{
-	Serial.println(F("Door bell switch released."));
-	myDFPlayer.playMp3Folder(12);
-}
-
-void onAtticLightSwitchOn()
-{
-	atticLightDriver.switchOn();
-}
-
-void onAtticLightSwitchOff()
-{
-	atticLightDriver.switchOff();
 }
 
 void printDetail(uint8_t type, int value){

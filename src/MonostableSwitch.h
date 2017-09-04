@@ -13,15 +13,11 @@
 class MonostableSwitch : public AbstractSwitch
 {
 protected:
-	void (*onSwitchOn)();
-	void (*onSwitchOff)();
-	void onSwitchOnInternal();
-	void onSwitchOffInternal();
+	virtual void onSwitchOnInternal() = 0;
+	virtual void onSwitchOffInternal() = 0;
 
 public:
 	MonostableSwitch(uint8_t pin);
-	void setOnSwitchOn(void (*onSwitchOn)());
-	void setOnSwitchOff(void (*onSwitchOff)());
 };
 
 #endif /* MONOSTABLESWITCH_H_ */

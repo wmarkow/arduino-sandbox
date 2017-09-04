@@ -32,3 +32,13 @@ void BistableOverMonostableSwitch::onSwitchOffInternal()
 {
 
 }
+
+void BistableOverMonostableSwitch::setStateOn()
+{
+	state = STATE_ON;
+}
+
+void BistableOverMonostableSwitch::setStateOff()
+{
+	state = STATE_OFF;
+}
