@@ -10,6 +10,8 @@ void printDetail(uint8_t type, int value);
 
 PlaySoundSwitch doorSwitch(A0);
 LightSwitch atticLightSwitch(A5, 6);
+LightSwitch bathroomLightSwitch(A1, 2);
+LightSwitch bedroomLightSwitch(A4, 5);
 
 void setup() {
 	doorSwitch.init();
@@ -18,6 +20,12 @@ void setup() {
 
 	atticLightSwitch.init();
 	atticLightSwitch.switchOn();
+
+	bathroomLightSwitch.init();
+	bathroomLightSwitch.switchOn();
+
+	bedroomLightSwitch.init();
+	bedroomLightSwitch.switchOn();
 
 	mySoftwareSerial.begin(9600);
 	  Serial.begin(9600);
@@ -39,6 +47,9 @@ void setup() {
 
 void loop() {
 	doorSwitch.loop();
+	bathroomLightSwitch.loop();
+	bedroomLightSwitch.loop();
+
 	atticLightSwitch.loop();
 }
 
