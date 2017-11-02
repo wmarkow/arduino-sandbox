@@ -39,10 +39,11 @@
 
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
-
+#include "hardware/MonostableSwitch.h"
 
 RDA5807Radio radio;
 PreAmp *preAmp;
+MonostableSwitch scanUpSwitch(2);
 // Define some stations available at your locations here:
 // 89.40 MHz as 8940
 
@@ -203,6 +204,10 @@ void runSerialCommand(char cmd, int16_t value)
   }
 } // runSerialCommand()
 
+void scanUp()
+{
+	radio.seekUp(true);
+}
 
 /// Setup a FM only radio configuration with I/O for commands and debugging on the Serial port.
 void setup() {
@@ -235,11 +240,16 @@ void setup() {
   rds.attachServicenNameCallback(DisplayServiceName);
 
   runSerialCommand('?', 0);
+
+  scanUpSwitch.init();
+  scanUpSwitch.setOnSwitchOffPtr(&scanUp);
 } // Setup
 
 
 /// Constantly check for serial input commands and trigger command execution.
 void loop() {
+  scanUpSwitch.loop();
+
   int newPos;
   unsigned long now = millis();
   static unsigned long nextFreqTime = 0;
