@@ -213,15 +213,15 @@ void runSerialCommand(char cmd, int16_t value)
   }
 } // runSerialCommand()
 
-void onLcdKeypadRightReleased()
+void onLcdKeypadRightPressed()
 {
-	Serial.println(F("RIGHT released"));
+	Serial.println(F("RIGHT pressed"));
 //	radio.seekUp(true);
 }
 
-void onLcdKeypadUpReleased()
+void onLcdKeypadUpPressed()
 {
-	Serial.println(F("UP released"));
+	Serial.println(F("UP pressed"));
 
 //	uint8_t volume = radio.getVolume();
 //	volume ++;
@@ -234,9 +234,9 @@ void onLcdKeypadUpReleased()
 //	radio.setVolume(volume);
 }
 
-void onLcdKeypadDownReleased()
+void onLcdKeypadDownPressed()
 {
-	Serial.println(F("DOWN released"));
+	Serial.println(F("DOWN pressed"));
 
 //	uint8_t volume = radio.getVolume();
 //	volume --;
@@ -249,15 +249,15 @@ void onLcdKeypadDownReleased()
 //	radio.setVolume(volume);
 }
 
-void onLcdKeypadLeftReleased()
+void onLcdKeypadLeftPressed()
 {
-	Serial.println(F("LEFT released"));
+	Serial.println(F("LEFT pressed"));
 //	radio.seekDown(true);
 }
 
-void onLcdKeypadSelectReleased()
+void onLcdKeypadSelectPressed()
 {
-	Serial.println(F("SELECT released"));
+	Serial.println(F("SELECT pressed"));
 }
 
 /// Setup a FM only radio configuration with I/O for commands and debugging on the Serial port.
@@ -298,15 +298,15 @@ void setup() {
   lcdKeypadShield.print("hello, world!");
 
   lcdKeypadRight.init();
-  lcdKeypadRight.setOnSwitchOffPtr(&onLcdKeypadRightReleased);
+  lcdKeypadRight.setOnSwitchOnPtr(&onLcdKeypadRightPressed);
   lcdKeypadUp.init();
-  lcdKeypadUp.setOnSwitchOffPtr(&onLcdKeypadUpReleased);
+  lcdKeypadUp.setOnSwitchOnPtr(&onLcdKeypadUpPressed);
   lcdKeypadDown.init();
-  lcdKeypadDown.setOnSwitchOffPtr(&onLcdKeypadDownReleased);
+  lcdKeypadDown.setOnSwitchOnPtr(&onLcdKeypadDownPressed);
   lcdKeypadLeft.init();
-  lcdKeypadLeft.setOnSwitchOffPtr(&onLcdKeypadLeftReleased);
+  lcdKeypadLeft.setOnSwitchOnPtr(&onLcdKeypadLeftPressed);
   lcdKeypadSelect.init();
-  lcdKeypadSelect.setOnSwitchOffPtr(&onLcdKeypadSelectReleased);
+  lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
 
 } // Setup
 
