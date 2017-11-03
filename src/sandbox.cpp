@@ -280,7 +280,7 @@ void setup() {
   radio.setMono(false);
   radio.setMute(false);
   // radio.debugRegisters();
-  radio.setVolume(8);
+  radio.setVolume(1);
 
   Serial.write('>');
 
