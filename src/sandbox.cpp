@@ -216,43 +216,43 @@ void runSerialCommand(char cmd, int16_t value)
 void onLcdKeypadRightPressed()
 {
 	Serial.println(F("RIGHT pressed"));
-//	radio.seekUp(true);
+	radio.seekUp(true);
 }
 
 void onLcdKeypadUpPressed()
 {
 	Serial.println(F("UP pressed"));
 
-//	uint8_t volume = radio.getVolume();
-//	volume ++;
-//	if(volume >= radio.MAXVOLUME)
-//	{
-//		radio.setVolume(radio.MAXVOLUME);
-//		return;
-//	}
-//
-//	radio.setVolume(volume);
+	uint8_t volume = radio.getVolume();
+	volume ++;
+	if(volume >= radio.MAXVOLUME)
+	{
+		radio.setVolume(radio.MAXVOLUME);
+		return;
+	}
+
+	radio.setVolume(volume);
 }
 
 void onLcdKeypadDownPressed()
 {
 	Serial.println(F("DOWN pressed"));
 
-//	uint8_t volume = radio.getVolume();
-//	volume --;
-//	if(volume >= radio.MAXVOLUME)
-//	{
-//		radio.setVolume(0);
-//		return;
-//	}
-//
-//	radio.setVolume(volume);
+	uint8_t volume = radio.getVolume();
+	volume --;
+	if(volume >= radio.MAXVOLUME)
+	{
+		radio.setVolume(0);
+		return;
+	}
+
+	radio.setVolume(volume);
 }
 
 void onLcdKeypadLeftPressed()
 {
 	Serial.println(F("LEFT pressed"));
-//	radio.seekDown(true);
+	radio.seekDown(true);
 }
 
 void onLcdKeypadSelectPressed()
@@ -264,33 +264,33 @@ void onLcdKeypadSelectPressed()
 void setup() {
   // open the Serial port
   Serial.begin(57600);
-//  Serial.print("Radio...");
-//  delay(500);
-//
-//  // Initialize the Radio
-//  radio.init();
-//
-//  // Enable information to the Serial port
-//  radio.debugEnable();
-//
-//  radio.setBandFrequency(RADIO_BAND_FM, preset[i_sidx]); // 5. preset.
-//
-//  // delay(100);
-//
-//  radio.setMono(false);
-//  radio.setMute(false);
-//  // radio.debugRegisters();
-//  radio.setVolume(8);
-//
-//  Serial.write('>');
-//
-//  state = STATE_PARSECOMMAND;
-//
-//  // setup the information chain for RDS data.
-//  radio.attachReceiveRDS(RDS_process);
-//  rds.attachServicenNameCallback(DisplayServiceName);
-//
-//  runSerialCommand('?', 0);
+  Serial.print("Radio...");
+  delay(500);
+
+  // Initialize the Radio
+  radio.init();
+
+  // Enable information to the Serial port
+  radio.debugEnable();
+
+  radio.setBandFrequency(RADIO_BAND_FM, preset[i_sidx]); // 5. preset.
+
+  // delay(100);
+
+  radio.setMono(false);
+  radio.setMute(false);
+  // radio.debugRegisters();
+  radio.setVolume(8);
+
+  Serial.write('>');
+
+  state = STATE_PARSECOMMAND;
+
+  // setup the information chain for RDS data.
+  radio.attachReceiveRDS(RDS_process);
+  rds.attachServicenNameCallback(DisplayServiceName);
+
+  runSerialCommand('?', 0);
 
   // set up the LCD's number of columns and rows:
   lcdKeypadShield.begin(16, 2);
@@ -318,64 +318,64 @@ void loop() {
   lcdKeypadDown.loop();
   lcdKeypadLeft.loop();
   lcdKeypadSelect.loop();
-//
-//  int newPos;
-//  unsigned long now = millis();
-//  static unsigned long nextFreqTime = 0;
-//  static unsigned long nextRadioInfoTime = 0;
-//
-//  // some internal static values for parsing the input
-//  static char command;
-//  static int16_t value;
-//  static RADIO_FREQ lastf = 0;
-//  RADIO_FREQ f = 0;
-//
-//  char c;
-//  if (Serial.available() > 0) {
-//    // read the next char from input.
-//    c = Serial.peek();
-//
-//    if ((state == STATE_PARSECOMMAND) && (c < 0x20)) {
-//      // ignore unprintable chars
-//      Serial.read();
-//
-//    }
-//    else if (state == STATE_PARSECOMMAND) {
-//      // read a command.
-//      command = Serial.read();
-//      state = STATE_PARSEINT;
-//
-//    }
-//    else if (state == STATE_PARSEINT) {
-//      if ((c >= '0') && (c <= '9')) {
-//        // build up the value.
-//        c = Serial.read();
-//        value = (value * 10) + (c - '0');
-//      }
-//      else {
-//        // not a value -> execute
-//        runSerialCommand(command, value);
-//        command = ' ';
-//        state = STATE_PARSECOMMAND;
-//        value = 0;
-//      } // if
-//    } // if
-//  } // if
-//
-//
-//  // check for RDS data
-//  radio.checkRDS();
-//
-//  // update the display from time to time
-//  if (now > nextFreqTime) {
-//    f = radio.getFrequency();
-//    if (f != lastf) {
-//      // print current tuned frequency
-//      DisplayFrequency(f);
-//      lastf = f;
-//    } // if
-//    nextFreqTime = now + 400;
-//  } // if
+
+  int newPos;
+  unsigned long now = millis();
+  static unsigned long nextFreqTime = 0;
+  static unsigned long nextRadioInfoTime = 0;
+
+  // some internal static values for parsing the input
+  static char command;
+  static int16_t value;
+  static RADIO_FREQ lastf = 0;
+  RADIO_FREQ f = 0;
+
+  char c;
+  if (Serial.available() > 0) {
+    // read the next char from input.
+    c = Serial.peek();
+
+    if ((state == STATE_PARSECOMMAND) && (c < 0x20)) {
+      // ignore unprintable chars
+      Serial.read();
+
+    }
+    else if (state == STATE_PARSECOMMAND) {
+      // read a command.
+      command = Serial.read();
+      state = STATE_PARSEINT;
+
+    }
+    else if (state == STATE_PARSEINT) {
+      if ((c >= '0') && (c <= '9')) {
+        // build up the value.
+        c = Serial.read();
+        value = (value * 10) + (c - '0');
+      }
+      else {
+        // not a value -> execute
+        runSerialCommand(command, value);
+        command = ' ';
+        state = STATE_PARSECOMMAND;
+        value = 0;
+      } // if
+    } // if
+  } // if
+
+
+  // check for RDS data
+  radio.checkRDS();
+
+  // update the display from time to time
+  if (now > nextFreqTime) {
+    f = radio.getFrequency();
+    if (f != lastf) {
+      // print current tuned frequency
+      DisplayFrequency(f);
+      lastf = f;
+    } // if
+    nextFreqTime = now + 400;
+  } // if
 
 } // loop
 
