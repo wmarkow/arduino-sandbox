@@ -25,7 +25,7 @@ void MonostableSwitch::init()
 
 void MonostableSwitch::loop()
 {
-	int readPin = digitalRead(pin);
+	int readPin = readButtonState();
 
 	switch(state)
 	{

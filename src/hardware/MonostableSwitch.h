@@ -24,8 +24,10 @@ public:
 	void setOnSwitchOnPtr(void (*onSwitchOnPtr)());
 	void setOnSwitchOffPtr(void (*onSwitchOffPtr)());
 
-private:
+protected:
 	uint8_t pin;
+	virtual int readButtonState() = 0;
+private:
 	uint8_t state;
 	unsigned long firstTimestamp;
 	void (*onSwitchOnPtr)();
