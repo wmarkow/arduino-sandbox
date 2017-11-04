@@ -213,6 +213,21 @@ void runSerialCommand(char cmd, int16_t value)
   }
 } // runSerialCommand()
 
+void updateDisplay()
+{
+	lcd.setCursor(14, 0);
+	lcd.print(F(" "));
+
+	uint8_t volume = radio.getVolume();
+	if(volume <= 9){
+		lcd.setCursor(15, 0);
+		lcd.print(volume);
+	} else {
+		lcd.setCursor(14, 0);
+		lcd.print(volume);
+	}
+}
+
 void onLcdKeypadRightPressed()
 {
 	Serial.println(F("RIGHT pressed"));
@@ -232,6 +247,8 @@ void onLcdKeypadUpPressed()
 	}
 
 	radio.setVolume(volume);
+
+	updateDisplay();
 }
 
 void onLcdKeypadDownPressed()
@@ -247,6 +264,8 @@ void onLcdKeypadDownPressed()
 	}
 
 	radio.setVolume(volume);
+
+	updateDisplay();
 }
 
 void onLcdKeypadLeftPressed()
@@ -307,6 +326,9 @@ void setup() {
   rds.attachServicenNameCallback(DisplayServiceName);
 
   runSerialCommand('?', 0);
+
+  lcd.clear();
+  updateDisplay();
 } // Setup
 
 
