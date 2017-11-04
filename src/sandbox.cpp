@@ -43,7 +43,7 @@
 #include "hardware/AnalogMonostableSwitch.h"
 
 
-LCDKeypadShield lcdKeypadShield(8, 9, 4, 5, 6, 7);
+LCDKeypadShield lcd(8, 9, 4, 5, 6, 7);
 
 RDA5807Radio radio;
 PreAmp *preAmp;
@@ -263,9 +263,9 @@ void onLcdKeypadSelectPressed()
 /// Setup a FM only radio configuration with I/O for commands and debugging on the Serial port.
 void setup() {
 	// set up the LCD's number of columns and rows:
-  lcdKeypadShield.begin(16, 2);
+  lcd.begin(16, 2);
 	  // Print a message to the LCD.
-  lcdKeypadShield.print("Uruchamianie...");
+  lcd.print("Uruchamianie...");
 
   lcdKeypadRight.init();
   lcdKeypadRight.setOnSwitchOnPtr(&onLcdKeypadRightPressed);
