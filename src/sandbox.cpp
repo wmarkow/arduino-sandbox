@@ -262,6 +262,22 @@ void onLcdKeypadSelectPressed()
 
 /// Setup a FM only radio configuration with I/O for commands and debugging on the Serial port.
 void setup() {
+	// set up the LCD's number of columns and rows:
+  lcdKeypadShield.begin(16, 2);
+	  // Print a message to the LCD.
+  lcdKeypadShield.print("Uruchamianie...");
+
+  lcdKeypadRight.init();
+  lcdKeypadRight.setOnSwitchOnPtr(&onLcdKeypadRightPressed);
+  lcdKeypadUp.init();
+  lcdKeypadUp.setOnSwitchOnPtr(&onLcdKeypadUpPressed);
+  lcdKeypadDown.init();
+  lcdKeypadDown.setOnSwitchOnPtr(&onLcdKeypadDownPressed);
+  lcdKeypadLeft.init();
+  lcdKeypadLeft.setOnSwitchOnPtr(&onLcdKeypadLeftPressed);
+  lcdKeypadSelect.init();
+  lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
+
   // open the Serial port
   Serial.begin(57600);
   Serial.print("Radio...");
@@ -291,23 +307,6 @@ void setup() {
   rds.attachServicenNameCallback(DisplayServiceName);
 
   runSerialCommand('?', 0);
-
-  // set up the LCD's number of columns and rows:
-  lcdKeypadShield.begin(16, 2);
-  // Print a message to the LCD.
-  lcdKeypadShield.print("hello, world!");
-
-  lcdKeypadRight.init();
-  lcdKeypadRight.setOnSwitchOnPtr(&onLcdKeypadRightPressed);
-  lcdKeypadUp.init();
-  lcdKeypadUp.setOnSwitchOnPtr(&onLcdKeypadUpPressed);
-  lcdKeypadDown.init();
-  lcdKeypadDown.setOnSwitchOnPtr(&onLcdKeypadDownPressed);
-  lcdKeypadLeft.init();
-  lcdKeypadLeft.setOnSwitchOnPtr(&onLcdKeypadLeftPressed);
-  lcdKeypadSelect.init();
-  lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
-
 } // Setup
 
 
