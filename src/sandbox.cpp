@@ -93,6 +93,8 @@ enum RADIO_STATE {
 };
 
 RADIO_STATE state; ///< The state variable is used for parsing input characters.
+unsigned long lastDisplayUpdateTime = 0;
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -216,16 +218,21 @@ void runSerialCommand(char cmd, int16_t value)
 void updateDisplay()
 {
 	lcd.setCursor(14, 0);
-	lcd.print(F(" "));
 
 	uint8_t volume = radio.getVolume();
 	if(volume <= 9){
-		lcd.setCursor(15, 0);
+		lcd.print(F(" "));
 		lcd.print(volume);
 	} else {
-		lcd.setCursor(14, 0);
 		lcd.print(volume);
 	}
+
+	lcd.setCursor(0, 0);
+
+	char freq[11];
+	radio.getFrequency(); // need to call it to get the current frequency from the chip
+	radio.formatFrequency(freq, 11);
+	lcd.print(freq);
 }
 
 void onLcdKeypadRightPressed()
@@ -247,8 +254,6 @@ void onLcdKeypadUpPressed()
 	}
 
 	radio.setVolume(volume);
-
-	updateDisplay();
 }
 
 void onLcdKeypadDownPressed()
@@ -264,8 +269,6 @@ void onLcdKeypadDownPressed()
 	}
 
 	radio.setVolume(volume);
-
-	updateDisplay();
 }
 
 void onLcdKeypadLeftPressed()
@@ -339,6 +342,12 @@ void loop() {
   lcdKeypadDown.loop();
   lcdKeypadLeft.loop();
   lcdKeypadSelect.loop();
+
+  if(millis() - lastDisplayUpdateTime > 250)
+  {
+	  updateDisplay();
+	  lastDisplayUpdateTime = millis();
+  }
 
   int newPos;
   unsigned long now = millis();
