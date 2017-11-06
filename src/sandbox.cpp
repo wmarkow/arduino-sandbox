@@ -42,6 +42,7 @@
 #include "hardware/RDA5870Radio.h"
 #include "hardware/AnalogMonostableSwitch.h"
 
+#define VOLUME_ANALOG_INPUT A1
 
 LCDKeypadShield lcd(8, 9, 4, 5, 6, 7);
 
@@ -235,6 +236,14 @@ void updateDisplay()
 	lcd.print(freq);
 }
 
+void checkVolumePot()
+{
+	uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
+	uint8_t volume = volumeInput >> 6;
+
+	radio.setVolume(volume);
+}
+
 void onLcdKeypadRightPressed()
 {
 	Serial.println(F("RIGHT pressed"));
@@ -346,6 +355,7 @@ void loop() {
   if(millis() - lastDisplayUpdateTime > 250)
   {
 	  updateDisplay();
+	  checkVolumePot();
 	  lastDisplayUpdateTime = millis();
   }
 
