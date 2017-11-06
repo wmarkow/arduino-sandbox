@@ -94,7 +94,7 @@ enum RADIO_STATE {
 
 RADIO_STATE state; ///< The state variable is used for parsing input characters.
 unsigned long lastDisplayUpdateTime = 0;
-
+unsigned long lastRdsCheckTime = 0;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -349,6 +349,13 @@ void loop() {
 	  lastDisplayUpdateTime = millis();
   }
 
+  if(millis() - lastRdsCheckTime > 1000)
+  {
+    radio.checkRDS();
+    lastRdsCheckTime = millis();
+  }
+
+
   int newPos;
   unsigned long now = millis();
   static unsigned long nextFreqTime = 0;
@@ -394,7 +401,7 @@ void loop() {
 
 
   // check for RDS data
-  radio.checkRDS();
+//  radio.checkRDS();
 
   // update the display from time to time
   if (now > nextFreqTime) {
