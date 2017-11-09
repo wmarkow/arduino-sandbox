@@ -47,14 +47,9 @@
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/variants/standard</locationURI>
 		</link>
 		<link>
-			<name>libraries/BigCrystal</name>
+			<name>libraries/LiquidCrystal_I2C</name>
 			<type>2</type>
-			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/BigCrystal</location>
-		</link>
-		<link>
-			<name>libraries/NewLiquidCrystal</name>
-			<type>2</type>
-			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/NewLiquidCrystal</location>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal_I2C/1.1.2</locationURI>
 		</link>
 		<link>
 			<name>libraries/Radio</name>

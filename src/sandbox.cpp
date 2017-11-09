@@ -1,8 +1,8 @@
 
 #include <Wire.h>
 #include <RDSParser.h>
-#include <LiquidCrystal.h>
-#include <BigCrystal.h>
+#include <LiquidCrystal_I2C.h>
+//#include <BigCrystal.h>
 
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
@@ -10,11 +10,12 @@
 
 #define VOLUME_ANALOG_INPUT A1
 
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
-BigCrystal bigLcd(&lcd);
+//LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+LiquidCrystal_I2C lcd(0x27, 20, 4);
+//BigCrystal bigLcd(&lcd);
 
-RDA5807Radio radio;
-PreAmp *preAmp;
+//RDA5807Radio radio;
+//PreAmp *preAmp;
 AnalogMonostableSwitch lcdKeypadRight(0, 0, 50);
 AnalogMonostableSwitch lcdKeypadUp(0, 51, 175);
 AnalogMonostableSwitch lcdKeypadDown(0, 176, 325);
@@ -28,75 +29,75 @@ void updateDisplay()
 {
 	lcd.setCursor(14, 0);
 
-	uint8_t volume = radio.getVolume();
+	uint8_t volume = 12;//radio.getVolume();
 	char vol[3];
 	itoa(volume, vol, 10);
-	if(volume <= 9){
-		bigLcd.setCursor(10, 0);
-		bigLcd.print(F("   "));
-		bigLcd.setCursor(10, 1);
-		bigLcd.print(F("   "));
-		bigLcd.printBig(vol, 13, 0);
-	} else {
-		bigLcd.printBig(vol, 10, 0);
-	}
+//	if(volume <= 9){
+//		bigLcd.setCursor(10, 0);
+//		bigLcd.print(F("   "));
+//		bigLcd.setCursor(10, 1);
+//		bigLcd.print(F("   "));
+//		bigLcd.printBig(vol, 13, 0);
+//	} else {
+//		bigLcd.printBig(vol, 10, 0);
+//	}
 
 	lcd.setCursor(0, 0);
 
-	char freq[11];
-	radio.getFrequency(); // need to call it to get the current frequency from the chip
-	radio.formatFrequency(freq, 11);
-	lcd.print(freq);
+//	char freq[11];
+//	radio.getFrequency(); // need to call it to get the current frequency from the chip
+//	radio.formatFrequency(freq, 11);
+//	lcd.print(freq);
 }
 
 void checkVolumePot()
 {
-	uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
-	uint8_t volume = volumeInput >> 6;
-
-	radio.setVolume(volume);
+//	uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
+//	uint8_t volume = volumeInput >> 6;
+//
+//	radio.setVolume(volume);
 }
 
 void onLcdKeypadRightPressed()
 {
-	Serial.println(F("RIGHT pressed"));
-	radio.seekUp(true);
+//	Serial.println(F("RIGHT pressed"));
+//	radio.seekUp(true);
 }
 
 void onLcdKeypadUpPressed()
 {
-	Serial.println(F("UP pressed"));
-
-	uint8_t volume = radio.getVolume();
-	volume ++;
-	if(volume >= radio.MAXVOLUME)
-	{
-		radio.setVolume(radio.MAXVOLUME);
-		return;
-	}
-
-	radio.setVolume(volume);
+//	Serial.println(F("UP pressed"));
+//
+//	uint8_t volume = radio.getVolume();
+//	volume ++;
+//	if(volume >= radio.MAXVOLUME)
+//	{
+//		radio.setVolume(radio.MAXVOLUME);
+//		return;
+//	}
+//
+//	radio.setVolume(volume);
 }
 
 void onLcdKeypadDownPressed()
 {
-	Serial.println(F("DOWN pressed"));
-
-	uint8_t volume = radio.getVolume();
-	volume --;
-	if(volume >= radio.MAXVOLUME)
-	{
-		radio.setVolume(0);
-		return;
-	}
-
-	radio.setVolume(volume);
+//	Serial.println(F("DOWN pressed"));
+//
+//	uint8_t volume = radio.getVolume();
+//	volume --;
+//	if(volume >= radio.MAXVOLUME)
+//	{
+//		radio.setVolume(0);
+//		return;
+//	}
+//
+//	radio.setVolume(volume);
 }
 
 void onLcdKeypadLeftPressed()
 {
-	Serial.println(F("LEFT pressed"));
-	radio.seekDown(true);
+//	Serial.println(F("LEFT pressed"));
+//	radio.seekDown(true);
 }
 
 void onLcdKeypadSelectPressed()
@@ -105,8 +106,36 @@ void onLcdKeypadSelectPressed()
 }
 
 void setup() {
-  lcd.begin(16, 2);
+	Serial.begin(57600);
 
+//		Serial.println ();
+//		Serial.println ("I2C scanner. Scanning ...");
+//		byte count = 0;
+//		Wire.begin();
+//		for (byte i = 1; i < 120; i++)
+//		{
+//			Wire.beginTransmission (i);
+//			if (Wire.endTransmission () == 0)
+//			{
+//				Serial.print ("Found address: ");
+//				Serial.print (i, DEC);
+//				Serial.print (" (0x");
+//				Serial.print (i, HEX);
+//				Serial.println (")");
+//				count++;
+//				delay (1);  // maybe unneeded?
+//			}
+//		}
+//		Serial.println ("Done.");
+//		Serial.print ("Found ");
+//		Serial.print (count, DEC);
+//		Serial.println (" device(s).");
+
+  lcd.init();
+  lcd.begin(20, 4);
+  lcd.home();
+  lcd.clear();
+  lcd.backlight();
   lcd.print("Uruchamianie...");
 
   lcdKeypadRight.init();
@@ -120,21 +149,21 @@ void setup() {
   lcdKeypadSelect.init();
   lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
 
-  bigLcd.setAppendExtraSpaceBetweenCharacters(false);
+//  bigLcd.setAppendExtraSpaceBetweenCharacters(false);
   Serial.begin(57600);
   Serial.print("Radio...");
-  delay(500);
+//  delay(500);
 
-  radio.init();
+//  radio.init();
+//
+//  radio.debugEnable();
+//
+//  radio.setMono(false);
+//  radio.setMute(false);
+//  radio.setVolume(1);
 
-  radio.debugEnable();
-
-  radio.setMono(false);
-  radio.setMute(false);
-  radio.setVolume(1);
-
-  lcd.clear();
-  updateDisplay();
+//  lcd.clear();
+//  updateDisplay();
 }
 
 void loop() {
@@ -146,14 +175,14 @@ void loop() {
 
   if(millis() - lastDisplayUpdateTime > 250)
   {
-	  updateDisplay();
+//	  updateDisplay();
 //	  checkVolumePot();
 	  lastDisplayUpdateTime = millis();
   }
 
   if(millis() - lastRdsCheckTime > 1000)
   {
-    radio.checkRDS();
+//    radio.checkRDS();
     lastRdsCheckTime = millis();
   }
 }
