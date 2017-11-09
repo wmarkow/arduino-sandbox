@@ -52,9 +52,9 @@
 			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/BigCrystal</location>
 		</link>
 		<link>
-			<name>libraries/LiquidCrystal</name>
+			<name>libraries/NewLiquidCrystal</name>
 			<type>2</type>
-			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal/1.0.4</locationURI>
+			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/NewLiquidCrystal</location>
 		</link>
 		<link>
 			<name>libraries/Radio</name>
