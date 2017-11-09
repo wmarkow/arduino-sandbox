@@ -131,7 +131,7 @@ void setup() {
 //		Serial.print (count, DEC);
 //		Serial.println (" device(s).");
 
-  lcd.init();
+  lcd.init(); // I need to call this with my 40x4 LCD
   lcd.begin(20, 4);
   lcd.home();
   lcd.clear();
