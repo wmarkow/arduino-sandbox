@@ -36,7 +36,8 @@
 
 #include <Wire.h>
 #include <RDSParser.h>
-#include <LCDKeypadShield.h>
+#include <LiquidCrystal.h>
+#include <BigCrystal.h>
 
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
@@ -44,7 +45,8 @@
 
 #define VOLUME_ANALOG_INPUT A1
 
-LCDKeypadShield lcd(8, 9, 4, 5, 6, 7);
+LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+BigCrystal bigLcd(&lcd);
 
 RDA5807Radio radio;
 PreAmp *preAmp;
@@ -221,12 +223,20 @@ void updateDisplay()
 	lcd.setCursor(14, 0);
 
 	uint8_t volume = radio.getVolume();
+	char vol[3];
+	itoa(volume, vol, 10);
 	if(volume <= 9){
-		lcd.print(F(" "));
-		lcd.print(volume);
+		bigLcd.setCursor(10, 0);
+		bigLcd.print(F("   "));
+		bigLcd.setCursor(10, 1);
+		bigLcd.print(F("   "));
+		bigLcd.printBig(vol, 13, 0);
 	} else {
-		lcd.print(volume);
+		bigLcd.printBig(vol, 10, 0);
 	}
+
+	//char vola[2] = {'A','\n'};
+	//bigLcd.printBig(vola, 10, 0);
 
 	lcd.setCursor(0, 0);
 
@@ -309,6 +319,7 @@ void setup() {
   lcdKeypadSelect.init();
   lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
 
+  bigLcd.setAppendExtraSpaceBetweenCharacters(false);
   // open the Serial port
   Serial.begin(57600);
   Serial.print("Radio...");
@@ -355,7 +366,7 @@ void loop() {
   if(millis() - lastDisplayUpdateTime > 250)
   {
 	  updateDisplay();
-	  checkVolumePot();
+//	  checkVolumePot();
 	  lastDisplayUpdateTime = millis();
   }
 
