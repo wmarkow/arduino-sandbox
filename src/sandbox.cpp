@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include <RDSParser.h>
 #include <LiquidCrystal_I2C.h>
-//#include <BigCrystal.h>
+#include <BigCrystal.h>
 
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
@@ -12,7 +12,7 @@
 
 //LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
-//BigCrystal bigLcd(&lcd);
+BigCrystal bigLcd(&lcd);
 
 //RDA5807Radio radio;
 //PreAmp *preAmp;
@@ -27,20 +27,20 @@ unsigned long lastRdsCheckTime = 0;
 
 void updateDisplay()
 {
-	lcd.setCursor(14, 0);
+	lcd.setCursor(18, 2);
 
 	uint8_t volume = 12;//radio.getVolume();
 	char vol[3];
 	itoa(volume, vol, 10);
-//	if(volume <= 9){
-//		bigLcd.setCursor(10, 0);
-//		bigLcd.print(F("   "));
-//		bigLcd.setCursor(10, 1);
-//		bigLcd.print(F("   "));
-//		bigLcd.printBig(vol, 13, 0);
-//	} else {
-//		bigLcd.printBig(vol, 10, 0);
-//	}
+	if(volume <= 9){
+		bigLcd.setCursor(14, 2);
+		bigLcd.print(F("   "));
+		bigLcd.setCursor(14, 3);
+		bigLcd.print(F("   "));
+		bigLcd.printBig(vol, 17, 2);
+	} else {
+		bigLcd.printBig(vol, 14, 2);
+	}
 
 	lcd.setCursor(0, 0);
 
@@ -132,7 +132,8 @@ void setup() {
 //		Serial.println (" device(s).");
 
 //  lcd.init(); // I need to call this with my 40x4 LCD
-  lcd.begin(20, 4);
+  bigLcd.begin(20, 4);
+  bigLcd.setAppendExtraSpaceBetweenCharacters(false);
   lcd.home();
   lcd.clear();
   lcd.backlight();
@@ -151,7 +152,6 @@ void setup() {
   lcdKeypadSelect.init();
   lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
 
-//  bigLcd.setAppendExtraSpaceBetweenCharacters(false);
   Serial.begin(57600);
   Serial.print("Radio...");
 //  delay(500);
@@ -164,8 +164,8 @@ void setup() {
 //  radio.setMute(false);
 //  radio.setVolume(1);
 
-//  lcd.clear();
-//  updateDisplay();
+  lcd.clear();
+  updateDisplay();
 }
 
 void loop() {
