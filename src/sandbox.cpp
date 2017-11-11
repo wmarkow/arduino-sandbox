@@ -11,7 +11,7 @@
 #define VOLUME_ANALOG_INPUT A1
 
 //LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 //BigCrystal bigLcd(&lcd);
 
 //RDA5807Radio radio;
@@ -131,11 +131,13 @@ void setup() {
 //		Serial.print (count, DEC);
 //		Serial.println (" device(s).");
 
-  lcd.init(); // I need to call this with my 40x4 LCD
+//  lcd.init(); // I need to call this with my 40x4 LCD
   lcd.begin(20, 4);
   lcd.home();
   lcd.clear();
   lcd.backlight();
+  lcd.setBacklightPin(3,POSITIVE);
+  lcd.setBacklight(HIGH);
   lcd.print("Uruchamianie...");
 
   lcdKeypadRight.init();
