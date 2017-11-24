@@ -9,6 +9,12 @@
 #define SERIALRADIO_H_
 
 #include <radio.h>
+#include <RDSParser.h>
+
+void RDS_process(uint16_t block1, uint16_t block2, uint16_t block3, uint16_t block4);
+void DisplayServiceName(char *name);
+void DisplayText(char *name);
+void DisplayTime(uint8_t hour, uint8_t minute);
 
 /// State definition for this radio implementation.
 enum RADIO_STATE {

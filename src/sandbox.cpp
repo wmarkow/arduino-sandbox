@@ -184,11 +184,11 @@ void loop() {
 	  lastDisplayUpdateTime = millis();
   }
 
-  if(millis() - lastRdsCheckTime > 1000)
-  {
-//    radio.checkRDS();
-    lastRdsCheckTime = millis();
-  }
+//  if(millis() - lastRdsCheckTime > 1000)
+//  {
+    radio.checkRDS();
+//    lastRdsCheckTime = millis();
+//  }
 
   serialRadio.loop();
 }

@@ -7,11 +7,19 @@
 
 #include "SerialRadio.h"
 
+RDSParser rds;
+
 SerialRadio::SerialRadio(RADIO* radio) {
 	this->radio = radio;
 	state = STATE_PARSECOMMAND;
 }
 void SerialRadio::init() {
+	radio->attachReceiveRDS(RDS_process);
+	rds.init();
+	rds.attachServicenNameCallback(DisplayServiceName);
+	rds.attachTextCallback(DisplayText);
+	rds.attachTimeCallback(DisplayTime);
+
 	runSerialCommand('?', 0);
 }
 
@@ -113,3 +121,28 @@ void SerialRadio::runSerialCommand(char cmd, int16_t value)
     radio->debugStatus(); // print chip specific data.
   }
 } // runSerialCommand()
+
+void RDS_process(uint16_t block1, uint16_t block2, uint16_t block3, uint16_t block4) {
+  rds.processData(block1, block2, block3, block4);
+}
+
+/// Update the ServiceName text on the LCD display.
+void DisplayServiceName(char *name)
+{
+  Serial.print("DSN:");
+  Serial.println(name);
+}
+
+void DisplayText(char *name)
+{
+  Serial.print("Text:");
+  Serial.println(name);
+}
+
+void DisplayTime(uint8_t hour, uint8_t minute)
+{
+  Serial.print("Time:");
+  Serial.print(hour);
+  Serial.print(":");
+  Serial.println(minute);
+}
