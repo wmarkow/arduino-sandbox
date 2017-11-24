@@ -7,6 +7,7 @@
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
 #include "hardware/AnalogMonostableSwitch.h"
+#include "SerialRadio.h"
 
 #define VOLUME_ANALOG_INPUT A1
 
@@ -16,6 +17,7 @@ BigCrystal bigLcd(&lcd);
 
 RDA5807Radio radio;
 PreAmp *preAmp;
+SerialRadio serialRadio(&radio);
 AnalogMonostableSwitch lcdKeypadRight(0, 0, 50);
 AnalogMonostableSwitch lcdKeypadUp(0, 51, 175);
 AnalogMonostableSwitch lcdKeypadDown(0, 176, 325);
@@ -24,16 +26,6 @@ AnalogMonostableSwitch lcdKeypadSelect(0, 526, 775);
 
 unsigned long lastDisplayUpdateTime = 0;
 unsigned long lastRdsCheckTime = 0;
-
-/// State definition for this radio implementation.
-enum RADIO_STATE {
-  STATE_PARSECOMMAND, ///< waiting for a new command character.
-
-  STATE_PARSEINT,     ///< waiting for digits for the parameter.
-  STATE_EXEC          ///< executing the command.
-};
-
-RADIO_STATE state; ///< The state variable is used for parsing input characters.
 
 void updateDisplay()
 {
@@ -116,71 +108,6 @@ void onLcdKeypadSelectPressed()
 	Serial.println(F("SELECT pressed"));
 }
 
-void runSerialCommand(char cmd, int16_t value)
-{
-  if (cmd == '?') {
-    Serial.println();
-    Serial.println("? Help");
-    Serial.println("+ increase volume");
-    Serial.println("- decrease volume");
-    Serial.println("> next preset");
-    Serial.println("< previous preset");
-    Serial.println(". scan up   : scan up to next sender");
-    Serial.println(", scan down ; scan down to next sender");
-    Serial.println("fnnnnn: direct frequency input");
-    Serial.println("i station status");
-    Serial.println("s mono/stereo mode");
-    Serial.println("b bass boost");
-    Serial.println("u mute/unmute");
-  }
-
-  // ----- control the volume and audio output -----
-
-  else if (cmd == '+') {
-    // increase volume
-    int v = radio.getVolume();
-    if (v < 15) radio.setVolume(++v);
-  } else if (cmd == '-') {
-    // decrease volume
-    int v = radio.getVolume();
-    if (v > 0) radio.setVolume(--v);
-  }
-
-  else if (cmd == 'u') {
-    // toggle mute mode
-    radio.setMute(!radio.getMute());
-  }
-
-  // toggle stereo mode
-  else if (cmd == 's') { radio.setMono(!radio.getMono()); }
-
-  // toggle bass boost
-  else if (cmd == 'b') { radio.setBassBoost(!radio.getBassBoost()); }
-
-  else if (cmd == 'f') { radio.setFrequency(value); }
-
-  else if (cmd == '.') { radio.seekUp(false); } else if (cmd == ':') { radio.seekUp(true); } else if (cmd == ',') { radio.seekDown(false); } else if (cmd == ';') { radio.seekDown(true); }
-
-
-  // not in help:
-  else if (cmd == '!') {
-    if (value == 0) radio.term();
-    if (value == 1) radio.init();
-
-  } else if (cmd == 'i') {
-    char s[12];
-    radio.formatFrequency(s, sizeof(s));
-    Serial.print("Station:"); Serial.println(s);
-    Serial.print("Radio:"); radio.debugRadioInfo();
-    Serial.print("Audio:"); radio.debugAudioInfo();
-
-  } // info
-
-  else if (cmd == 'x') {
-    radio.debugStatus(); // print chip specific data.
-  }
-} // runSerialCommand()
-
 void setup() {
 	Serial.begin(57600);
 
@@ -238,12 +165,10 @@ void setup() {
   radio.setMute(false);
   radio.setVolume(1);
   radio.seekUp(true);
+  serialRadio.init();
 
   lcd.clear();
   updateDisplay();
-
-  state = STATE_PARSECOMMAND;
-  runSerialCommand('?', 0);
 }
 
 void loop() {
@@ -266,35 +191,5 @@ void loop() {
     lastRdsCheckTime = millis();
   }
 
-  // some internal static values for parsing the input
-  static char command;
-  static int16_t value;
-  char c;
-    if (Serial.available() > 0) {
-      // read the next char from input.
-      c = Serial.peek();
-
-      if ((state == STATE_PARSECOMMAND) && (c < 0x20)) {
-        // ignore unprintable chars
-        Serial.read();
-
-      } else if (state == STATE_PARSECOMMAND) {
-        // read a command.
-        command = Serial.read();
-        state = STATE_PARSEINT;
-
-      } else if (state == STATE_PARSEINT) {
-        if ((c >= '0') && (c <= '9')) {
-          // build up the value.
-          c = Serial.read();
-          value = (value * 10) + (c - '0');
-        } else {
-          // not a value -> execute
-          runSerialCommand(command, value);
-          command = ' ';
-          state = STATE_PARSECOMMAND;
-          value = 0;
-        } // if
-      } // if
-  } // if
+  serialRadio.loop();
 }
