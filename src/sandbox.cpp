@@ -14,8 +14,8 @@
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
 
-//RDA5807Radio radio;
-//PreAmp *preAmp;
+RDA5807Radio radio;
+PreAmp *preAmp;
 AnalogMonostableSwitch lcdKeypadRight(0, 0, 50);
 AnalogMonostableSwitch lcdKeypadUp(0, 51, 175);
 AnalogMonostableSwitch lcdKeypadDown(0, 176, 325);
@@ -25,11 +25,21 @@ AnalogMonostableSwitch lcdKeypadSelect(0, 526, 775);
 unsigned long lastDisplayUpdateTime = 0;
 unsigned long lastRdsCheckTime = 0;
 
+/// State definition for this radio implementation.
+enum RADIO_STATE {
+  STATE_PARSECOMMAND, ///< waiting for a new command character.
+
+  STATE_PARSEINT,     ///< waiting for digits for the parameter.
+  STATE_EXEC          ///< executing the command.
+};
+
+RADIO_STATE state; ///< The state variable is used for parsing input characters.
+
 void updateDisplay()
 {
 	lcd.setCursor(18, 2);
 
-	uint8_t volume = 12;//radio.getVolume();
+	uint8_t volume = radio.getVolume();
 	char vol[3];
 	itoa(volume, vol, 10);
 	if(volume <= 9){
@@ -44,18 +54,19 @@ void updateDisplay()
 
 	lcd.setCursor(0, 0);
 
-//	char freq[11];
-//	radio.getFrequency(); // need to call it to get the current frequency from the chip
-//	radio.formatFrequency(freq, 11);
-//	lcd.print(freq);
+	char freq[11];
+	radio.getFrequency(); // need to call it to get the current frequency from the chip
+	radio.formatFrequency(freq, 11);
+	freq[6] = '\0';
+	bigLcd.printBig(freq, 0, 0);
 }
 
 void checkVolumePot()
 {
-//	uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
-//	uint8_t volume = volumeInput >> 6;
-//
-//	radio.setVolume(volume);
+	uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
+	uint8_t volume = volumeInput >> 6;
+
+	radio.setVolume(volume);
 }
 
 void onLcdKeypadRightPressed()
@@ -104,6 +115,71 @@ void onLcdKeypadSelectPressed()
 {
 	Serial.println(F("SELECT pressed"));
 }
+
+void runSerialCommand(char cmd, int16_t value)
+{
+  if (cmd == '?') {
+    Serial.println();
+    Serial.println("? Help");
+    Serial.println("+ increase volume");
+    Serial.println("- decrease volume");
+    Serial.println("> next preset");
+    Serial.println("< previous preset");
+    Serial.println(". scan up   : scan up to next sender");
+    Serial.println(", scan down ; scan down to next sender");
+    Serial.println("fnnnnn: direct frequency input");
+    Serial.println("i station status");
+    Serial.println("s mono/stereo mode");
+    Serial.println("b bass boost");
+    Serial.println("u mute/unmute");
+  }
+
+  // ----- control the volume and audio output -----
+
+  else if (cmd == '+') {
+    // increase volume
+    int v = radio.getVolume();
+    if (v < 15) radio.setVolume(++v);
+  } else if (cmd == '-') {
+    // decrease volume
+    int v = radio.getVolume();
+    if (v > 0) radio.setVolume(--v);
+  }
+
+  else if (cmd == 'u') {
+    // toggle mute mode
+    radio.setMute(!radio.getMute());
+  }
+
+  // toggle stereo mode
+  else if (cmd == 's') { radio.setMono(!radio.getMono()); }
+
+  // toggle bass boost
+  else if (cmd == 'b') { radio.setBassBoost(!radio.getBassBoost()); }
+
+  else if (cmd == 'f') { radio.setFrequency(value); }
+
+  else if (cmd == '.') { radio.seekUp(false); } else if (cmd == ':') { radio.seekUp(true); } else if (cmd == ',') { radio.seekDown(false); } else if (cmd == ';') { radio.seekDown(true); }
+
+
+  // not in help:
+  else if (cmd == '!') {
+    if (value == 0) radio.term();
+    if (value == 1) radio.init();
+
+  } else if (cmd == 'i') {
+    char s[12];
+    radio.formatFrequency(s, sizeof(s));
+    Serial.print("Station:"); Serial.println(s);
+    Serial.print("Radio:"); radio.debugRadioInfo();
+    Serial.print("Audio:"); radio.debugAudioInfo();
+
+  } // info
+
+  else if (cmd == 'x') {
+    radio.debugStatus(); // print chip specific data.
+  }
+} // runSerialCommand()
 
 void setup() {
 	Serial.begin(57600);
@@ -154,18 +230,20 @@ void setup() {
 
   Serial.begin(57600);
   Serial.print("Radio...");
-//  delay(500);
+  delay(500);
 
-//  radio.init();
-//
-//  radio.debugEnable();
-//
-//  radio.setMono(false);
-//  radio.setMute(false);
-//  radio.setVolume(1);
+  radio.init();
+  radio.debugEnable();
+  radio.setMono(false);
+  radio.setMute(false);
+  radio.setVolume(1);
+  radio.seekUp(true);
 
   lcd.clear();
   updateDisplay();
+
+  state = STATE_PARSECOMMAND;
+  runSerialCommand('?', 0);
 }
 
 void loop() {
@@ -177,8 +255,8 @@ void loop() {
 
   if(millis() - lastDisplayUpdateTime > 250)
   {
-//	  updateDisplay();
-//	  checkVolumePot();
+	  updateDisplay();
+	  checkVolumePot();
 	  lastDisplayUpdateTime = millis();
   }
 
@@ -187,4 +265,36 @@ void loop() {
 //    radio.checkRDS();
     lastRdsCheckTime = millis();
   }
+
+  // some internal static values for parsing the input
+  static char command;
+  static int16_t value;
+  char c;
+    if (Serial.available() > 0) {
+      // read the next char from input.
+      c = Serial.peek();
+
+      if ((state == STATE_PARSECOMMAND) && (c < 0x20)) {
+        // ignore unprintable chars
+        Serial.read();
+
+      } else if (state == STATE_PARSECOMMAND) {
+        // read a command.
+        command = Serial.read();
+        state = STATE_PARSEINT;
+
+      } else if (state == STATE_PARSEINT) {
+        if ((c >= '0') && (c <= '9')) {
+          // build up the value.
+          c = Serial.read();
+          value = (value * 10) + (c - '0');
+        } else {
+          // not a value -> execute
+          runSerialCommand(command, value);
+          command = ' ';
+          state = STATE_PARSECOMMAND;
+          value = 0;
+        } // if
+      } // if
+  } // if
 }
