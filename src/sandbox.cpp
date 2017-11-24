@@ -44,13 +44,12 @@ void updateDisplay()
 		bigLcd.printBig(vol, 14, 2);
 	}
 
-	lcd.setCursor(0, 0);
+	lcd.setCursor(6, 0);
 
 	char freq[11];
 	radio.getFrequency(); // need to call it to get the current frequency from the chip
 	radio.formatFrequency(freq, 11);
-	freq[6] = '\0';
-	bigLcd.printBig(freq, 0, 0);
+	bigLcd.print(freq);
 }
 
 void checkVolumePot()
