@@ -18,11 +18,8 @@ BigCrystal bigLcd(&lcd);
 RDA5807Radio radio;
 PreAmp *preAmp;
 SerialRadio serialRadio(&radio);
-AnalogMonostableSwitch lcdKeypadRight(0, 0, 50);
-AnalogMonostableSwitch lcdKeypadUp(0, 51, 175);
-AnalogMonostableSwitch lcdKeypadDown(0, 176, 325);
-AnalogMonostableSwitch lcdKeypadLeft(0, 326, 525);
-AnalogMonostableSwitch lcdKeypadSelect(0, 526, 775);
+AnalogMonostableSwitch lcdKeypadLeft(0, 0, 50);
+AnalogMonostableSwitch lcdKeypadRight(0, 475, 525);
 
 unsigned long lastDisplayUpdateTime = 0;
 unsigned long lastRdsCheckTime = 0;
@@ -62,44 +59,14 @@ void checkVolumePot()
 
 void onLcdKeypadRightPressed()
 {
-//	Serial.println(F("RIGHT pressed"));
-//	radio.seekUp(true);
-}
-
-void onLcdKeypadUpPressed()
-{
-//	Serial.println(F("UP pressed"));
-//
-//	uint8_t volume = radio.getVolume();
-//	volume ++;
-//	if(volume >= radio.MAXVOLUME)
-//	{
-//		radio.setVolume(radio.MAXVOLUME);
-//		return;
-//	}
-//
-//	radio.setVolume(volume);
-}
-
-void onLcdKeypadDownPressed()
-{
-//	Serial.println(F("DOWN pressed"));
-//
-//	uint8_t volume = radio.getVolume();
-//	volume --;
-//	if(volume >= radio.MAXVOLUME)
-//	{
-//		radio.setVolume(0);
-//		return;
-//	}
-//
-//	radio.setVolume(volume);
+	Serial.println(F("RIGHT pressed"));
+	radio.seekUp(true);
 }
 
 void onLcdKeypadLeftPressed()
 {
-//	Serial.println(F("LEFT pressed"));
-//	radio.seekDown(true);
+	Serial.println(F("LEFT pressed"));
+	radio.seekDown(true);
 }
 
 void onLcdKeypadSelectPressed()
@@ -145,14 +112,8 @@ void setup() {
 
   lcdKeypadRight.init();
   lcdKeypadRight.setOnSwitchOnPtr(&onLcdKeypadRightPressed);
-  lcdKeypadUp.init();
-  lcdKeypadUp.setOnSwitchOnPtr(&onLcdKeypadUpPressed);
-  lcdKeypadDown.init();
-  lcdKeypadDown.setOnSwitchOnPtr(&onLcdKeypadDownPressed);
   lcdKeypadLeft.init();
   lcdKeypadLeft.setOnSwitchOnPtr(&onLcdKeypadLeftPressed);
-  lcdKeypadSelect.init();
-  lcdKeypadSelect.setOnSwitchOnPtr(&onLcdKeypadSelectPressed);
 
   Serial.begin(57600);
   Serial.print("Radio...");
@@ -163,7 +124,9 @@ void setup() {
   radio.setMono(false);
   radio.setMute(false);
   radio.setVolume(1);
-  radio.seekUp(true);
+
+//  radio.seekUp(true);
+  radio.setFrequency(9300);
   serialRadio.init();
 
   lcd.clear();
@@ -172,10 +135,7 @@ void setup() {
 
 void loop() {
   lcdKeypadRight.loop();
-  lcdKeypadUp.loop();
-  lcdKeypadDown.loop();
   lcdKeypadLeft.loop();
-  lcdKeypadSelect.loop();
 
   if(millis() - lastDisplayUpdateTime > 250)
   {
