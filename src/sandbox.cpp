@@ -3,6 +3,7 @@
 #include <RDSParser.h>
 #include <LiquidCrystal_I2C.h>
 #include <BigCrystal.h>
+#include <PT2314.h>
 
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
@@ -17,6 +18,7 @@ BigCrystal bigLcd(&lcd);
 
 RDA5807Radio radio;
 PreAmp *preAmp;
+PT2314 pt2314;
 SerialRadio serialRadio(&radio);
 AnalogMonostableSwitch lcdKeypadLeft(0, 0, 50);
 AnalogMonostableSwitch lcdKeypadRight(0, 475, 525);
@@ -119,6 +121,19 @@ void setup() {
   Serial.print("Radio...");
   delay(500);
 
+  int res = pt2314.init();
+//  delay(100);
+//  res = pt2314.init();
+  Serial.print(F("PT2314 init result is "));
+  Serial.println(res);
+  lcd.setCursor(0,3);
+  lcd.println(res, 10);
+
+  pt2314.channel(0);
+  pt2314.volume(100);
+  pt2314.attenuation(100,100);
+  pt2314.gain(0);
+
   radio.init();
   radio.debugEnable();
   radio.setMono(false);
@@ -129,7 +144,7 @@ void setup() {
   radio.setFrequency(9300);
   serialRadio.init();
 
-  lcd.clear();
+  //lcd.clear();
   updateDisplay();
 }
 
