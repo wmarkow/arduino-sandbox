@@ -121,18 +121,22 @@ void setup() {
   Serial.print("Radio...");
   delay(500);
 
-  int res = pt2314.init();
-//  delay(100);
-//  res = pt2314.init();
-  Serial.print(F("PT2314 init result is "));
-  Serial.println(res);
-  lcd.setCursor(0,3);
-  lcd.println(res, 10);
+  uint8_t q = 0;
+  bool res = false;
+  for (q = 0 ; q < 20 ; q ++)
+  {
+	  res = pt2314.init();
+	  if(res == true)
+	  {
+		  break;
+	  }
+	  delay(100);
+  }
 
   pt2314.channel(0);
   pt2314.volume(100);
   pt2314.attenuation(100,100);
-  pt2314.gain(0);
+//  pt2314.gain(0);
 
   radio.init();
   radio.debugEnable();
@@ -144,7 +148,7 @@ void setup() {
   radio.setFrequency(9300);
   serialRadio.init();
 
-  //lcd.clear();
+  lcd.clear();
   updateDisplay();
 }
 
