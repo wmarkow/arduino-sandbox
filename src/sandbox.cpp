@@ -136,7 +136,7 @@ void setup() {
   pt2314.channel(0);
   pt2314.volume(100);
   pt2314.attenuation(100,100);
-//  pt2314.gain(0);
+  pt2314.gain(0);
 
   radio.init();
   radio.debugEnable();
