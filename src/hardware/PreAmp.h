@@ -14,6 +14,7 @@ class PreAmp
 {
 public:
    void virtual setVolume(uint8_t newVolume) = 0;
+   uint8_t virtual getVolume() = 0;
 };
 
 #endif /* HARDWARE_PREAMP_H_ */

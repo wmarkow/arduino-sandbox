@@ -16,6 +16,7 @@ class RDA5807Radio : public RDA5807M, public PreAmp
 
 public:
    void setVolume(uint8_t newVolume);
+   uint8_t getVolume();
 };
 
 #endif /* HARDWARE_RDA5870RADIO_H_ */

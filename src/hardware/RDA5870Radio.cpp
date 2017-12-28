@@ -16,3 +16,8 @@ void RDA5807Radio::setVolume(uint8_t newVolume)
 
    RDA5807M::setVolume(newVolume);
 }
+
+uint8_t RDA5807Radio::getVolume()
+{
+   return RDA5807M::getVolume();
+}

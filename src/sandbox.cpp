@@ -8,6 +8,7 @@
 #include "hardware/RDA5870Radio.h"
 #include "hardware/AnalogMonostableSwitch.h"
 #include "SerialRadio.h"
+//#include "hardware/PT2314PreAmp.h"
 
 #define VOLUME_ANALOG_INPUT A1
 
@@ -15,9 +16,14 @@
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
 
+// hardware objects
 RDA5807Radio radio;
-PreAmp *preAmp;
 PT2314 pt2314;
+
+// preamp
+PreAmp *preAmp;
+//PT2314PreAmp pt2314PreAmp(&pt2314);
+
 SerialRadio serialRadio(&radio);
 AnalogMonostableSwitch lcdKeypadLeft(0, 0, 50);
 AnalogMonostableSwitch lcdKeypadRight(0, 475, 525);
@@ -29,7 +35,7 @@ void updateDisplay()
 {
    lcd.setCursor(18, 2);
 
-   uint8_t volume = radio.getVolume();
+   uint8_t volume = preAmp->getVolume();
    char vol[3];
    itoa(volume, vol, 10);
    if (volume <= 9)
@@ -58,7 +64,7 @@ void checkVolumePot()
    uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
    uint8_t volume = volumeInput >> 6;
 
-   radio.setVolume(volume);
+   preAmp->setVolume(volume);
 }
 
 void onLcdKeypadRightPressed()
@@ -141,6 +147,7 @@ void setup()
    pt2314.attenuation(100, 100);
    pt2314.gain(0);
 
+   preAmp = &radio;
    radio.init();
    radio.debugEnable();
    radio.setMono(false);
