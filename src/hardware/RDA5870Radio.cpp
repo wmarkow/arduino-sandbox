@@ -7,13 +7,12 @@
 
 #include "RDA5870Radio.h"
 
-
 void RDA5807Radio::setVolume(uint8_t newVolume)
 {
-	if(getVolume() == newVolume)
-	{
-		return;
-	}
+   if (getVolume() == newVolume)
+   {
+      return;
+   }
 
-	RDA5807M::setVolume(newVolume);
+   RDA5807M::setVolume(newVolume);
 }

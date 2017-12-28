@@ -18,20 +18,20 @@
 class MonostableSwitch
 {
 public:
-	MonostableSwitch(uint8_t pin);
-	void init();
-	void loop();
-	void setOnSwitchOnPtr(void (*onSwitchOnPtr)());
-	void setOnSwitchOffPtr(void (*onSwitchOffPtr)());
+   MonostableSwitch(uint8_t pin);
+   void init();
+   void loop();
+   void setOnSwitchOnPtr(void (*onSwitchOnPtr)());
+   void setOnSwitchOffPtr(void (*onSwitchOffPtr)());
 
 protected:
-	uint8_t pin;
-	virtual int readButtonState() = 0;
+   uint8_t pin;
+   virtual int readButtonState() = 0;
 private:
-	uint8_t state;
-	unsigned long firstTimestamp;
-	void (*onSwitchOnPtr)();
-	void (*onSwitchOffPtr)();
+   uint8_t state;
+   unsigned long firstTimestamp;
+   void (*onSwitchOnPtr)();
+   void (*onSwitchOffPtr)();
 };
 
 #endif /* HARDWARE_MONOSTABLESWITCH_H_ */

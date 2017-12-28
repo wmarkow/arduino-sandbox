@@ -13,12 +13,10 @@
 class DigitalMonostableSwitch : public MonostableSwitch
 {
 public:
-	DigitalMonostableSwitch(uint8_t pin);
+   DigitalMonostableSwitch(uint8_t pin);
 
 protected:
-	int readButtonState();
+   int readButtonState();
 };
-
-
 
 #endif /* HARDWARE_DIGITALMONOSTABLESWITCH_H_ */

@@ -8,14 +8,14 @@
 #include <Arduino.h>
 #include "DigitalMonostableSwitch.h"
 
-DigitalMonostableSwitch::DigitalMonostableSwitch(uint8_t pin) : MonostableSwitch(pin)
+DigitalMonostableSwitch::DigitalMonostableSwitch(uint8_t pin) :
+      MonostableSwitch(pin)
 {
 
 }
 
 int DigitalMonostableSwitch::readButtonState()
 {
-	return digitalRead(pin);
+   return digitalRead(pin);
 }
-
 

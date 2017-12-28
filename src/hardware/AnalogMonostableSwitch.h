@@ -13,13 +13,13 @@
 class AnalogMonostableSwitch : public MonostableSwitch
 {
 public:
-	AnalogMonostableSwitch(uint8_t pin, uint16_t minValue, uint16_t maxValue);
+   AnalogMonostableSwitch(uint8_t pin, uint16_t minValue, uint16_t maxValue);
 
 protected:
-	int readButtonState();
+   int readButtonState();
 private:
-	uint16_t minValue;
-	uint16_t maxValue;
+   uint16_t minValue;
+   uint16_t maxValue;
 };
 
 #endif /* HARDWARE_ANALOGMONOSTABLESWITCH_H_ */
