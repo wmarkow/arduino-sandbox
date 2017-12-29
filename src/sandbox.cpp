@@ -9,7 +9,7 @@
 #include "hardware/AnalogMonostableSwitch.h"
 #include "hardware/PreAmpControlPanel.h"
 #include "SerialRadio.h"
-//#include "hardware/PT2314PreAmp.h"
+#include "hardware/PT2314PreAmp.h"
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
@@ -17,9 +17,10 @@ BigCrystal bigLcd(&lcd);
 // hardware objects
 RDA5807Radio radio;
 PT2314 pt2314;
+PT2314PreAmp pt2314PreAmp(&pt2314);
 
-PreAmpControlPanel preAmpControlPanel(&radio);
-//PT2314PreAmp pt2314PreAmp(&pt2314);
+PreAmpControlPanel preAmpControlPanel(&pt2314PreAmp);
+//PreAmpControlPanel preAmpControlPanel(&radio);
 
 SerialRadio serialRadio(&radio);
 AnalogMonostableSwitch lcdKeypadLeft(0, 0, 50);
@@ -108,15 +109,15 @@ void setup()
    }
 
    pt2314.channel(0);
-   pt2314.volume(100);
+   pt2314.volume(1);
    pt2314.attenuation(100, 100);
-   pt2314.gain(0);
+   pt2314.gain(1);
 
    radio.init();
    radio.debugEnable();
    radio.setMono(false);
    radio.setMute(false);
-   radio.setVolume(1);
+   radio.setVolume(100);
 
    radio.setFrequency(9300);
    serialRadio.init();
