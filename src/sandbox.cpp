@@ -7,10 +7,9 @@
 #include "Arduino.h"
 #include "hardware/RDA5870Radio.h"
 #include "hardware/AnalogMonostableSwitch.h"
+#include "hardware/PreAmpControlPanel.h"
 #include "SerialRadio.h"
 //#include "hardware/PT2314PreAmp.h"
-
-#define VOLUME_ANALOG_INPUT A1
 
 //LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
@@ -20,8 +19,7 @@ BigCrystal bigLcd(&lcd);
 RDA5807Radio radio;
 PT2314 pt2314;
 
-// preamp
-PreAmp *preAmp;
+PreAmpControlPanel preAmpControlPanel(&radio);
 //PT2314PreAmp pt2314PreAmp(&pt2314);
 
 SerialRadio serialRadio(&radio);
@@ -35,7 +33,7 @@ void updateDisplay()
 {
    lcd.setCursor(18, 2);
 
-   uint8_t volume = preAmp->getVolume();
+   uint8_t volume = preAmpControlPanel.getPreAmp()->getVolume();
    char vol[3];
    itoa(volume, vol, 10);
    if (volume <= 9)
@@ -57,14 +55,6 @@ void updateDisplay()
    radio.getFrequency(); // need to call it to get the current frequency from the chip
    radio.formatFrequency(freq, 11);
    bigLcd.print(freq);
-}
-
-void checkVolumePot()
-{
-   uint16_t volumeInput = analogRead(VOLUME_ANALOG_INPUT);
-   uint8_t volume = map(volumeInput, 0, 1023, preAmp->MIN_VOLUME, preAmp->MAX_VOLUME);
-
-   preAmp->setVolume(volume);
 }
 
 void onLcdKeypadRightPressed()
@@ -147,7 +137,6 @@ void setup()
    pt2314.attenuation(100, 100);
    pt2314.gain(0);
 
-   preAmp = &radio;
    radio.init();
    radio.debugEnable();
    radio.setMono(false);
@@ -170,7 +159,7 @@ void loop()
    if (millis() - lastDisplayUpdateTime > 250)
    {
       updateDisplay();
-      checkVolumePot();
+      preAmpControlPanel.loop();
       lastDisplayUpdateTime = millis();
    }
 
