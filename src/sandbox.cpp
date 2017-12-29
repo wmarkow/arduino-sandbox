@@ -11,7 +11,6 @@
 #include "SerialRadio.h"
 //#include "hardware/PT2314PreAmp.h"
 
-//LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
 
@@ -78,30 +77,6 @@ void setup()
 {
    Serial.begin(57600);
 
-//		Serial.println ();
-//		Serial.println ("I2C scanner. Scanning ...");
-//		byte count = 0;
-//		Wire.begin();
-//		for (byte i = 1; i < 120; i++)
-//		{
-//			Wire.beginTransmission (i);
-//			if (Wire.endTransmission () == 0)
-//			{
-//				Serial.print ("Found address: ");
-//				Serial.print (i, DEC);
-//				Serial.print (" (0x");
-//				Serial.print (i, HEX);
-//				Serial.println (")");
-//				count++;
-//				delay (1);  // maybe unneeded?
-//			}
-//		}
-//		Serial.println ("Done.");
-//		Serial.print ("Found ");
-//		Serial.print (count, DEC);
-//		Serial.println (" device(s).");
-
-//  lcd.init(); // I need to call this with my 40x4 LCD
    bigLcd.begin(20, 4);
    bigLcd.setAppendExtraSpaceBetweenCharacters(false);
    lcd.home();
@@ -143,7 +118,6 @@ void setup()
    radio.setMute(false);
    radio.setVolume(1);
 
-//  radio.seekUp(true);
    radio.setFrequency(9300);
    serialRadio.init();
 
@@ -163,11 +137,7 @@ void loop()
       lastDisplayUpdateTime = millis();
    }
 
-//  if(millis() - lastRdsCheckTime > 1000)
-//  {
    radio.checkRDS();
-//    lastRdsCheckTime = millis();
-//  }
 
    serialRadio.loop();
 }
