@@ -24,6 +24,16 @@ public:
     * Get volume as a value between 0 and 100
     */
    uint8_t virtual getVolume() = 0;
+
+   /***
+    * Set input channel as a value between 0 and 3
+    */
+   void virtual setInputChannel(uint8_t channel) = 0;
+
+   /***
+    * Get input channel as a value between 0 and 3
+    */
+   uint8_t virtual getInputChannel() = 0;
 };
 
 #endif /* HARDWARE_PREAMP_H_ */

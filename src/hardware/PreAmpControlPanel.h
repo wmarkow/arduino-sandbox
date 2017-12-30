@@ -15,6 +15,7 @@ class PreAmpControlPanel
 private:
    PreAmp *preAmp;
    void checkVolumePot();
+   void checkInputChannelPot();
 public:
    PreAmpControlPanel(PreAmp *preAmp);
    PreAmp* getPreAmp();

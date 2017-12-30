@@ -6,9 +6,13 @@
  */
 
 #include "PreAmpControlPanel.h"
+
 #include <Arduino.h>
+#include <pins_arduino.h>
+#include <stdint.h>
 
 #define VOLUME_ANALOG_INPUT A1
+#define INPUT_CHANNEL_ANALOG_INPUT A2
 
 PreAmpControlPanel::PreAmpControlPanel(PreAmp *preAmp)
 {
@@ -23,6 +27,7 @@ PreAmp* PreAmpControlPanel::getPreAmp()
 void PreAmpControlPanel::loop()
 {
    checkVolumePot();
+   checkInputChannelPot();
 }
 
 void PreAmpControlPanel::checkVolumePot()
@@ -32,5 +37,27 @@ void PreAmpControlPanel::checkVolumePot()
          preAmp->MAX_VOLUME);
 
    preAmp->setVolume(volume);
+}
+
+void PreAmpControlPanel::checkInputChannelPot()
+{
+   uint16_t volumeInput = analogRead(INPUT_CHANNEL_ANALOG_INPUT);
+
+   uint8_t channel = 0;
+   if (volumeInput <= 512)
+   {
+      channel = 0;
+   }
+   else if (volumeInput <= 1023)
+   {
+      channel = 1;
+   }
+
+   if (preAmp->getInputChannel() == channel)
+   {
+      return;
+   }
+
+   preAmp->setInputChannel(channel);
 }
 

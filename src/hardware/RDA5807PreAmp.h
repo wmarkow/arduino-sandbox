@@ -19,6 +19,8 @@ public:
    RDA5807PreAmp(RDA5807M* rda);
    void setVolume(uint8_t newVolume);
    uint8_t getVolume();
+   void setInputChannel(uint8_t channel);
+   uint8_t getInputChannel();
 };
 
 #endif /* HARDWARE_RDA5807PREAMP_H_ */

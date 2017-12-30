@@ -30,3 +30,13 @@ uint8_t RDA5807PreAmp::getVolume()
    return map(rda->getVolume(), 0, rda->MAXVOLUME, this->MIN_VOLUME,
          this->MAX_VOLUME);
 }
+
+void RDA5807PreAmp::setInputChannel(uint8_t channel)
+{
+   // nothing to do
+}
+
+uint8_t RDA5807PreAmp::getInputChannel()
+{
+   // nothing to do
+}
