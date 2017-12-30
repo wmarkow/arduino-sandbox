@@ -58,6 +58,18 @@ void updateDisplay()
    radio.getFrequency(); // need to call it to get the current frequency from the chip
    radio.formatFrequency(freq, 11);
    bigLcd.print(freq);
+
+   // display the input channel
+   bigLcd.setCursor(0, 3);
+   uint8_t channel = preAmpControlPanel.getPreAmp()->getInputChannel();
+   if (channel == 0)
+   {
+      bigLcd.print(F("Radio   "));
+   }
+   if (channel == 1)
+   {
+      bigLcd.print(F("Gramofon"));
+   }
 }
 
 void onLcdKeypadRightPressed()
