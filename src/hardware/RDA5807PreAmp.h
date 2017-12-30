@@ -11,10 +11,12 @@
 #include <RDA5807M.h>
 #include "PreAmp.h"
 
-class RDA5807PreAmp : public RDA5807M, public PreAmp
+class RDA5807PreAmp : public PreAmp
 {
-
+private:
+   RDA5807M* rda;
 public:
+   RDA5807PreAmp(RDA5807M* rda);
    void setVolume(uint8_t newVolume);
    uint8_t getVolume();
 };

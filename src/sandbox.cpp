@@ -15,8 +15,11 @@ LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
 
 // hardware objects
-RDA5807PreAmp radio;
+RDA5807M radio;
 PT2314 pt2314;
+
+// preamplifiers
+//RDA5807PreAmp rdaPreAmp(&radio);
 PT2314PreAmp pt2314PreAmp(&pt2314);
 
 PreAmpControlPanel preAmpControlPanel(&pt2314PreAmp);
@@ -117,7 +120,7 @@ void setup()
    radio.debugEnable();
    radio.setMono(false);
    radio.setMute(false);
-   radio.setVolume(100);
+   radio.setVolume(15);
 
    radio.setFrequency(9300);
    serialRadio.init();
