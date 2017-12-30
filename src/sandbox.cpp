@@ -5,17 +5,17 @@
 #include <PT2314.h>
 
 #include "Arduino.h"
-#include "hardware/RDA5870Radio.h"
 #include "hardware/AnalogMonostableSwitch.h"
 #include "hardware/PreAmpControlPanel.h"
 #include "SerialRadio.h"
 #include "hardware/PT2314PreAmp.h"
+#include "hardware/RDA5807PreAmp.h"
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7);
 BigCrystal bigLcd(&lcd);
 
 // hardware objects
-RDA5807Radio radio;
+RDA5807PreAmp radio;
 PT2314 pt2314;
 PT2314PreAmp pt2314PreAmp(&pt2314);
 

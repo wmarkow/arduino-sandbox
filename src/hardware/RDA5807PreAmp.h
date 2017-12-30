@@ -5,13 +5,13 @@
  *      Author: wmarkowski
  */
 
-#ifndef HARDWARE_RDA5870RADIO_H_
-#define HARDWARE_RDA5870RADIO_H_
+#ifndef HARDWARE_RDA5807PREAMP_H_
+#define HARDWARE_RDA5807PREAMP_H_
 
 #include <RDA5807M.h>
 #include "PreAmp.h"
 
-class RDA5807Radio : public RDA5807M, public PreAmp
+class RDA5807PreAmp : public RDA5807M, public PreAmp
 {
 
 public:
@@ -19,4 +19,4 @@ public:
    uint8_t getVolume();
 };
 
-#endif /* HARDWARE_RDA5870RADIO_H_ */
+#endif /* HARDWARE_RDA5807PREAMP_H_ */

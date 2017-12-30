@@ -5,9 +5,9 @@
  *      Author: wmarkowski
  */
 
-#include "RDA5870Radio.h"
+#include "RDA5807PreAmp.h"
 
-void RDA5807Radio::setVolume(uint8_t newVolume)
+void RDA5807PreAmp::setVolume(uint8_t newVolume)
 {
    if (getVolume() == newVolume)
    {
@@ -20,7 +20,7 @@ void RDA5807Radio::setVolume(uint8_t newVolume)
    RDA5807M::setVolume(remapped);
 }
 
-uint8_t RDA5807Radio::getVolume()
+uint8_t RDA5807PreAmp::getVolume()
 {
    // remap from 0...RDA5807M::MAXVOLUME to 0...100
    return map(RDA5807M::getVolume(), 0, RDA5807M::MAXVOLUME, this->MIN_VOLUME,
