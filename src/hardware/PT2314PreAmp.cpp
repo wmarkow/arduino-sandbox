@@ -10,20 +10,21 @@
 PT2314PreAmp::PT2314PreAmp(PT2314 *pt2314)
 {
    this->pt2314 = pt2314;
+   this->volume = 0;
 }
 
 void PT2314PreAmp::setVolume(uint8_t newVolume)
 {
-//   if (getVolume() == newVolume)
-//   {
-//      return;
-//   }
+   if (getVolume() == newVolume)
+   {
+      return;
+   }
 
+   this->volume = newVolume;
    pt2314->volume(newVolume);
 }
 
 uint8_t PT2314PreAmp::getVolume()
 {
-   return pt2314->getVolume();
+   return volume;
 }
-

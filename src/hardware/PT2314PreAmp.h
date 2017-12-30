@@ -15,6 +15,7 @@ class PT2314PreAmp : public PreAmp
 {
 private:
    PT2314 *pt2314;
+   uint8_t volume;
 public:
    PT2314PreAmp(PT2314 *pt2314);
    void setVolume(uint8_t newVolume);
