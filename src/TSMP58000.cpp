@@ -11,9 +11,10 @@
 
 #define STATE_IDLE 0
 #define STATE_TOGGLE 1
-#define STATE_SILENCE 2
-#define STATE_PRE_END 3
-#define STATE_END 4
+#define STATE_SPACE_LOW 2
+#define STATE_SPACE_HIGH 3
+#define STATE_PRE_END 4
+#define STATE_END 5
 
 bool TSMP58000::read()
 {
@@ -62,7 +63,18 @@ bool TSMP58000::read()
                   receivedData[currentIndex].type = IR_TYPE_TOGGLE;
                   receivedData[currentIndex].duration = lastToggleMicros
                         - toggleStartMicros;
-                  state = STATE_SILENCE;
+
+                  if (newPinState == LOW)
+                  {
+                     state = STATE_SPACE_LOW;
+                  }
+                  else
+                  {
+                     // pin HIGH
+//                     Serial.println(F("Protocol error"));
+                     state = STATE_SPACE_HIGH;
+//                     return false;
+                  }
 
                   break;
                }
@@ -73,7 +85,7 @@ bool TSMP58000::read()
 
             break;
          }
-         case STATE_SILENCE:
+         case STATE_SPACE_LOW:
          {
             while (oldPinState == (newPinState = digitalRead(RECEIVER_PIN)))
             {
@@ -81,7 +93,7 @@ bool TSMP58000::read()
                if (currentMicros - lastToggleMicros > 30000)
                {
                   currentIndex++;
-                  receivedData[currentIndex].type = IR_TYPE_SILENCE;
+                  receivedData[currentIndex].type = IR_TYPE_SPACE_LOW;
                   receivedData[currentIndex].duration = currentMicros
                         - lastToggleMicros;
                   state = STATE_END;
@@ -93,7 +105,34 @@ bool TSMP58000::read()
             oldPinState = newPinState;
             toggleStartMicros = currentMicros;
             currentIndex++;
-            receivedData[currentIndex].type = IR_TYPE_SILENCE;
+            receivedData[currentIndex].type = IR_TYPE_SPACE_LOW;
+            receivedData[currentIndex].duration = currentMicros
+                  - lastToggleMicros;
+            state = STATE_TOGGLE;
+
+            break;
+         }
+         case STATE_SPACE_HIGH:
+         {
+            while (oldPinState == (newPinState = digitalRead(RECEIVER_PIN)))
+            {
+               currentMicros = micros();
+               if (currentMicros - lastToggleMicros > 30000)
+               {
+                  currentIndex++;
+                  receivedData[currentIndex].type = IR_TYPE_SPACE_HIGH;
+                  receivedData[currentIndex].duration = currentMicros
+                        - lastToggleMicros;
+                  state = STATE_END;
+
+                  return true;
+               }
+            }
+
+            oldPinState = newPinState;
+            toggleStartMicros = currentMicros;
+            currentIndex++;
+            receivedData[currentIndex].type = IR_TYPE_SPACE_HIGH;
             receivedData[currentIndex].duration = currentMicros
                   - lastToggleMicros;
             state = STATE_TOGGLE;
@@ -112,9 +151,25 @@ uint8_t TSMP58000::getReceivedDataSize()
 
 IRData* TSMP58000::getData(uint8_t index)
 {
-   if(index <= currentIndex){
+   if (index <= currentIndex)
+   {
       return &receivedData[index];
    }
 
    return NULL;
+}
+
+void TSMP58000::dump()
+{
+   Serial.print(F("Odebralem "));
+   Serial.print(getReceivedDataSize());
+   Serial.println(F(" danych:"));
+
+   for (uint8_t q = 0; q < getReceivedDataSize(); q++)
+   {
+      IRData* ptr = getData(q);
+      Serial.print(ptr->type);
+      Serial.print(F("  "));
+      Serial.println(ptr->duration);
+   }
 }
