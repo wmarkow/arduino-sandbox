@@ -13,8 +13,7 @@
 #define STATE_TOGGLE 1
 #define STATE_SPACE_LOW 2
 #define STATE_SPACE_HIGH 3
-#define STATE_PRE_END 4
-#define STATE_END 5
+#define STATE_END 4
 
 bool TSMP58000::read()
 {
@@ -24,9 +23,9 @@ bool TSMP58000::read()
    currentIndex = -1;
 
    uint32_t readStartMicros = micros();
-   uint32_t currentMicros;
-   uint32_t toggleStartMicros;
-   uint32_t lastToggleMicros;
+   uint32_t currentMicros = readStartMicros;
+   uint32_t toggleStartMicros = readStartMicros;
+   uint32_t lastToggleMicros = readStartMicros;
 
    while (state != STATE_END)
    {
@@ -70,10 +69,7 @@ bool TSMP58000::read()
                   }
                   else
                   {
-                     // pin HIGH
-//                     Serial.println(F("Protocol error"));
                      state = STATE_SPACE_HIGH;
-//                     return false;
                   }
 
                   break;
