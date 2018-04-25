@@ -13,6 +13,8 @@
 //#include <IRLibDecodeBase.h>
 //#include <IRLibCombo.h>
 
+#include "TSMP58000.h"
+
 //NOTE: Previous versions of IRLib required you to pass the
 // interrupt number to be passed to the built-in "attachInterrupt()"
 // function however starting with IRLib 2.x you now pass the pin number.
@@ -74,6 +76,8 @@ void setup()
 //   myFreq.enableFreqDetect(); //starts interrupt routine to compute frequency
 }
 
+TSMP58000 tsmp;
+
 void loop()
 {
    // decode protocol
@@ -95,9 +99,25 @@ void loop()
 //    }
 
    // moj kawalek kodu
-   if (getResultsAsBits())
+//   if (getResultsAsBits())
+//   {
+//      dump();
+//   }
+   Serial.print(F("Waiting 3 sec for user click..."));
+   if (tsmp.read())
    {
-      dump();
+      Serial.println(F(""));
+      for (uint8_t q = 0; q < tsmp.getReceivedDataSize(); q++)
+      {
+         IRData* ptr = tsmp.getData(q);
+         Serial.print(ptr->type);
+         Serial.print(F("  "));
+         Serial.println(ptr->duration);
+      }
+   }
+   else
+   {
+      Serial.println(F(" nothing received"));
    }
 }
 
@@ -406,7 +426,7 @@ bool getResultsAsBits(void)
 
 double calcFreq()
 {
-   return 1000000.0 / (((double)toggleFreqDur) / ((double)toggleCount)) / 2.0;
+   return 1000000.0 / (((double) toggleFreqDur) / ((double) toggleCount)) / 2.0;
 //   return 1000000L / (toggleFreqDur / toggleCount) / 2;
 }
 
