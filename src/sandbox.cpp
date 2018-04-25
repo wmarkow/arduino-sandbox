@@ -26,6 +26,10 @@ void loop()
    if (tsmp.read())
    {
       Serial.println(F(""));
+      Serial.print(F("Odebralem "));
+      Serial.print(tsmp.getReceivedDataSize());
+      Serial.println(F(" danych:"));
+
       for (uint8_t q = 0; q < tsmp.getReceivedDataSize(); q++)
       {
          IRData* ptr = tsmp.getData(q);
