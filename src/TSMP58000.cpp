@@ -21,6 +21,9 @@ bool TSMP58000::read()
    uint8_t newPinState;
    uint8_t state = STATE_IDLE;
    currentIndex = -1;
+   //
+   toggleDurationInMicros = 0;
+   toggleCount = 0;
 
    uint32_t readStartMicros = micros();
    uint32_t currentMicros = readStartMicros;
@@ -72,12 +75,24 @@ bool TSMP58000::read()
                      state = STATE_SPACE_HIGH;
                   }
 
+                  // for signal frequency calculation
+                  if (toggleDurationInMicros == 0)
+                  {
+                     toggleDurationInMicros = lastToggleMicros - toggleStartMicros;
+                  }
+
                   break;
                }
             }
             // pin has changed
             oldPinState = newPinState;
             lastToggleMicros = currentMicros;
+
+            // for signal frequency calculation
+            if (toggleDurationInMicros == 0)
+            {
+               toggleCount++;
+            }
 
             break;
          }
@@ -168,4 +183,11 @@ void TSMP58000::dump()
       Serial.print(F("  "));
       Serial.println(ptr->duration);
    }
+   Serial.print(F("Toggle duration [us]: "));
+   Serial.println(toggleDurationInMicros);
+   Serial.print(F("Toggle count: "));
+   Serial.println(toggleCount);
+   double freq = 500.0 * ((double)toggleCount) / ((double)toggleDurationInMicros);
+   Serial.print(F("Signal frequency [kHz]: "));
+   Serial.println(freq);
 }

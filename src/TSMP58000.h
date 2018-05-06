@@ -31,6 +31,8 @@ public:
 private:
    IRData receivedData[64];
    int8_t currentIndex;
+   uint32_t toggleDurationInMicros;
+   uint16_t toggleCount;
 };
 
 #endif /* TSMP58000_H_ */
