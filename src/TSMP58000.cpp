@@ -78,7 +78,8 @@ bool TSMP58000::read()
                   // for signal frequency calculation
                   if (toggleDurationInMicros == 0)
                   {
-                     toggleDurationInMicros = lastToggleMicros - toggleStartMicros;
+                     toggleDurationInMicros = lastToggleMicros
+                           - toggleStartMicros;
                   }
 
                   break;
@@ -179,7 +180,20 @@ void TSMP58000::dump()
    for (uint8_t q = 0; q < getReceivedDataSize(); q++)
    {
       IRData* ptr = getData(q);
-      Serial.print(ptr->type);
+      switch (ptr->type)
+      {
+         case IR_TYPE_TOGGLE:
+            Serial.print(F("T"));
+            break;
+         case IR_TYPE_SPACE_LOW:
+            Serial.print(F("L"));
+            break;
+         case IR_TYPE_SPACE_HIGH:
+            Serial.print(F("H"));
+            break;
+         default:
+            Serial.print(ptr->type);
+      }
       Serial.print(F("  "));
       Serial.println(ptr->duration);
    }
@@ -187,7 +201,8 @@ void TSMP58000::dump()
    Serial.println(toggleDurationInMicros);
    Serial.print(F("Toggle count: "));
    Serial.println(toggleCount);
-   double freq = 500.0 * ((double)toggleCount) / ((double)toggleDurationInMicros);
+   double freq = 500.0 * ((double) toggleCount)
+         / ((double) toggleDurationInMicros);
    Serial.print(F("Signal frequency [kHz]: "));
    Serial.println(freq);
 }
