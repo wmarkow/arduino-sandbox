@@ -1,7 +1,9 @@
 #include <Arduino.h>
+#include <FixedSizeArray.h>
 #include "TSMP58000.h"
 
 TSMP58000 tsmp;
+FixedSizeArray<IRData, 64> list = FixedSizeArray<IRData, 64>();
 
 void setup()
 {
@@ -12,14 +14,13 @@ void setup()
 void loop()
 {
    Serial.print(F("Waiting 3 sec for user click..."));
-   if (tsmp.read())
+   if (tsmp.read(&list))
    {
       Serial.println(F(""));
-      tsmp.dump();
+      tsmp.dump(&list);
    }
    else
    {
       Serial.println(F(" nothing received"));
-      tsmp.dump();
    }
 }

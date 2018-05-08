@@ -15,12 +15,12 @@
 #define STATE_SPACE_HIGH 3
 #define STATE_END 4
 
-bool TSMP58000::read()
+bool TSMP58000::read(Array<IRData>* receivedData)
 {
    uint8_t oldPinState = HIGH;
    uint8_t newPinState;
    uint8_t state = STATE_IDLE;
-   currentIndex = -1;
+   receivedData->clear();
    //
    toggleDurationInMicros = 0;
    toggleCount = 0;
@@ -61,11 +61,10 @@ bool TSMP58000::read()
                if (currentMicros - lastToggleMicros > 100)
                {
                   // pin has not changed for longer time
-                  currentIndex++;
-                  receivedData[currentIndex].type = IR_TYPE_TOGGLE;
-                  receivedData[currentIndex].duration = lastToggleMicros
-                        - toggleStartMicros;
-
+                  IRData irData;
+                  irData.type = IR_TYPE_TOGGLE;
+                  irData.duration = lastToggleMicros - toggleStartMicros;
+                  receivedData->add(irData);
                   if (newPinState == LOW)
                   {
                      state = STATE_SPACE_LOW;
@@ -104,10 +103,11 @@ bool TSMP58000::read()
                currentMicros = micros();
                if (currentMicros - lastToggleMicros > 30000)
                {
-                  currentIndex++;
-                  receivedData[currentIndex].type = IR_TYPE_SPACE_LOW;
-                  receivedData[currentIndex].duration = currentMicros
-                        - lastToggleMicros;
+                  IRData irData;
+                  irData.type = IR_TYPE_SPACE_LOW;
+                  irData.duration = currentMicros - lastToggleMicros;
+                  receivedData->add(irData);
+
                   state = STATE_END;
 
                   return true;
@@ -116,10 +116,11 @@ bool TSMP58000::read()
 
             oldPinState = newPinState;
             toggleStartMicros = currentMicros;
-            currentIndex++;
-            receivedData[currentIndex].type = IR_TYPE_SPACE_LOW;
-            receivedData[currentIndex].duration = currentMicros
-                  - lastToggleMicros;
+            IRData irData;
+            irData.type = IR_TYPE_SPACE_LOW;
+            irData.duration = currentMicros - lastToggleMicros;
+            receivedData->add(irData);
+
             state = STATE_TOGGLE;
 
             break;
@@ -131,10 +132,11 @@ bool TSMP58000::read()
                currentMicros = micros();
                if (currentMicros - lastToggleMicros > 30000)
                {
-                  currentIndex++;
-                  receivedData[currentIndex].type = IR_TYPE_SPACE_HIGH;
-                  receivedData[currentIndex].duration = currentMicros
-                        - lastToggleMicros;
+                  IRData irData;
+                  irData.type = IR_TYPE_SPACE_HIGH;
+                  irData.duration = currentMicros - lastToggleMicros;
+                  receivedData->add(irData);
+
                   state = STATE_END;
 
                   return true;
@@ -143,10 +145,11 @@ bool TSMP58000::read()
 
             oldPinState = newPinState;
             toggleStartMicros = currentMicros;
-            currentIndex++;
-            receivedData[currentIndex].type = IR_TYPE_SPACE_HIGH;
-            receivedData[currentIndex].duration = currentMicros
-                  - lastToggleMicros;
+            IRData irData;
+            irData.type = IR_TYPE_SPACE_HIGH;
+            irData.duration = currentMicros - lastToggleMicros;
+            receivedData->add(irData);
+
             state = STATE_TOGGLE;
 
             break;
@@ -156,30 +159,15 @@ bool TSMP58000::read()
    return false;
 }
 
-uint8_t TSMP58000::getReceivedDataSize()
-{
-   return currentIndex + 1;
-}
-
-IRData* TSMP58000::getData(uint8_t index)
-{
-   if (index <= currentIndex)
-   {
-      return &receivedData[index];
-   }
-
-   return NULL;
-}
-
-void TSMP58000::dump()
+void TSMP58000::dump(Array<IRData>* array)
 {
    Serial.print(F("Odebralem "));
-   Serial.print(getReceivedDataSize());
+   Serial.print(array->getSize());
    Serial.println(F(" danych:"));
 
-   for (uint8_t q = 0; q < getReceivedDataSize(); q++)
+   for (uint8_t q = 0; q < array->getSize(); q++)
    {
-      IRData* ptr = getData(q);
+      IRData* ptr = array->peek(q);
       switch (ptr->type)
       {
          case IR_TYPE_TOGGLE:

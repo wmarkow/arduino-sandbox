@@ -8,11 +8,11 @@
 #ifndef TSMP58000_H_
 #define TSMP58000_H_
 
+#include <Array.h>
+
 enum IRType
 {
-   IR_TYPE_TOGGLE,
-   IR_TYPE_SPACE_LOW,
-   IR_TYPE_SPACE_HIGH
+   IR_TYPE_TOGGLE, IR_TYPE_SPACE_LOW, IR_TYPE_SPACE_HIGH
 };
 
 struct IRData
@@ -24,13 +24,9 @@ struct IRData
 class TSMP58000
 {
 public:
-   bool read();
-   uint8_t getReceivedDataSize();
-   IRData* getData(uint8_t index);
-   void dump();
+   bool read(Array<IRData>* array);
+   void dump(Array<IRData>* array);
 private:
-   IRData receivedData[64];
-   int8_t currentIndex;
    uint32_t toggleDurationInMicros;
    uint16_t toggleCount;
 };
