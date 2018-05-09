@@ -1,7 +1,14 @@
+/*
+ * RawDecoder.ino
+ *
+ *  Created on: 09.05.2018
+ *      Author: wmarkowski
+ */
+
 #include <Arduino.h>
 #include <FixedSizeArray.h>
-#include "TSMP58000.h"
-#include "brio/BrioDecoder.h"
+#include "../src/TSMP58000.h"
+#include "../src/brio/BrioDecoder.h"
 
 TSMP58000 tsmp;
 FixedSizeArray<IRData, 64> list = FixedSizeArray<IRData, 64>();
@@ -34,3 +41,6 @@ void loop()
       Serial.println(F(" nothing received"));
    }
 }
+
+
+
