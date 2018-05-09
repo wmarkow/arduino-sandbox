@@ -9,17 +9,7 @@
 #define TSMP58000_H_
 
 #include <Array.h>
-
-enum IRType
-{
-   IR_TYPE_TOGGLE, IR_TYPE_SPACE_LOW, IR_TYPE_SPACE_HIGH
-};
-
-struct IRData
-{
-   IRType type;
-   uint16_t duration;
-};
+#include "ir/IRData.h"
 
 class TSMP58000
 {

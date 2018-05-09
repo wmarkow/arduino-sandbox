@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include <FixedSizeArray.h>
 #include "TSMP58000.h"
+#include "brio/BrioDecoder.h"
 
 TSMP58000 tsmp;
 FixedSizeArray<IRData, 64> list = FixedSizeArray<IRData, 64>();
+BrioDecoder brioDecoder;
 
 void setup()
 {
@@ -17,7 +19,15 @@ void loop()
    if (tsmp.read(&list))
    {
       Serial.println(F(""));
-      tsmp.dump(&list);
+      BrioMessage brioMessage;
+      if (brioDecoder.decode(&list, &brioMessage))
+      {
+         brio_message_dump(&brioMessage);
+      }
+      else
+      {
+         tsmp.dump(&list);
+      }
    }
    else
    {
