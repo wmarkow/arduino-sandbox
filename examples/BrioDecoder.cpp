@@ -22,7 +22,7 @@ void setup()
 
 void loop()
 {
-   Serial.print(F("Waiting 3 sec for user click..."));
+   Serial.print(F("Waiting 1 sec for user click..."));
    if (tsmp.read(&list))
    {
       Serial.println(F(""));
