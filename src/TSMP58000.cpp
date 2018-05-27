@@ -7,7 +7,10 @@
 #include <Arduino.h>
 #include "TSMP58000.h"
 
-#define RECEIVER_PIN D2
+// for NodeMCU
+//#define RECEIVER_PIN D2
+// for Uno
+#define RECEIVER_PIN 2
 
 #define STATE_IDLE 0
 #define STATE_TOGGLE 1
