@@ -7,7 +7,7 @@
 #include <Arduino.h>
 #include "TSMP58000.h"
 
-#define RECEIVER_PIN 2
+#define RECEIVER_PIN D2
 
 #define STATE_IDLE 0
 #define STATE_TOGGLE 1
@@ -40,7 +40,7 @@ bool TSMP58000::read(Array<IRData>* receivedData)
             while (oldPinState == (newPinState = digitalRead(RECEIVER_PIN)))
             {
                currentMicros = micros();
-               if (currentMicros - readStartMicros > 3000000)
+               if (currentMicros - readStartMicros > 1000000)
                {
                   return false;
                }
