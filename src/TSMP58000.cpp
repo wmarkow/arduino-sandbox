@@ -115,12 +115,13 @@ bool TSMP58000::read(Array<IRData>* receivedData)
             }
 
             oldPinState = newPinState;
-            toggleStartMicros = currentMicros;
             IRData irData;
             irData.type = IR_TYPE_SPACE_LOW;
             irData.duration = currentMicros - lastToggleMicros;
             receivedData->add(irData);
 
+            toggleStartMicros = currentMicros;
+            lastToggleMicros = currentMicros;
             state = STATE_TOGGLE;
 
             break;
@@ -144,12 +145,13 @@ bool TSMP58000::read(Array<IRData>* receivedData)
             }
 
             oldPinState = newPinState;
-            toggleStartMicros = currentMicros;
             IRData irData;
             irData.type = IR_TYPE_SPACE_HIGH;
             irData.duration = currentMicros - lastToggleMicros;
             receivedData->add(irData);
 
+            toggleStartMicros = currentMicros;
+            lastToggleMicros = currentMicros;
             state = STATE_TOGGLE;
 
             break;
