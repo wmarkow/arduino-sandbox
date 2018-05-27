@@ -68,6 +68,24 @@ bool BrioDecoder::decode(Array<IRData>* receivedData, BrioMessage* result)
    return true;
 }
 
+void BrioDecoder::encode(BrioMessage* message, Array<IRData>* rawData)
+{
+   rawData->clear();
+
+   //generate pretoggle
+   IRData irData;
+   irData.type = IR_TYPE_TOGGLE;
+   irData.duration = PRETOGGLE;
+   rawData->add(&irData);
+
+   irData.type = IR_TYPE_SPACE_HIGH;
+   irData.duration = PULSE_SHORT;
+   rawData->add(&irData);
+
+   encodeChannel(message->channel, rawData);
+   encodeCommand(message->command, rawData);
+}
+
 /***
  * Toggle Long
  * Space Short
@@ -84,6 +102,7 @@ uint8_t BrioDecoder::decodeBit(uint16_t toggleDuration, uint16_t spaceDuration)
 
    return 0;
 }
+
 
 uint8_t BrioDecoder::decodeChannel(Array<IRData>* receivedData)
 {
@@ -113,4 +132,47 @@ uint8_t BrioDecoder::decodeCommand(Array<IRData>* receivedData)
    }
 
    return command;
+}
+
+void BrioDecoder::encodeBit(bool bit, Array<IRData>* rawData)
+{
+   IRData irData;
+   if (bit)
+   {
+      irData.duration = PULSE_LONG;
+      irData.type = IR_TYPE_TOGGLE;
+      rawData->add(&irData);
+
+      irData.duration = PULSE_SHORT;
+      irData.type = IR_TYPE_SPACE_HIGH;
+      rawData->add(&irData);
+   }
+   else
+   {
+      irData.duration = PULSE_SHORT;
+      irData.type = IR_TYPE_TOGGLE;
+      rawData->add(&irData);
+
+      irData.duration = PULSE_LONG;
+      irData.type = IR_TYPE_SPACE_HIGH;
+      rawData->add(&irData);
+   }
+}
+
+void BrioDecoder::encodeChannel(uint8_t channel, Array<IRData>* rawData)
+{
+   for (int8_t q = 3; q >= 0; q--)
+   {
+      bool bit = channel & (1 << q);
+      encodeBit(bit, rawData);
+   }
+}
+
+void BrioDecoder::encodeCommand(uint8_t command, Array<IRData>* rawData)
+{
+   for (int8_t q = 3; q >= 0; q--)
+   {
+      bool bit = command & (1 << q);
+      encodeBit(bit, rawData);
+   }
 }
