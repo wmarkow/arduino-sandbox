@@ -22,6 +22,8 @@ void setup()
    delay(2000);
 }
 
+void sendCommand(BrioMessage* message);
+
 void loop()
 {
    if (Serial.available())
@@ -29,31 +31,50 @@ void loop()
 
       char c = Serial.read();
 
-      if (c == 'q')
+      uint8_t command = 0;
+      if (c >= '0' && c <= '9')
       {
-         Serial.println("Sending TOGGLEL to A.");
+         command = c - 48; // from the ASCII table
+      }
+      else if (c >= 'a' && c <= 'f')
+      {
+         command = c - 97 + 10; // from the ASCII table
+      }
+      else
+      {
+         Serial.println(F("Invalid command!"));
 
-         BrioMessage message;
-         message.channel = BRIO_CHANNEL_A;
-         message.command = BRIO_COMMAND_TOGGLE_LIGHT;
-
-         brioDecoder.encode(&message, &list);
-
-         irSend.enableIROut(38);
-         for (uint8_t q = 0; q < list.getSize(); q++)
-         {
-            IRData* irData = list.peek(q);
-            switch (irData->type)
-            {
-               case IR_TYPE_TOGGLE:
-                  irSend.mark(irData->duration);
-                  break;
-               default:
-                  irSend.space(irData->duration);
-            }
-         }
+         return;
       }
 
+      Serial.print(F("Sending to channel A BRIO command: "));
+      Serial.println(command);
+
+      BrioMessage message;
+      message.channel = BRIO_CHANNEL_A;
+      message.command = command;
+
+      sendCommand(&message);
+//      sendCommand(&message);
+   }
+}
+
+void sendCommand(BrioMessage* message)
+{
+   brioDecoder.encode(message, &list);
+
+   irSend.enableIROut(38);
+   for (uint8_t q = 0; q < list.getSize(); q++)
+   {
+      IRData* irData = list.peek(q);
+      switch (irData->type)
+      {
+         case IR_TYPE_TOGGLE:
+            irSend.mark(irData->duration);
+            break;
+         default:
+            irSend.space(irData->duration);
+      }
    }
 }
 
