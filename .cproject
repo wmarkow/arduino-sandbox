@@ -71,8 +71,11 @@
 							<tool id="io.sloeber.tool.size.1248926323" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1838551977" name="NodeManagerLibrary.cpp" rcbsApplicability="disable" resourcePath="src/NodeManagerLibrary.cpp" toolsToInvoke="io.sloeber.tool.sketch.compiler.cpp.335752559.948095993">
+						<tool id="io.sloeber.tool.sketch.compiler.cpp.335752559.948095993" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.335752559"/>
+					</fileInfo>
 					<sourceEntries>
-						<entry excluding="libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries**/._*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/NodeManagerLibrary.cpp|libraries/MySensors|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries**/._*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
