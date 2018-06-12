@@ -28,6 +28,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.617278383" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -42,6 +44,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.710428672" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -56,6 +60,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.619634294" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -63,17 +69,6 @@
 							<tool id="io.sloeber.tool.combine.292738849" name="Arduino combiner" superClass="io.sloeber.tool.combine"/>
 							<tool id="io.sloeber.tool.objcopy.eep.462501175" name="Arduino tool Create eeprom" superClass="io.sloeber.tool.objcopy.eep"/>
 							<tool id="io.sloeber.tool.size.1248926323" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1082532488" name="/" resourcePath="src">
-						<toolChain id="io.sloeber.core.toolChain.release.1822532020" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release" unusedChildren="">
-							<tool id="io.sloeber.tool.sketch.compiler.cpp.684137199" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.335752559"/>
-							<tool id="io.sloeber.tool.compiler.c.45635853" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c.2056560896"/>
-							<tool id="io.sloeber.tool.sketch.compiler.s.186659396" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s.291300239"/>
-							<tool id="io.sloeber.tool.ar.941306059" name="Arduino archiver" superClass="io.sloeber.tool.ar.1155741763"/>
-							<tool id="io.sloeber.tool.combine.1658907243" name="Arduino combiner" superClass="io.sloeber.tool.combine.292738849"/>
-							<tool id="io.sloeber.tool.objcopy.eep.1261194329" name="Arduino tool Create eeprom" superClass="io.sloeber.tool.objcopy.eep.462501175"/>
-							<tool id="io.sloeber.tool.size.935575416" name="Arduino tool Print Size" superClass="io.sloeber.tool.size.1248926323"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
