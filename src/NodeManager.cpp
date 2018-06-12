@@ -133,7 +133,7 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
 //#define MY_NODE_ID 99
 
 // NRF24 radio settings
-#define MY_RADIO_NRF24
+//#define MY_RADIO_NRF24
 //#define MY_RF24_ENABLE_ENCRYPTION
 //#define MY_RF24_CHANNEL 125
 //#define MY_RF24_PA_LEVEL RF24_PA_HIGH
@@ -205,7 +205,7 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
 //#define MY_REPEATER_FEATURE
 
 // Serial gateway settings
-//#define MY_GATEWAY_SERIAL
+#define MY_GATEWAY_SERIAL
 
 // Ethernet gateway settings
 //#define MY_GATEWAY_W5100
