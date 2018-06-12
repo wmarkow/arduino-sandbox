@@ -310,6 +310,8 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
  */
 
 #include "NodeManagerLibrary.h"
+// in Eclipse must include this manually
+#include "NodeManagerLibrary.cpp"
 NodeManager node;
 
 /***********************************
