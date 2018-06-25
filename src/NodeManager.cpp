@@ -257,7 +257,7 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
 //#define USE_ACS712
 //#define USE_DIGITAL_INPUT
 //#define USE_DIGITAL_OUTPUT
-//#define USE_DHT
+#define USE_DHT
 //#define USE_SHT21
 //#define USE_INTERRUPT
 //#define USE_DS18B20
@@ -293,7 +293,7 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
  */
 
 // Enable/disable NodeManager's features
-#define FEATURE_DEBUG ON
+#define FEATURE_DEBUG OFF
 #define FEATURE_POWER_MANAGER OFF
 #define FEATURE_INTERRUPTS ON
 #define FEATURE_CONDITIONAL_REPORT OFF
@@ -337,8 +337,8 @@ NodeManager node;
 //SensorRelay relay(node,6);
 //SensorLatchingRelay1Pin latching1pin(node,6);
 //SensorLatchingRelay2Pins latching2pins(node,6,7);
-//SensorDHT11 dht11(node,6);
-//SensorDHT22 dht22(node,6);
+//SensorDHT11 dht11(node,6, 1);
+SensorDHT22 dht22(node,6, 1);
 //SensorSHT21 sht21(node);
 //SensorHTU21D htu21(node);
 //SensorInterrupt interrupt(node,3);
@@ -379,6 +379,10 @@ NodeManager node;
  * Main Sketch
  */
 
+//#include "FakeDHT21Sensor.h"
+//#include "FakeDHT21Sensor.cpp"
+
+//FakeDHT21Sensor fakeDHT21Sensor(node, 1);
 // before
 void before() {
   // setup the serial port baud rate
@@ -387,7 +391,7 @@ void before() {
   * Configure your sensors below
   */
   // report measures of every attached sensors every 10 seconds
-  //node.setReportIntervalSeconds(10);
+  node.setReportIntervalSeconds(5);
   // report measures of every attached sensors every 10 minutes
   //node.setReportIntervalMinutes(10);
   // set the node to sleep in 30 seconds cycles
@@ -407,6 +411,8 @@ void before() {
   /*
   * Configure your sensors above
   */
+//  node.registerSensor(&fakeDHT21Sensor);
+  node.registerSensor(&dht22);
   node.before();
 }
 

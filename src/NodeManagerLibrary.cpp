@@ -1456,6 +1456,7 @@ SensorLatchingRelay2Pins::SensorLatchingRelay2Pins(NodeManager& node_manager, in
 // contructor
 SensorDHT::SensorDHT(NodeManager& node_manager, int pin, int child_id): Sensor(node_manager, pin) {
   _name = "DHT";
+//  _dht_type = DHT::DHT11;
   _dht_type = DHT::DHT11;
   children.allocateBlocks(2);
   new ChildFloat(this,_node->getAvailableChildId(child_id),S_TEMP,V_TEMP,_name);

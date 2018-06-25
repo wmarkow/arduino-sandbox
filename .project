@@ -57,9 +57,9 @@
 			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/MySensors</location>
 		</link>
 		<link>
-			<name>libraries/SPI</name>
+			<name>libraries/MySensors_DHT</name>
 			<type>2</type>
-			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/libraries/SPI</locationURI>
+			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/MySensors_DHT</location>
 		</link>
 		<link>
 			<name>libraries/WiFi</name>
