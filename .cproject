@@ -25,6 +25,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.617278383" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -36,6 +41,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.710428672" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -47,6 +57,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.619634294" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>

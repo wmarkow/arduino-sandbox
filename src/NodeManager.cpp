@@ -126,6 +126,9 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
  * MySensors node configuration
  */
 
+#define DHT_CHILD_ID 1  // 1 and 2 for temperature and humidity
+#define DOOR_CHILD_ID 3
+
 // General settings
 #define SKETCH_NAME "NodeManager"
 #define SKETCH_VERSION "1.0"
@@ -259,7 +262,7 @@ FEATURE_HOOKING             | OFF     | allow custom code to be hooked in the ou
 //#define USE_DIGITAL_OUTPUT
 #define USE_DHT
 //#define USE_SHT21
-//#define USE_INTERRUPT
+#define USE_INTERRUPT
 //#define USE_DS18B20
 //#define USE_BH1750
 //#define USE_MLX90614
@@ -338,11 +341,11 @@ NodeManager node;
 //SensorLatchingRelay1Pin latching1pin(node,6);
 //SensorLatchingRelay2Pins latching2pins(node,6,7);
 //SensorDHT11 dht11(node,6, 1);
-SensorDHT22 dht22(node,6, 1);
+SensorDHT22 dht22(node,6, DHT_CHILD_ID);
 //SensorSHT21 sht21(node);
 //SensorHTU21D htu21(node);
 //SensorInterrupt interrupt(node,3);
-//SensorDoor door(node,3);
+SensorDoor door(node,3, DOOR_CHILD_ID);
 //SensorMotion motion(node,3);
 //SensorDs18b20 ds18b20(node,6);
 //SensorBH1750 bh1750(node);
@@ -413,6 +416,7 @@ void before() {
   */
 //  node.registerSensor(&fakeDHT21Sensor);
   node.registerSensor(&dht22);
+  node.registerSensor(&door);
   node.before();
 }
 
