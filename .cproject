@@ -62,17 +62,6 @@
 							<tool id="io.sloeber.tool.size.1526431999" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
 						</toolChain>
 					</folderInfo>
-					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.2067789473" name="/" resourcePath="libraries/RF24/utility">
-						<toolChain id="io.sloeber.core.toolChain.release.1076703909" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release" unusedChildren="">
-							<tool id="io.sloeber.tool.sketch.compiler.cpp.1375247245" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.1883158757"/>
-							<tool id="io.sloeber.tool.compiler.c.939955682" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c.1486364816"/>
-							<tool id="io.sloeber.tool.sketch.compiler.s.1373449397" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s.1847530696"/>
-							<tool id="io.sloeber.tool.ar.1880030543" name="Arduino archiver" superClass="io.sloeber.tool.ar.52245142"/>
-							<tool id="io.sloeber.tool.combine.1375523938" name="Arduino combiner" superClass="io.sloeber.tool.combine.504245994"/>
-							<tool id="io.sloeber.tool.objcopy.eep.81307905" name="Arduino tool Create eeprom" superClass="io.sloeber.tool.objcopy.eep.1362815858"/>
-							<tool id="io.sloeber.tool.size.1292157434" name="Arduino tool Print Size" superClass="io.sloeber.tool.size.1526431999"/>
-						</toolChain>
-					</folderInfo>
 					<sourceEntries>
 						<entry excluding="libraries/RF24/utility|libraries/RF24/pyRF24|libraries/RF24/examples_linux|src|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries**/._*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
