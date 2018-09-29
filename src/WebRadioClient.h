@@ -16,7 +16,7 @@
 #define VS1053_DCS    D0
 #define VS1053_DREQ   D3
 // Default volume
-#define VOLUME  80
+#define VOLUME  70
 
 enum WebRadioClientState
 {

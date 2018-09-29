@@ -34,12 +34,21 @@ bool WebRadioClient::begin(const char* ssid, const char *passphrase)
    player.switchToMp3Mode();
    player.setVolume(VOLUME);
 
-   return isChipConnected();
+//   return isChipConnected();
+   return true;
 }
 
 bool WebRadioClient::isChipConnected()
 {
-   return player.testComm("Test");
+   bool result = player.testComm("Fast SPI, Testing VS1053 read/write registers again...\n");
+   delay(200);
+   if (result)
+   {
+      player.switchToMp3Mode();
+      player.setVolume(VOLUME);
+   }
+
+   return result;
 }
 
 void WebRadioClient::loop()
@@ -101,14 +110,14 @@ void WebRadioClient::loop()
    {
       case CONNECTING:
       {
-         if (isChipConnected() == false)
-         {
-            Serial.println("VS1053 not connected!");
-         }
-         else
-         {
-            Serial.println("VS1053 connected.");
-         }
+//         if (isChipConnected() == false)
+//         {
+//            Serial.println("VS1053 not connected!");
+//         }
+//         else
+//         {
+//            Serial.println("VS1053 connected.");
+//         }
 
          if (!wifiClient.connect(host, httpPort))
          {
