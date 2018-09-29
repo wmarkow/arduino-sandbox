@@ -23,6 +23,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1478973784" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -32,6 +35,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.428910334" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -41,6 +47,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1500356308" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -48,6 +57,17 @@
 							<tool id="io.sloeber.tool.combine.520862922" name="Arduino combiner" superClass="io.sloeber.tool.combine"/>
 							<tool id="io.sloeber.tool.objcopy.eep.1622078630" name="Arduino tool Create eeprom" superClass="io.sloeber.tool.objcopy.eep"/>
 							<tool id="io.sloeber.tool.size.408510982" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
+						</toolChain>
+					</folderInfo>
+					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1753078777" name="/" resourcePath="libraries/ESP_VS1053_Library/examples">
+						<toolChain id="io.sloeber.core.toolChain.release.248537814" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release" unusedChildren="">
+							<tool id="io.sloeber.tool.sketch.compiler.cpp.969558252" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.1716055391"/>
+							<tool id="io.sloeber.tool.compiler.c.443679954" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c.461780404"/>
+							<tool id="io.sloeber.tool.sketch.compiler.s.2132848902" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s.1066223494"/>
+							<tool id="io.sloeber.tool.ar.1743574196" name="Arduino archiver" superClass="io.sloeber.tool.ar.1259108146"/>
+							<tool id="io.sloeber.tool.combine.2062432473" name="Arduino combiner" superClass="io.sloeber.tool.combine.520862922"/>
+							<tool id="io.sloeber.tool.objcopy.eep.952183391" name="Arduino tool Create eeprom" superClass="io.sloeber.tool.objcopy.eep.1622078630"/>
+							<tool id="io.sloeber.tool.size.1176284505" name="Arduino tool Print Size" superClass="io.sloeber.tool.size.408510982"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>

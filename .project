@@ -51,5 +51,15 @@
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/esp8266/hardware/esp8266/2.3.0/libraries/ESP8266WiFi</locationURI>
 		</link>
+		<link>
+			<name>libraries/ESP_VS1053_Library</name>
+			<type>2</type>
+			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/ESP_VS1053_Library</location>
+		</link>
+		<link>
+			<name>libraries/SPI</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/esp8266/hardware/esp8266/2.3.0/libraries/SPI</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>
