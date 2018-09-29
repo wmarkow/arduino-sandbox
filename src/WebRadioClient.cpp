@@ -7,20 +7,39 @@
 
 #include "WebRadioClient.h"
 
-const char* host = "ice3.somafm.com";
-String url = "/u80s-64-aac";
+const char* host = "comet.shoutca.st";
+int httpPort = 8563;
+const char* path = "/1";
 
-uint8_t buffer[128];
+#define BUFFER_SIZE 32
+uint8_t buffer[BUFFER_SIZE];
 unsigned long lastPrintTime = 0;
 unsigned long readBytes = 0;
 
 String millisToHMS(unsigned long millis);
 
-void WebRadioClient::begin(const char* ssid, const char *passphrase)
+WebRadioClient::WebRadioClient() :
+      player(VS1053(VS1053_CS, VS1053_DCS, VS1053_DREQ))
+{
+
+}
+
+bool WebRadioClient::begin(const char* ssid, const char *passphrase)
 {
    WiFi.begin(ssid, passphrase);
    WiFi.setAutoConnect(true);
    WiFi.setAutoReconnect(true);
+
+   player.begin();
+   player.switchToMp3Mode();
+   player.setVolume(VOLUME);
+
+   return isChipConnected();
+}
+
+bool WebRadioClient::isChipConnected()
+{
+   return player.testComm("Test");
 }
 
 void WebRadioClient::loop()
@@ -82,16 +101,24 @@ void WebRadioClient::loop()
    {
       case CONNECTING:
       {
-         if (!wifiClient.connect(host, 80))
+         if (isChipConnected() == false)
+         {
+            Serial.println("VS1053 not connected!");
+         }
+         else
+         {
+            Serial.println("VS1053 connected.");
+         }
+
+         if (!wifiClient.connect(host, httpPort))
          {
             Serial.println("Connection failed");
-            lastWifiStatus = wifiStatus;
             return;
          }
          else
          {
             wifiClient.print(
-                  String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + host
+                  String("GET ") + path + " HTTP/1.1\r\n" + "Host: " + host
                         + "\r\n" + "Connection: close\r\n\r\n");
 
             Serial.println("Connected to WebRadio");
@@ -110,13 +137,13 @@ void WebRadioClient::loop()
             return;
          }
 
-         uint8_t chunkSize = 128;
          if (wifiClient.available())
          {
-            if (wifiClient.available() >= chunkSize)
+            if (wifiClient.available() >= BUFFER_SIZE)
             {
-               wifiClient.read(buffer, chunkSize);
-               readBytes += chunkSize;
+               uint8_t bytesread = wifiClient.read(buffer, BUFFER_SIZE);
+               player.playChunk(buffer, bytesread);
+               readBytes += BUFFER_SIZE;
 
                // send the buffer to external device
                lastAvailableStreamMillis = millis();

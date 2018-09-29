@@ -10,6 +10,13 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
+#include <VS1053.h>
+
+#define VS1053_CS     D1
+#define VS1053_DCS    D0
+#define VS1053_DREQ   D3
+// Default volume
+#define VOLUME  80
 
 enum WebRadioClientState
 {
@@ -19,10 +26,13 @@ enum WebRadioClientState
 class WebRadioClient
 {
 public:
+   WebRadioClient();
    void loop();
-   void begin(const char* ssid, const char *passphrase);
+   bool begin(const char* ssid, const char *passphrase);
+   bool isChipConnected();
 private:
    WiFiClient wifiClient;
+   VS1053 player;
    WebRadioClientState webRadioClientState = CONNECTING;
    uint32_t lastAvailableStreamMillis;
    wl_status_t lastWifiStatus = WL_IDLE_STATUS;
