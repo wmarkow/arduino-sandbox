@@ -162,17 +162,9 @@ void WebRadioClient::loop()
                   && currentIsChipConnected == true)
             {
                // chip reconnected
-               Serial.println("VS1053 reinit!");
                SPI.begin();
                delay(100);
-               if (reinitVS1053())
-               {
-                  Serial.println("VS1053 reinit OK.");
-               }
-               else
-               {
-                  Serial.println("VS1053 reinit fail!");
-               }
+               reinitVS1053();
             }
             previousIsChipConnected = currentIsChipConnected;
          }
@@ -187,6 +179,8 @@ void WebRadioClient::loop()
 
 bool WebRadioClient::reinitVS1053()
 {
+   Serial.println("VS1053 reinit!");
+
    player.begin();
    player.switchToMp3Mode();
    // a trick to force VS1053 library to reset the volume
@@ -195,5 +189,15 @@ bool WebRadioClient::reinitVS1053()
    player.setVolume(volume - 1);
    player.setVolume(volume);
 
-   return player.isChipConnected();
+   bool result = player.isChipConnected();
+   if (result)
+   {
+      Serial.println("VS1053 reinit OK.");
+   }
+   else
+   {
+      Serial.println("VS1053 reinit fail!");
+   }
+
+   return result;
 }
