@@ -34,21 +34,7 @@ bool WebRadioClient::begin(const char* ssid, const char *passphrase)
    player.switchToMp3Mode();
    player.setVolume(VOLUME);
 
-//   return isChipConnected();
-   return true;
-}
-
-bool WebRadioClient::isChipConnected()
-{
-   bool result = player.testComm("Fast SPI, Testing VS1053 read/write registers again...\n");
-   delay(200);
-   if (result)
-   {
-      player.switchToMp3Mode();
-      player.setVolume(VOLUME);
-   }
-
-   return result;
+   return player.isChipConnected();
 }
 
 void WebRadioClient::loop()
@@ -111,14 +97,14 @@ void WebRadioClient::loop()
    {
       case CONNECTING:
       {
-//         if (isChipConnected() == false)
-//         {
-//            Serial.println("VS1053 not connected!");
-//         }
-//         else
-//         {
-//            Serial.println("VS1053 connected.");
-//         }
+         if (player.isChipConnected() == true)
+         {
+            Serial.println("VS1053 connected.");
+         }
+         else
+         {
+            Serial.println("VS1053 not connected!");
+         }
 
          if (!wifiClient.connect(host, httpPort))
          {
@@ -142,8 +128,11 @@ void WebRadioClient::loop()
          if (millis() - lastAvailableStreamMillis > 5000)
          {
             // timeout
+            Serial.println(F("timeout"));
             wifiClient.stop();
             webRadioClientState = CONNECTING;
+            player.softReset();
+            reinitVS1053();
             return;
          }
 
@@ -163,11 +152,29 @@ void WebRadioClient::loop()
          if (millis() - lastPrintTime > 1000)
          {
             lastPrintTime = millis();
-            String hms = millisToHMS(lastPrintTime);
 
-            Serial.print(hms);
-            Serial.print(F(" "));
-            Serial.println(readBytes);
+            bool currentIsChipConnected = player.isChipConnected();
+            if (currentIsChipConnected == false)
+            {
+               Serial.println("VS1053 not connected!");
+            }
+            if (previousIsChipConnected == false
+                  && currentIsChipConnected == true)
+            {
+               // chip reconnected
+               Serial.println("VS1053 reinit!");
+               SPI.begin();
+               delay(100);
+               if (reinitVS1053())
+               {
+                  Serial.println("VS1053 reinit OK.");
+               }
+               else
+               {
+                  Serial.println("VS1053 reinit fail!");
+               }
+            }
+            previousIsChipConnected = currentIsChipConnected;
          }
          break;
       }
@@ -178,54 +185,15 @@ void WebRadioClient::loop()
    }
 }
 
-// macros from DateTime.h
-/* Useful Constants */
-#define SECS_PER_MIN  (60UL)
-#define SECS_PER_HOUR (3600UL)
-#define SECS_PER_DAY  (SECS_PER_HOUR * 24L)
-
-/* Useful Macros for getting elapsed time */
-#define numberOfSeconds(_time_) (_time_ % SECS_PER_MIN)
-#define numberOfMinutes(_time_) ((_time_ / SECS_PER_MIN) % SECS_PER_MIN)
-#define numberOfHours(_time_) (( _time_% SECS_PER_DAY) / SECS_PER_HOUR)
-#define elapsedDays(_time_) ( _time_ / SECS_PER_DAY)
-
-String millisToHMS(unsigned long millis)
+bool WebRadioClient::reinitVS1053()
 {
-   unsigned long time = millis / 1000;
-   uint8_t hours = numberOfHours(time);
-   uint8_t minutes = numberOfMinutes(time);
-   uint8_t seconds = numberOfSeconds(time);
-   uint16_t secondFraction = millis % 1000;
+   player.begin();
+   player.switchToMp3Mode();
+   // a trick to force VS1053 library to reset the volume
+   uint8_t volume = player.getVolume();
+   player.setVolume(volume + 1);
+   player.setVolume(volume - 1);
+   player.setVolume(volume);
 
-   String result;
-   if (hours < 10)
-   {
-      result += "0";
-   }
-   result += hours;
-   result += ":";
-   if (minutes < 10)
-   {
-      result += "0";
-   }
-   result += minutes;
-   result += ":";
-   if (seconds < 10)
-   {
-      result += "0";
-   }
-   result += seconds;
-   result += ".";
-   if (secondFraction < 10)
-   {
-      result += "00";
-   }
-   else if (secondFraction < 100)
-   {
-      result += "0";
-   }
-   result += secondFraction;
-
-   return result;
+   return player.isChipConnected();
 }

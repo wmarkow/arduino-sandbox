@@ -29,13 +29,14 @@ public:
    WebRadioClient();
    void loop();
    bool begin(const char* ssid, const char *passphrase);
-   bool isChipConnected();
 private:
    WiFiClient wifiClient;
    VS1053 player;
    WebRadioClientState webRadioClientState = CONNECTING;
    uint32_t lastAvailableStreamMillis;
    wl_status_t lastWifiStatus = WL_IDLE_STATUS;
+   bool previousIsChipConnected = true;
+   bool reinitVS1053();
 };
 
 #endif /* WEBRADIOCLIENT_H_ */
