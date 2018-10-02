@@ -13,8 +13,6 @@ const char* path = "/u80s-64-aac";
 
 #define BUFFER_SIZE 32
 uint8_t buffer[BUFFER_SIZE];
-unsigned long lastPrintTime = 0;
-unsigned long readBytes = 0;
 
 String millisToHMS(unsigned long millis);
 
@@ -131,7 +129,7 @@ void WebRadioClient::loop()
             Serial.println(F("timeout"));
             wifiClient.stop();
             webRadioClientState = CONNECTING;
-            player.softReset();
+
             reinitVS1053();
             return;
          }
@@ -142,32 +140,13 @@ void WebRadioClient::loop()
             {
                uint8_t bytesread = wifiClient.read(buffer, BUFFER_SIZE);
                player.playChunk(buffer, bytesread);
-               readBytes += BUFFER_SIZE;
 
                // send the buffer to external device
                lastAvailableStreamMillis = millis();
             }
          }
 
-         if (millis() - lastPrintTime > 1000)
-         {
-            lastPrintTime = millis();
-
-            bool currentIsChipConnected = player.isChipConnected();
-            if (currentIsChipConnected == false)
-            {
-               Serial.println("VS1053 not connected!");
-            }
-            if (previousIsChipConnected == false
-                  && currentIsChipConnected == true)
-            {
-               // chip reconnected
-               SPI.begin();
-               delay(100);
-               reinitVS1053();
-            }
-            previousIsChipConnected = currentIsChipConnected;
-         }
+         do1secTasks();
          break;
       }
       default:
@@ -200,4 +179,24 @@ bool WebRadioClient::reinitVS1053()
    }
 
    return result;
+}
+
+void WebRadioClient::do1secTasks()
+{
+   if (millis() - last1secTasksMillis > 1000)
+   {
+      last1secTasksMillis = millis();
+
+      bool currentIsChipConnected = player.isChipConnected();
+      if (currentIsChipConnected == false)
+      {
+         Serial.println("VS1053 not connected!");
+      }
+      if (previousIsChipConnected == false && currentIsChipConnected == true)
+      {
+         // chip reconnected
+         reinitVS1053();
+      }
+      previousIsChipConnected = currentIsChipConnected;
+   }
 }

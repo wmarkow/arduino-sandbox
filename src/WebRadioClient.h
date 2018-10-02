@@ -36,7 +36,9 @@ private:
    uint32_t lastAvailableStreamMillis;
    wl_status_t lastWifiStatus = WL_IDLE_STATUS;
    bool previousIsChipConnected = true;
+   unsigned long last1secTasksMillis = 0;
    bool reinitVS1053();
+   void do1secTasks();
 };
 
 #endif /* WEBRADIOCLIENT_H_ */
