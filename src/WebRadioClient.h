@@ -33,7 +33,6 @@ private:
    WiFiClient wifiClient;
    VS1053 player;
    WebRadioClientState webRadioClientState = CONNECTING;
-   uint32_t lastAvailableStreamMillis;
    wl_status_t lastWifiStatus = WL_IDLE_STATUS;
    bool previousIsChipConnected = true;
    unsigned long last1secTasksMillis = 0;

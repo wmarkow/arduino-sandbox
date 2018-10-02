@@ -117,20 +117,16 @@ void WebRadioClient::loop()
 
             Serial.println("Connected to WebRadio");
             webRadioClientState = CONNECTED;
-            lastAvailableStreamMillis = millis();
          }
          break;
       }
       case CONNECTED:
       {
-         if (millis() - lastAvailableStreamMillis > 5000)
+         if(!wifiClient.connected())
          {
-            // timeout
-            Serial.println(F("timeout"));
             wifiClient.stop();
             webRadioClientState = CONNECTING;
 
-            reinitVS1053();
             return;
          }
 
@@ -140,9 +136,6 @@ void WebRadioClient::loop()
             {
                uint8_t bytesread = wifiClient.read(buffer, BUFFER_SIZE);
                player.playChunk(buffer, bytesread);
-
-               // send the buffer to external device
-               lastAvailableStreamMillis = millis();
             }
          }
 
