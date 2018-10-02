@@ -7,9 +7,9 @@
 
 #include "WebRadioClient.h"
 
-const char* host = "comet.shoutca.st";
-int httpPort = 8563;
-const char* path = "/1";
+const char* host = "ice3.somafm.com";
+int httpPort = 80;
+const char* path = "/u80s-64-aac";
 
 #define BUFFER_SIZE 32
 uint8_t buffer[BUFFER_SIZE];
