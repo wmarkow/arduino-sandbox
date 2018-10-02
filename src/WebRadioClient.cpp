@@ -72,7 +72,7 @@ void WebRadioClient::loop()
             Serial.println(F("WiFi WL_SCAN_COMPLETED"));
             break;
          case WL_CONNECTED:
-            Serial.println(F("WiFi WL_NWL_CONNECTEDO_SHIELD"));
+            Serial.println(F("WiFi WL_CONNECTED"));
             Serial.println(WiFi.localIP());
             break;
          case WL_CONNECT_FAILED:
@@ -83,6 +83,7 @@ void WebRadioClient::loop()
             break;
          case WL_DISCONNECTED:
             Serial.println(F("WiFi WL_DISCONNECTED"));
+            WiFi.reconnect();
             break;
          default:
             Serial.println(F("WiFi UNKNOWN"));
