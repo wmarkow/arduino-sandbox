@@ -122,7 +122,7 @@ void WebRadioClient::loop()
       }
       case CONNECTED:
       {
-         if(!wifiClient.connected())
+         if (!wifiClient.connected())
          {
             wifiClient.stop();
             webRadioClientState = CONNECTING;
@@ -130,13 +130,10 @@ void WebRadioClient::loop()
             return;
          }
 
-         if (wifiClient.available())
+         if (wifiClient.available() >= BUFFER_SIZE)
          {
-            if (wifiClient.available() >= BUFFER_SIZE)
-            {
-               uint8_t bytesread = wifiClient.read(buffer, BUFFER_SIZE);
-               player.playChunk(buffer, bytesread);
-            }
+            uint8_t bytesread = wifiClient.read(buffer, BUFFER_SIZE);
+            player.playChunk(buffer, bytesread);
          }
 
          do1secTasks();
