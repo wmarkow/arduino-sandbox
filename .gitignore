@@ -31,4 +31,4 @@ Release/**
 .settings/**
 core/**
 libraries/**
-
+target/**
