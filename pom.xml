@@ -44,39 +44,40 @@
 						<configuration>
 							<sources>
 								<source>${project.build.directory}/nar/libraries/</source>
+								<source>${project.build.directory}/nar/libraries2/</source>
 							</sources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<execution>
-						<id>src-dependencies</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>unpack-dependencies</goal>
-						</goals>
-						<configuration>
-							<classifier>sources</classifier>
-							<includeTypes>zip</includeTypes>
-							<failOnMissingClassifierArtifact>true
-							</failOnMissingClassifierArtifact>
-							<outputDirectory>${project.build.directory}/nar/libraries
-							</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-dependency-plugin</artifactId> -->
+<!-- 				<version>3.1.1</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>src-dependencies</id> -->
+<!-- 						<phase>generate-sources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>unpack-dependencies</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<classifier>sources</classifier> -->
+<!-- 							<includeTypes>zip</includeTypes> -->
+<!-- 							<failOnMissingClassifierArtifact>true -->
+<!-- 							</failOnMissingClassifierArtifact> -->
+<!-- 							<outputDirectory>${project.build.directory}/nar/libraries -->
+<!-- 							</outputDirectory> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>com.github.maven-nar</groupId>
 				<artifactId>nar-maven-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.7.1-SNAPSHOT</version>
 				<extensions>true</extensions>
 				<configuration>
 					<!-- <gnuUseOnWindows>true</gnuUseOnWindows> -->
@@ -199,7 +200,7 @@
 			<artifactId>arduino-core-avr</artifactId>
 			<version>1.6.17</version>
 			<classifier>sources</classifier>
-			<type>zip</type>
+			<type>nar</type>
 			<scope>compile</scope>
 		</dependency>
 
@@ -208,7 +209,8 @@
 			<artifactId>arduino-core-avr-variant-standard</artifactId>
 			<version>1.6.17</version>
 			<classifier>sources</classifier>
-			<type>zip</type>
+			<type>nar</type>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
