@@ -32,6 +32,17 @@ bool WebRadioClient::begin(const char* ssid, const char *passphrase)
    player.switchToMp3Mode();
    player.setVolume(VOLUME);
 
+   uint8_t vol = player.getVolume();
+   if(vol == VOLUME)
+   {
+      Serial.println(F("volume match"));
+   }
+   else
+   {
+      Serial.print(F("volume mismatch "));
+      Serial.println(vol);
+   }
+
    return player.isChipConnected();
 }
 
@@ -152,11 +163,7 @@ bool WebRadioClient::reinitVS1053()
 
    player.begin();
    player.switchToMp3Mode();
-   // a trick to force VS1053 library to reset the volume
-   uint8_t volume = player.getVolume();
-   player.setVolume(volume + 1);
-   player.setVolume(volume - 1);
-   player.setVolume(volume);
+   player.setVolume(VOLUME);
 
    bool result = player.isChipConnected();
    if (result)
