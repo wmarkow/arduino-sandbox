@@ -90,12 +90,13 @@ int readMagnetFrequency() {
 
 int readPhaseShift() {
 //  return analogRead(PHASE_SHIFT_INPUT_PIN);
-   return 512;
+   return analogRead(MAGNET_DUTY_INPUT_PIN);
+//   return 512;
 }
 
 int readMagnetDuty() {
-  return analogRead(MAGNET_DUTY_INPUT_PIN);
-//   return 512;
+//  return analogRead(MAGNET_DUTY_INPUT_PIN);
+   return 512;
 }
 
 void Set_Register() {
