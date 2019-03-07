@@ -3,11 +3,9 @@
 
 #include <Arduino.h>
 #include "drivers/TelegraphKey.h"
+#include "drivers/TelegraphKeyListener.h"
 
-void onTelegraphKeyPressed();
-void onTelegraphKeyReleased();
-
-class LocalTelegraph
+class LocalTelegraph : public TelegraphKeyListener
 {
 public:
    LocalTelegraph();
@@ -16,6 +14,8 @@ public:
 
 private:
    TelegraphKey telegraphKey;
+   void onTelegraphKeyPressed();
+   void onTelegraphKeyReleased();
 };
 
 #endif /* LOCALTELEGRAPH_H_ */

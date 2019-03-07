@@ -16,8 +16,7 @@ void LocalTelegraph::init()
    pinMode(BUZZER_PIN, OUTPUT);
 
    telegraphKey.init();
-   telegraphKey.setOnKeyPressedCallback(onTelegraphKeyPressed);
-   telegraphKey.setOnKeyReleasedCallback(onTelegraphKeyReleased);
+   telegraphKey.setTelegraphKeyListener(this);
 }
 
 void LocalTelegraph::loop()
@@ -25,7 +24,7 @@ void LocalTelegraph::loop()
    telegraphKey.loop();
 }
 
-void onTelegraphKeyPressed()
+void LocalTelegraph::onTelegraphKeyPressed()
 {
    Serial.println(F("klucz nacisniety"));
 
@@ -33,7 +32,7 @@ void onTelegraphKeyPressed()
    analogWrite(BUZZER_PIN, 128);
 }
 
-void onTelegraphKeyReleased()
+void LocalTelegraph::onTelegraphKeyReleased()
 {
    Serial.println(F("klucz zwolnioniy"));
 

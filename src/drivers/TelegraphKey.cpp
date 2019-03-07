@@ -1,39 +1,34 @@
-#include "Arduino.h"
 #include "TelegraphKey.h"
+
+#include <stddef.h>
+#include <stdint.h>
 
 TelegraphKey::TelegraphKey(uint8_t pin) :
       AbstractSwitch(pin)
 {
-   this->onKeyPressedCallback = NULL;
-   this->onKeyReleasedCallback = NULL;
 }
 
-void TelegraphKey::setOnKeyPressedCallback(void (*callback)())
+void TelegraphKey::setTelegraphKeyListener(TelegraphKeyListener* listener)
 {
-   this->onKeyPressedCallback = callback;
-}
-
-void TelegraphKey::setOnKeyReleasedCallback(void (*callback)())
-{
-   this->onKeyReleasedCallback = callback;
+   this->listener = listener;
 }
 
 void TelegraphKey::onSwitchOnInternal()
 {
-   if (onKeyPressedCallback == NULL)
+   if (listener == NULL)
    {
       return;
    }
 
-   this->onKeyPressedCallback();
+   listener->onTelegraphKeyPressed();
 }
 
 void TelegraphKey::onSwitchOffInternal()
 {
-   if (onKeyReleasedCallback == NULL)
+   if (listener == NULL)
    {
       return;
    }
 
-   this->onKeyReleasedCallback();
+   listener->onTelegraphKeyReleased();
 }
