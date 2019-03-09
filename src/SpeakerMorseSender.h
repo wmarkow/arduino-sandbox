@@ -1,9 +1,9 @@
 #ifndef SPEAKERMORSESENDER_H_
 #define SPEAKERMORSESENDER_H_
 
-#include "MorseSequencer.h"
+#include "MorseCodeSequencer.h"
 
-class SpeakerMorseSender : public MorseSequencer
+class SpeakerMorseSender : public MorseCodeSequencer
 {
 private:
    uint8_t outputPin;

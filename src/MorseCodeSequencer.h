@@ -1,5 +1,5 @@
-#ifndef MORSESEQUENCER_H_
-#define MORSESEQUENCER_H_
+#ifndef MORSECODESEQUENCER_H_
+#define MORSECODESEQUENCER_H_
 
 #include <Arduino.h>
 
@@ -41,7 +41,7 @@ const MorseBitmask MORSE_LETTERS[26] =
 /* y */B11011,
 /* z */B11100, };
 
-class MorseSequencer
+class MorseCodeSequencer
 {
 private:
    MorseBitmask morseBitmaskToSent;
@@ -51,7 +51,7 @@ private:
    uint16_t dotDuration;
    uint16_t dashDuration;
 public:
-   MorseSequencer();
+   MorseCodeSequencer();
    void loop();
    bool send(char c);
    void setWPM(uint8_t wpm);
@@ -62,4 +62,4 @@ public:
    virtual void onDashStop() = 0;
 };
 
-#endif /* MORSESEQUENCER_H_ */
+#endif /* MORSECODESEQUENCER_H_ */

@@ -1,16 +1,16 @@
-#include "MorseSequencer.h"
+#include "MorseCodeSequencer.h"
 
 #define WPM_DEFAULT  12
 // PARIS WPM measurement: 50; CODEX WPM measurement: 60 (Wikipedia:Morse_code)
 #define DITS_PER_WORD   50
 
-MorseSequencer::MorseSequencer()
+MorseCodeSequencer::MorseCodeSequencer()
 {
    state = MCS_STATE_IDLE;
    setWPM(WPM_DEFAULT);
 }
 
-bool MorseSequencer::send(char c)
+bool MorseCodeSequencer::send(char c)
 {
    this->state = MCS_STATE_IDLE;
 
@@ -36,7 +36,7 @@ bool MorseSequencer::send(char c)
    return false;
 }
 
-bool MorseSequencer::isBusy()
+bool MorseCodeSequencer::isBusy()
 {
    if(state == MCS_STATE_IDLE)
    {
@@ -46,13 +46,13 @@ bool MorseSequencer::isBusy()
    return true;
 }
 
-void MorseSequencer::setWPM(uint8_t wpm)
+void MorseCodeSequencer::setWPM(uint8_t wpm)
 {
    dotDuration = (1000.0 * 60.0 / (max(1.0f, (float)wpm) * DITS_PER_WORD));
    dashDuration = 3 * dotDuration;
 }
 
-void MorseSequencer::loop()
+void MorseCodeSequencer::loop()
 {
    switch (state)
    {

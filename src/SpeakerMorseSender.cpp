@@ -3,7 +3,7 @@
 #define DEFAULT_FREQUENCY 1000
 
 SpeakerMorseSender::SpeakerMorseSender(int outputPin) :
-      MorseSequencer()
+      MorseCodeSequencer()
 {
    this->outputPin = outputPin;
 }
