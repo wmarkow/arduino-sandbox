@@ -27,6 +27,7 @@ bool MorseCodeSequencer::send(char c)
          if (morseBitmaskToSent & _BV(q))
          {
             bitIndex = q - 1;
+            break;
          }
       }
 
