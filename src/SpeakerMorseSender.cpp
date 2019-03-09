@@ -1,30 +1,31 @@
 #include "SpeakerMorseSender.h"
 
-SpeakerMorseSender::SpeakerMorseSender(int outputPin) : MorseSequencer()
+#define DEFAULT_FREQUENCY 1000
+
+SpeakerMorseSender::SpeakerMorseSender(int outputPin) :
+      MorseSequencer()
 {
    this->outputPin = outputPin;
 }
 
 void SpeakerMorseSender::onDotStart()
 {
-   analogWrite(outputPin, 128);
-   Serial.print(".");
+   tone(outputPin, DEFAULT_FREQUENCY);
 }
 
 void SpeakerMorseSender::onDashStart()
 {
-   analogWrite(outputPin, 128);
-   Serial.print("-");
+   tone(outputPin, DEFAULT_FREQUENCY);
 }
 
 void SpeakerMorseSender::onDotStop()
 {
-   analogWrite(outputPin, 0);
+   noTone(outputPin);
 }
 
 void SpeakerMorseSender::onDashStop()
 {
-   analogWrite(outputPin, 0);
+   noTone(outputPin);
 }
 
 void SpeakerMorseSender::setup()

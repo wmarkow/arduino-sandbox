@@ -57,8 +57,8 @@ public:
    void setWPM(uint8_t wpm);
    bool isBusy();
    virtual void onDotStart() = 0;
-   virtual void onDashStart() = 0;
    virtual void onDotStop() = 0;
+   virtual void onDashStart() = 0;
    virtual void onDashStop() = 0;
 };
 
