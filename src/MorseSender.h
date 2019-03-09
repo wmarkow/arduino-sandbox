@@ -40,35 +40,10 @@ const specialTiming MORSE_PUNCT_ETC[] =
 { PROSIGN_BT, B110001 },
 { END, B1 }, };
 
-// Morse Code (explicit declaration of letter timings)
-const morseBitmask_t MORSE_LETTERS[26] =
-{
-/* a */B101,
-/* b */B11000,
-/* c */B11010,
-/* d */B1100,
-/* e */B10,
-/* f */B10010,
-/* g */B1110,
-/* h */B10000,
-/* i */B100,
-/* j */B10111,
-/* k */B1101,
-/* l */B10100,
-/* m */B111,
-/* n */B110,
-/* o */B1111,
-/* p */B10110,
-/* q */B11101,
-/* r */B1010,
-/* s */B1000,
-/* t */B11,
-/* u */B1001,
-/* v */B10001,
-/* w */B1011,
-/* x */B11001,
-/* y */B11011,
-/* z */B11100, };
+
+
+#define              MORSE_SENDER_STATE_IDLE 0
+#define MORSE_SENDER_STATE_SENDING_CHARACTER 1
 
 class MorseSender
 {
@@ -92,6 +67,12 @@ protected:
    virtual void setComplete();
 
 private:
+   char charsToSent[8];
+   uint8_t charsToSentCount;
+   uint8_t charIndex;
+   uint8_t charBitIndex;
+   uint8_t state;
+
    morseTiming_t DIT, DAH;
    String message;
 
@@ -123,6 +104,10 @@ public:
     * Create a sender which will output to the given pin.
     */
    MorseSender(unsigned int outputPin, float wpm = WPM_DEFAULT);
+
+   void send(char c);
+
+   void loop();
 
    /**
     * To be called during the Arduino setup(); set the pin as OUTPUT.

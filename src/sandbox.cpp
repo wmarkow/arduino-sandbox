@@ -13,15 +13,16 @@ void setup()
    Serial.begin(9600);
 
    localTelegraph.init();
-   speakerMorseSender.setup();
-
-   speakerMorseSender.setMessage(F("sos "));
-   speakerMorseSender.startSending();
 }
 
 void loop()
 {
    localTelegraph.loop();
 
-   speakerMorseSender.continueSending();
+   if(speakerMorseSender.isBusy() == false)
+   {
+      delay(500);
+      speakerMorseSender.send('s');
+   }
+   speakerMorseSender.loop();
 }

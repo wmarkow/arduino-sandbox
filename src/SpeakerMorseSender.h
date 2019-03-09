@@ -1,24 +1,20 @@
 #ifndef SPEAKERMORSESENDER_H_
 #define SPEAKERMORSESENDER_H_
 
-#include "MorseSender.h"
+#include "MorseSequencer.h"
 
-class SpeakerMorseSender : public MorseSender
+class SpeakerMorseSender : public MorseSequencer
 {
 private:
-   unsigned int frequency;
-   unsigned int carrFrequency;
+   uint8_t outputPin;
 protected:
-   virtual void setOn();
-   virtual void setOff();
-   virtual void setReady();
-   virtual void setComplete();
+   void onDotStart();
+   void onDashStart();
+   void onDotStop();
+   void onDashStop();
 public:
-   // concert A = 440
-   // middle C = 261.626; higher octaves = 523.251, 1046.502
-   SpeakerMorseSender(int outputPin, unsigned int toneFrequency = 1046,
-         unsigned int carrierFrequency = CARRIER_FREQUENCY_NONE, float wpm =
-               WPM_DEFAULT);
+   SpeakerMorseSender(int outputPin);
+   void setup();
 };
 
 #endif /* SPEAKERMORSESENDER_H_ */

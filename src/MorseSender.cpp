@@ -29,7 +29,7 @@ unsigned int MorseSender::fillTimings(char c)
    unsigned int start = 0;
    if (c >= 'a' && c <= 'z')
    {
-      t = copyTimings(timingBuffer, MORSE_LETTERS[c - 'a']);
+      //t = copyTimings(timingBuffer, MORSE_LETTERS[c - 'a']);
    }
    else if (c >= '0' && c <= '9')
    {
@@ -212,4 +212,34 @@ boolean MorseSender::continueSending()
    //Serial.println((int)timingBuffer[timingIndex]);
 
    return true;
+}
+
+void MorseSender::send(char c)
+{
+   charsToSent[0] = c;
+   charsToSentCount = 1;
+   charIndex = 0;
+   charBitIndex = 7;
+   state = MORSE_SENDER_STATE_IDLE;
+}
+
+void MorseSender::loop()
+{
+   switch (state)
+   {
+      case MORSE_SENDER_STATE_IDLE:
+      {
+         if (charsToSentCount > 0)
+         {
+            state = MORSE_SENDER_STATE_SENDING_CHARACTER;
+            charBitIndex = 7;
+         }
+         break;
+      }
+      case MORSE_SENDER_STATE_SENDING_CHARACTER:
+      {
+
+         break;
+      }
+   }
 }

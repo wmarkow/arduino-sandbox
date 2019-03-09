@@ -1,32 +1,33 @@
 #include "SpeakerMorseSender.h"
 
-void SpeakerMorseSender::setOn()
+SpeakerMorseSender::SpeakerMorseSender(int outputPin) : MorseSequencer()
 {
-   tone(pin, frequency);
+   this->outputPin = outputPin;
 }
-void SpeakerMorseSender::setOff()
+
+void SpeakerMorseSender::onDotStart()
 {
-   if (carrFrequency == CARRIER_FREQUENCY_NONE)
-   {
-      noTone(pin);
-   }
-   else
-   {
-      tone(pin, carrFrequency);
-   }
+   analogWrite(outputPin, 128);
+   Serial.print(".");
 }
-void SpeakerMorseSender::setReady()
+
+void SpeakerMorseSender::onDashStart()
 {
-   setOff();
+   analogWrite(outputPin, 128);
+   Serial.print("-");
 }
-void SpeakerMorseSender::setComplete()
+
+void SpeakerMorseSender::onDotStop()
 {
-   noTone(pin);
+   analogWrite(outputPin, 0);
 }
-SpeakerMorseSender::SpeakerMorseSender(int outputPin,
-      unsigned int toneFrequency, unsigned int carrierFrequency, float wpm) :
-      MorseSender(outputPin, wpm), frequency(toneFrequency), carrFrequency(
-            carrierFrequency)
+
+void SpeakerMorseSender::onDashStop()
 {
+   analogWrite(outputPin, 0);
 }
-;
+
+void SpeakerMorseSender::setup()
+{
+   pinMode(outputPin, OUTPUT);
+}
