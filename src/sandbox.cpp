@@ -22,7 +22,7 @@ void loop()
    if(speakerMorseSender.isBusy() == false)
    {
       delay(500);
-      speakerMorseSender.send('s');
+      speakerMorseSender.send('b');
    }
    speakerMorseSender.loop();
 }
