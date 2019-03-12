@@ -56,6 +56,7 @@ public:
    bool send(char c);
    void setWPM(uint8_t wpm);
    bool isBusy();
+   MorseBitmask getMorseBitmask(char c);
    virtual void onDotStart() = 0;
    virtual void onDotStop() = 0;
    virtual void onDashStart() = 0;

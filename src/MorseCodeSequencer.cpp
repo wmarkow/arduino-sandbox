@@ -14,32 +14,31 @@ bool MorseCodeSequencer::send(char c)
 {
    this->state = MCS_STATE_IDLE;
 
-   if (c >= 'a' && c <= 'z')
+   morseBitmaskToSent = getMorseBitmask(c);
+   if (morseBitmaskToSent == 0)
    {
-      morseBitmaskToSent = MORSE_LETTERS[c - 'a'];
-
-      this->bitIndex = 7;
-      this->state = MCS_STATE_TRY_TO_SEND;
-
-      // look for sentinel
-      for (int q = 7; q >= 1; q--)
-      {
-         if (morseBitmaskToSent & _BV(q))
-         {
-            bitIndex = q - 1;
-            break;
-         }
-      }
-
-      return true;
+      return false;
    }
 
-   return false;
+   this->bitIndex = 7;
+   this->state = MCS_STATE_TRY_TO_SEND;
+
+   // look for sentinel
+   for (int q = 7; q >= 1; q--)
+   {
+      if (morseBitmaskToSent & _BV(q))
+      {
+         bitIndex = q - 1;
+         break;
+      }
+   }
+
+   return true;
 }
 
 bool MorseCodeSequencer::isBusy()
 {
-   if(state == MCS_STATE_IDLE)
+   if (state == MCS_STATE_IDLE)
    {
       return false;
    }
@@ -51,6 +50,16 @@ void MorseCodeSequencer::setWPM(uint8_t wpm)
 {
    dotDuration = (1000.0 * 60.0 / (max(1.0f, (float)wpm) * DITS_PER_WORD));
    dashDuration = 3 * dotDuration;
+}
+
+MorseBitmask MorseCodeSequencer::getMorseBitmask(char c)
+{
+   if (c >= 'a' && c <= 'z')
+   {
+      return MORSE_LETTERS[c - 'a'];
+   }
+
+   return 0;
 }
 
 void MorseCodeSequencer::loop()
@@ -120,7 +129,7 @@ void MorseCodeSequencer::loop()
             return;
          }
 
-         bitIndex --;
+         bitIndex--;
          state = MCS_STATE_TRY_TO_SEND;
          break;
       }
