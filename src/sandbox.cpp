@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
 #include <LCDKeypadShield.h>
-#include "LocalTelegraph.h"
+#include "TelegraphKeyDecoder.h"
 #include "MorseCodeTeacher.h"
 
-LocalTelegraph localTelegraph;
+TelegraphKeyDecoder telegraphKeyDecoder;
 LCDKeypadShield lcdKeypadShield(8, 9, 4, 5, 6, 7);
 MorseCodeTeacher morseCodeTeacher(&lcdKeypadShield);
 
@@ -14,7 +14,8 @@ void setup()
 
    randomSeed(analogRead(1));
 
-   localTelegraph.init();
+   telegraphKeyDecoder.init();
+   telegraphKeyDecoder.setWpm(8);
 
    lcdKeypadShield.begin(16, 2);
    lcdKeypadShield.print("hello world!");
@@ -23,6 +24,6 @@ void setup()
 
 void loop()
 {
-   localTelegraph.loop();
+   telegraphKeyDecoder.loop();
    morseCodeTeacher.loop();
 }

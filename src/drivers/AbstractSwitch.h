@@ -14,6 +14,7 @@ public:
    AbstractSwitch(uint8_t pin);
    void init();
    void loop();
+   bool isPressed();
 
 protected:
    virtual void onSwitchOnInternal() = 0;

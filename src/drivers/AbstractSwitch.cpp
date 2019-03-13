@@ -70,3 +70,13 @@ void AbstractSwitch::loop()
          break;
    }
 }
+
+bool AbstractSwitch::isPressed()
+{
+   if(state == STATE_ON)
+   {
+      return true;
+   }
+
+   return false;
+}
