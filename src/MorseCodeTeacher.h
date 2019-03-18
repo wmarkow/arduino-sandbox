@@ -4,15 +4,21 @@
 #include <Arduino.h>
 #include <LCDKeypadShield.h>
 #include "SpeakerMorseSender.h"
+#include "TelegraphKeyDecoder.h"
 
-class MorseCodeTeacher
+class MorseCodeTeacher : public TelegraphKeyDecoderListener
 {
 private:
    LCDKeypadShield *lcdKeypadShield;
    SpeakerMorseSender speakerMorseSender;
+   TelegraphKeyDecoder telegraphKeyDecoder;
    uint8_t state;
+   char askedChar;
 
    void display(char c);
+protected:
+   void onCharDecoded(char c);
+   void onError();
 public:
    MorseCodeTeacher(LCDKeypadShield *lcdKeypadShield);
    void setup();

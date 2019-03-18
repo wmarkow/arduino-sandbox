@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "drivers/TelegraphKey.h"
 #include "drivers/TelegraphKeyListener.h"
+#include "TelegraphKeyDecoderListener.h"
 
 class TelegraphKeyDecoder : public TelegraphKeyListener
 {
@@ -12,6 +13,7 @@ public:
    void init();
    void loop();
    void setWpm(uint8_t wpm);
+   void setTelegraphKeyDecoderListener(TelegraphKeyDecoderListener *listener);
 private:
    uint8_t state;
    TelegraphKey telegraphKey;
@@ -19,6 +21,7 @@ private:
    uint16_t dotDuration;
    uint16_t dashDuration;
    byte decodedChar;
+   TelegraphKeyDecoderListener *telegraphKeyDecoderListener;
    void onTelegraphKeyPressed();
    void onTelegraphKeyReleased();
 };

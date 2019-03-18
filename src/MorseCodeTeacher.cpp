@@ -13,16 +13,21 @@ MorseCodeTeacher::MorseCodeTeacher(LCDKeypadShield *lcdKeypadShield) :
 {
    this->lcdKeypadShield = lcdKeypadShield;
    this->state = MCT_STATE_IDLE;
+   this->telegraphKeyDecoder.setTelegraphKeyDecoderListener(this);
 }
 
 void MorseCodeTeacher::setup()
 {
    speakerMorseSender.setup();
+   speakerMorseSender.setWPM(9);
+   telegraphKeyDecoder.init();
+   telegraphKeyDecoder.setWpm(9);
 }
 
 void MorseCodeTeacher::loop()
 {
    speakerMorseSender.loop();
+   telegraphKeyDecoder.loop();
 
    switch (state)
    {
@@ -35,12 +40,12 @@ void MorseCodeTeacher::loop()
       {
          // pick a random letter from a to z
          uint8_t rand = random(26);
-         char c = 'a' + rand;
+         askedChar = 'a' + rand;
          // display on LCD
-         display(c);
+         display(askedChar);
 
          // beep morse
-         speakerMorseSender.send(c);
+         speakerMorseSender.send(askedChar);
 
          state = MCT_STATE_ASK_QUESTION_FINISH;
          break;
@@ -103,9 +108,30 @@ void MorseCodeTeacher::display(char c)
          lcdKeypadShield->print('.');
       }
 
-      if(w == 0)
+      if (w == 0)
       {
          break;
       }
    }
+}
+
+void MorseCodeTeacher::onCharDecoded(char c)
+{
+   if(state != MCT_STATE_WAITING_FOR_ANSWER)
+   {
+      return;
+   }
+
+   if(askedChar == c)
+   {
+      state = MCT_STATE_ASK_QUESTION;
+   } else
+   {
+      Serial.println(F("error"));
+   }
+}
+
+void MorseCodeTeacher::onError()
+{
+   Serial.println(F("error"));
 }

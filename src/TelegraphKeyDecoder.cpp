@@ -1,4 +1,5 @@
 #include "TelegraphKeyDecoder.h"
+#include "MorseCodeSequencer.h"
 
 #define TELEGRAPH_KEY_PIN A5
 #define BUZZER_PIN 3
@@ -15,6 +16,7 @@ TelegraphKeyDecoder::TelegraphKeyDecoder() :
       telegraphKey(TELEGRAPH_KEY_PIN)
 {
    state = TKD_STATE_IDLE;
+   telegraphKeyDecoderListener = NULL;
 }
 
 void TelegraphKeyDecoder::init()
@@ -29,6 +31,12 @@ void TelegraphKeyDecoder::setWpm(uint8_t wpm)
 {
    dotDuration = (1000.0 * 60.0 / (max(1.0f, (float)wpm) * DITS_PER_WORD));
    dashDuration = 3 * dotDuration;
+}
+
+void TelegraphKeyDecoder::setTelegraphKeyDecoderListener(
+      TelegraphKeyDecoderListener *listener)
+{
+   this->telegraphKeyDecoderListener = listener;
 }
 
 void TelegraphKeyDecoder::loop()
@@ -53,6 +61,10 @@ void TelegraphKeyDecoder::loop()
          {
             lastTimestamp = millis();
             state = TKD_STATE_ERROR;
+            if (telegraphKeyDecoderListener != NULL)
+            {
+               telegraphKeyDecoderListener->onError();
+            }
             Serial.println(F("Too long pressed"));
 
             break;
@@ -95,10 +107,19 @@ void TelegraphKeyDecoder::loop()
          uint32_t pauseDuration = millis() - lastTimestamp;
          if (pauseDuration >= 3.0f * dotDuration)
          {
-            // end of character transmition
+            for (uint8_t q = 0; q < 26; q++)
+            {
+               if (MORSE_LETTERS[q] == decodedChar)
+               {
+                  decodedChar = (char) ('a' + q);
+               }
+            }
             Serial.print(F("detected "));
-            Serial.println(decodedChar);
-
+            Serial.println((char)decodedChar);
+            if (telegraphKeyDecoderListener != NULL)
+            {
+               telegraphKeyDecoderListener->onCharDecoded((char)decodedChar);
+            }
             state = TKD_STATE_IDLE;
          }
 
