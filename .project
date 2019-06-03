@@ -6,7 +6,12 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>it.baeyens.arduino.core.inoToCpp</name>
+			<name>io.sloeber.core.inoToCpp</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>io.sloeber.arduino.core.inoToCpp</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -28,18 +33,38 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
-		<nature>it.baeyens.arduinonature</nature>
+		<nature>io.sloeber.arduinonature</nature>
 	</natures>
 	<linkedResources>
 		<link>
 			<name>core/core</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/cores/arduino</location>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/cores/arduino</locationURI>
 		</link>
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
-			<location>/home/witek/dev/tools/eclipse-cpp-mars2/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/variants/eightanaloginputs</location>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/variants/standard</locationURI>
+		</link>
+		<link>
+			<name>libraries/LiquidCrystal</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal/1.0.4</locationURI>
+		</link>
+		<link>
+			<name>libraries/LiquidCrystal_I2C</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal_I2C/1.1.2</locationURI>
+		</link>
+		<link>
+			<name>libraries/Wire</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/libraries/Wire</locationURI>
+		</link>
+		<link>
+			<name>libraries/arduino-lcd-keypad-shield</name>
+			<type>2</type>
+			<location>C:/Users/wmarkowski/dev-test/sources/arduino-private-libraries/arduino-lcd-keypad-shield</location>
 		</link>
 	</linkedResources>
 </projectDescription>
