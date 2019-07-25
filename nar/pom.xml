@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.wmarkow.arduino.sandbox</groupId>
+	<artifactId>nar-example</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>nar</packaging>
+
+	<properties>
+		<skipTests>true</skipTests>
+		<nar.layout>ArduinoLayout</nar.layout>
+		<nar.arch>avr</nar.arch>
+	</properties>
+
+	<build>
+		<defaultGoal>integration-test</defaultGoal>
+		<plugins>
+			<!-- <plugin> -->
+			<!-- <groupId>com.github.maven-nar</groupId> -->
+			<!-- <artifactId>nar-maven-plugin</artifactId> -->
+			<!-- <version>3.6.0</version> -->
+			<!-- <extensions>true</extensions> -->
+			<!-- <configuration> -->
+			<!-- <libraries> -->
+			<!-- <library> -->
+			<!-- <type>jni</type> -->
+			<!-- <narSystemPackage>com.github.wmarkow.arduino.sandbox</narSystemPackage> -->
+			<!-- </library> -->
+			<!-- </libraries> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/nar/libraries/</source>
+								<source>${project.build.directory}/nar/libraries2/</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-dependency-plugin</artifactId> -->
+<!-- 				<version>3.1.1</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>src-dependencies</id> -->
+<!-- 						<phase>generate-sources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>unpack-dependencies</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<classifier>sources</classifier> -->
+<!-- 							<includeTypes>zip</includeTypes> -->
+<!-- 							<failOnMissingClassifierArtifact>true -->
+<!-- 							</failOnMissingClassifierArtifact> -->
+<!-- 							<outputDirectory>${project.build.directory}/nar/libraries -->
+<!-- 							</outputDirectory> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+
+			<plugin>
+				<groupId>com.github.maven-nar</groupId>
+				<artifactId>nar-maven-plugin</artifactId>
+				<version>3.7.1-SNAPSHOT</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- <gnuUseOnWindows>true</gnuUseOnWindows> -->
+					<nar.arch>avr</nar.arch>
+					<architecture>avr</architecture>
+					<nar.skip>true</nar.skip>
+					<!-- <gnuSourceDirectory>${basedir}/src</gnuSourceDirectory> -->
+					<!-- <gnuMakeSkip>true</gnuMakeSkip> -->
+					<unpackDirectory>${project.build.directory}/nar/libraries2/</unpackDirectory>
+
+					<c>
+						<name>gcc</name>
+						<prefix>avr-</prefix>
+						<includes>
+							<include>**/*.c</include>
+						</includes>
+						<options>
+							<option>-c</option>
+							<option>-g</option>
+							<option>-Os</option>
+							<option>-Wall</option>
+							<option>-Wextra</option>
+							<option>-std=gnu11</option>
+							<option>-ffunction-sections</option>
+							<option>-fdata-sections</option>
+							<option>-flto</option>
+							<option>-fno-fat-lto-objects</option>
+							<option>-mmcu=atmega328p</option>
+							<option>-DF_CPU=16000000L</option>
+							<option>-DARDUINO=10609</option>
+							<option>-DARDUINO_AVR_UNO</option>
+							<option>-DARDUINO_ARCH_AVR</option>
+							<!--<option>-I${project.build.directory}/nar/libraries/arduino-core-avr-1.6.17-sources
+							</option>
+							<option>-I${project.build.directory}/nar/libraries/arduino-core-avr-variant-standard-1.6.17-sources
+							</option>
+							-->
+<!-- 							<option>-I${project.build.directory}/nar/libraries/**</option> -->
+							<option>-MMD</option>
+							<option>-MP</option>
+						</options>
+					</c>
+
+					<cpp>
+						<name>g++</name>
+						<prefix>avr-</prefix>
+						<includes>
+							<include>**/*.cpp</include>
+						</includes>
+						<exceptions>false</exceptions>
+						<debug>true</debug>
+						<options>
+							<option>-c</option>
+							<option>-g</option>
+							<option>-Os</option>
+							<option>-Wall</option>
+							<option>-Wextra</option>
+							<option>-std=gnu++11</option>
+							<option>-fpermissive</option>
+							<option>-fno-exceptions</option>
+							<option>-ffunction-sections</option>
+							<option>-fdata-sections</option>
+							<option>-fno-threadsafe-statics</option>
+							<option>-MMD</option>
+							<option>-MP</option>
+							<option>-x</option>
+							<option>c++</option>
+							<option>-DF_CPU=16000000L</option>
+							<option>-DARDUINO=10609</option>
+							<option>-DARDUINO_AVR_UNO</option>
+							<option>-DARDUINO_ARCH_AVR</option>
+							<option>-mmcu=atmega328p</option>
+							<!--<option>-I${project.build.directory}/nar/libraries/arduino-core-avr-1.6.17-sources
+							</option>
+							<option>-I${project.build.directory}/nar/libraries/arduino-core-avr-variant-standard-1.6.17-sources
+							</option>
+						-->
+<!-- 							<option>-I${project.build.directory}/nar/libraries/**</option> -->
+						</options>
+						<!-- <clearDefaultOptions /> -->
+					</cpp>
+
+					<linker>
+						<name>gcc</name>
+						<prefix>avr-</prefix>
+						<options>
+							<option> -Wall</option>
+							<option>-Wextra</option>
+							<option>-Os</option>
+							<option>-g</option>
+							<option>-flto</option>
+							<option>-fuse-linker-plugin</option>
+							<option>-Wl,--gc-sections</option>
+							<option>-mmcu=atmega328p</option>
+						</options>
+					</linker>
+					<libraries>
+						<library>
+							<type>executable</type>
+							<!-- <run>true</run> -->
+							<!-- <subSystem>gui</subSystem> -->
+						</library>
+					</libraries>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- The following dependency is needed to automatically load the native 
+			libs from .nar files. This makes running NativeApp.java directly from within 
+			NetBeans work. Fixes issue 1, https://github.com/jjYBdx4IL/example-maven-project-setups/issues/1 
+			Update: this is already done by jna. -->
+		<dependency>
+			<groupId>org.scijava</groupId>
+			<artifactId>native-lib-loader</artifactId>
+			<version>2.1.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.arduino</groupId>
+			<artifactId>arduino-core-avr</artifactId>
+			<version>1.6.17</version>
+			<classifier>sources</classifier>
+			<type>nar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.arduino</groupId>
+			<artifactId>arduino-core-avr-variant-standard</artifactId>
+			<version>1.6.17</version>
+			<classifier>sources</classifier>
+			<type>nar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- <profiles> -->
+	<!-- <profile> -->
+	<!-- <id>cygwin</id> -->
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>com.github.maven-nar</groupId> -->
+	<!-- <artifactId>nar-maven-plugin</artifactId> -->
+	<!-- <configuration> -->
+	<!-- <gnuUseOnWindows>true</gnuUseOnWindows> -->
+	<!-- <nar.arch>avr</nar.arch> -->
+	<!-- <architecture>avr</architecture> -->
+	<!-- <gnuSourceDirectory>${basedir}/src</gnuSourceDirectory> -->
+
+	<!-- <c> -->
+	<!-- <name>gcc</name> -->
+	<!-- <includes> -->
+	<!-- <include>**/*.cpp</include> -->
+	<!-- </includes> -->
+	<!-- <options> -->
+	<!-- <option>-D__int64=int64_t</option> -->
+	<!-- <option>-I${JAVA_HOME}/include</option> -->
+	<!-- <option>-I${JAVA_HOME}/include/win32</option> -->
+	<!-- <option>${java.os.include}</option> -->
+	<!-- <option>${stack.protector.option}</option> -->
+	<!-- <option>${architecture.option}</option> -->
+	<!-- <option>${subsystem.option}</option> -->
+	<!-- <option>${debug.option}</option> -->
+	<!-- <option>-shared</option> -->
+	<!-- <option>-fexceptions</option> -->
+	<!-- <option>-lstdc++</option> -->
+	<!-- </options> -->
+	<!-- </c> -->
+
+	<!-- <cpp> -->
+	<!-- <name>gcc</name> -->
+	<!-- <includes> -->
+	<!-- <include>**/*.cpp</include> -->
+	<!-- </includes> -->
+	<!-- <exceptions>false</exceptions> -->
+	<!-- <debug>true</debug> -->
+	<!-- <options> -->
+	<!-- <option>-g</option> -->
+	<!-- <option>-std=gnu99</option> -->
+	<!-- <option>-Wall</option> -->
+	<!-- </options> -->
+	<!-- <clearDefaultOptions /> -->
+	<!-- </cpp> -->
+
+	<!-- <linker> -->
+	<!-- <name>gcc</name> -->
+	<!-- <options> -->
+	<!-- <option>${architecture.option}</option> -->
+	<!-- <option>${subsystem.option}</option> -->
+	<!-- </options> -->
+	<!-- </linker> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
+	<!-- </profile> -->
+	<!-- </profiles> -->
+
+	<repositories>
+		<!--other repositories if any -->
+		<repository>
+			<id>arduino.local</id>
+			<name>arduino</name>
+			<url>file:${user.home}/.m2/repository-arduino</url>
+		</repository>
+	</repositories>
+
+</project>
