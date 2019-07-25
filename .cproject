@@ -12,47 +12,50 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" description="" id="it.baeyens.arduino.core.toolChain.release.2138965459" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="it.baeyens.arduino.core.toolChain.release.2138965459" name="Release" optionalBuildProperties="" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.1342828135" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.651152884" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
 							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.938271982" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.1716055391" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
-								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.451110597" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.cpp.sketch.option.incpath.451110597" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1478973784" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.461780404" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
-								<option id="io.sloeber.compiler.c.sketch.option.incpath.1483124159" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.c.sketch.option.incpath.1483124159" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.428910334" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.1066223494" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
-								<option id="io.sloeber.compiler.asm.sketch.option.incpath.1832904653" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.asm.sketch.option.incpath.1832904653" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP8266WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053_Library/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ESP_VS1053/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1500356308" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -63,7 +66,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries**/._*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+						<entry excluding="libraries/ESP_VS1053/lib|libraries/ESP_VS1053/doc|libraries/ESP_VS1053/.git|src|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries**/._*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
