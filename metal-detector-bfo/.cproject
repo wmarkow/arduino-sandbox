@@ -16,25 +16,25 @@
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.236014840" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.1053455493" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
-							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.1765795652" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
+							<builder buildPath="${workspace_loc:/metal-detector-bfo}/Release" id="io.sloeber.sketch.builder.1765795652" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.702421302" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.477753998" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/variant}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1825724500" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.1415361289" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.963003819" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/variant}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.624492966" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.1069373224" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.1930912475" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/metal-detector-bfo/core/variant}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.287414436" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -62,7 +62,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/arduino-sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/metal-detector-bfo"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

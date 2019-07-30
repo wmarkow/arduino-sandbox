@@ -16,34 +16,34 @@
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.606098552" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.1223238112" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
-							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.646162482" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
+							<builder buildPath="${workspace_loc:/doll-house}/Release" id="io.sloeber.sketch.builder.646162482" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.1650577975" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.354868376" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/DFRobotDFPlayerMini}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/DFRobotDFPlayerMini}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1697867144" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.1350875493" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.876701756" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/DFRobotDFPlayerMini}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/DFRobotDFPlayerMini}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.854898626" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.190817906" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.387480848" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/DFRobotDFPlayerMini}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SoftwareSerial/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/DFRobotDFPlayerMini}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/doll-house/libraries/SoftwareSerial/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1080403703" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -71,7 +71,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/arduino-sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/doll-house"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

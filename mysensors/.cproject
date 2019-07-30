@@ -16,52 +16,52 @@
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.1237916537" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.1112923772" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
-							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.831798302" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
+							<builder buildPath="${workspace_loc:/mysensors}/Release" id="io.sloeber.sketch.builder.831798302" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.335752559" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.1230990408" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.617278383" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.2056560896" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.882345074" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.710428672" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.291300239" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.1680873521" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/EEPROM/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/MySensors_DHT}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/ArduinoCrashMonitor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/WiFi/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/EEPROM/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/MySensors_DHT}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/ArduinoCrashMonitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysensors/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.619634294" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -88,7 +88,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/arduino-sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/mysensors"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

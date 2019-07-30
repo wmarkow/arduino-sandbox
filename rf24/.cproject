@@ -16,43 +16,43 @@
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.1026930148" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.813117623" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
-							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.889492938" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
+							<builder buildPath="${workspace_loc:/rf24}/Release" id="io.sloeber.sketch.builder.889492938" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.1883158757" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.100458734" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.212332122" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.1486364816" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.1782374583" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.2113416863" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.1847530696" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.1698476113" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/RF24/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/RF24/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24/libraries/Wire/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.855916009" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -80,7 +80,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/arduino-sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/rf24"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

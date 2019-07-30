@@ -16,49 +16,49 @@
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.2138965459.1143217520" name="/" resourcePath="">
 						<toolChain id="io.sloeber.core.toolChain.release.395292270" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.838114515" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
-							<builder buildPath="${workspace_loc:/arduino-sandbox}/Release" id="io.sloeber.sketch.builder.822046843" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
+							<builder buildPath="${workspace_loc:/diy-audio}/Release" id="io.sloeber.sketch.builder.822046843" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.1184711369" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.1592523680" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.626982797" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.469681253" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.627171857" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.78069507" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.1332812969" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.1023257241" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Radio/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/Wire/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/new-liquidcrystal/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/arduino-sandbox/libraries/BigCrystal/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/core/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Radio/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/new-liquidcrystal/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/diy-audio/libraries/BigCrystal/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.726659326" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -86,7 +86,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/arduino-sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/diy-audio"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

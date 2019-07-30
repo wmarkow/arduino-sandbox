@@ -32,3 +32,4 @@ Release/**
 core/**
 libraries/**
 
+/Release/
