@@ -15,6 +15,7 @@ void setup()
     Serial.begin(9600);
 
     lastDisplayTime = 0;
+    joystick.setReverseY(true);
 }
 
 void loop(void)
