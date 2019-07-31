@@ -1,11 +1,12 @@
 #include <Arduino.h>
+#include "Joystick.h"
 
 #define JOYSTICK_X_INPUT A0
 #define JOYSTICK_Y_INPUT A1
 #define TURBO_BUTTON_INPUT 2
 
-
 unsigned long lastDisplayTime;
+Joystick joystick(JOYSTICK_X_INPUT, JOYSTICK_Y_INPUT);
 
 void setup()
 {
@@ -18,8 +19,8 @@ void setup()
 
 void loop(void)
 {
-    int16_t joystickX = analogRead(JOYSTICK_X_INPUT);
-    int16_t joystickY = analogRead(JOYSTICK_Y_INPUT);
+    int16_t joystickX = joystick.readX();
+    int16_t joystickY = joystick.readY();
     uint8_t turboButton = digitalRead(TURBO_BUTTON_INPUT);
 
     if (millis() - lastDisplayTime > 100)
