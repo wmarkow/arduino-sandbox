@@ -24,6 +24,11 @@ void loop(void)
     int16_t joystickY = joystick.readY();
     uint8_t turboButton = digitalRead(TURBO_BUTTON_INPUT);
 
+    if(!turboButton)
+    {
+        joystickY >>= 1;
+    }
+
     if (millis() - lastDisplayTime > 100)
     {
         char tbs[50];
