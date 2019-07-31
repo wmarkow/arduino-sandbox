@@ -14,8 +14,8 @@ class Joystick
 {
 public:
     Joystick(uint8_t analogPinX, uint8_t analogPinY);
-    uint16_t readX();
-    uint16_t readY();
+    int16_t readX();
+    int16_t readY();
     void setReverseY(bool reverseY);
 private:
     uint8_t analogPinX;

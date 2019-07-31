@@ -27,7 +27,7 @@ void loop(void)
     if (millis() - lastDisplayTime > 100)
     {
         char tbs[50];
-        sprintf(tbs, "X=%04d Y=%04d T=%1d", joystickX, joystickY, turboButton);
+        sprintf(tbs, "X=%03d Y=%03d T=%1d", joystickX, joystickY, turboButton);
 
         Serial.println(tbs);
 

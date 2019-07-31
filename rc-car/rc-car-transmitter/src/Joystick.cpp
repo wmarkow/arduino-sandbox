@@ -15,16 +15,20 @@ Joystick::Joystick(uint8_t analogPinX, uint8_t analogPinY)
     this->reverseY = false;
 }
 
-uint16_t Joystick::readX()
+int16_t Joystick::readX()
 {
-    return analogRead(analogPinX);
+    return analogRead(analogPinX) - 512;
 }
 
-uint16_t Joystick::readY()
+int16_t Joystick::readY()
 {
-    uint16_t y = analogRead(analogPinY);
+    int16_t y = analogRead(analogPinY) - 512;
 
-    return -y + 1023;
+    if (reverseY)
+    {
+        return -y;
+    }
+    return y;
 }
 
 void Joystick::setReverseY(bool reverseY)
