@@ -13,6 +13,7 @@
 
 #include <terminal/commands/FlooderCmd.h>
 #include <terminal/commands/Ifconfig.h>
+#include <terminal/commands/IpConfig.h>
 #include <terminal/commands/Ping.h>
 #include <Terminal.h>
 #include <UptimeCommand.h>
@@ -35,11 +36,12 @@ HC12Device hc12Device;
 Interface radioHC12 = Interface(&hc12Device);
 // dummy end
 
-FixedSizeArray<AbstractCommand*, 3> commands;
+FixedSizeArray<AbstractCommand*, 4> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 UptimeCommand uptimeCommand;
 Ping pingCommand;
 Ifconfig ifconfigCommand;
+IpConfig ipConfigCommand;
 Terminal terminal(&Serial, commandsArray);
 
 unsigned long lastDisplayTime;
@@ -60,6 +62,7 @@ void setup()
     commandsArray->add(&uptimeCommand);
     commandsArray->add(&pingCommand);
     commandsArray->add(&ifconfigCommand);
+    commandsArray->add(&ipConfigCommand);
 
     radioRF24.up();
     LocalMeshNode.setRF24Interface(&radioRF24);
