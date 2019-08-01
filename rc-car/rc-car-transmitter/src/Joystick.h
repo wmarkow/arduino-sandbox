@@ -17,10 +17,12 @@ public:
     int16_t readX();
     int16_t readY();
     void setReverseY(bool reverseY);
+    void setZeroValueThreshold(uint8_t threshold);
 private:
     uint8_t analogPinX;
     uint8_t analogPinY;
     bool reverseY;
+    uint8_t zeroValueThreshold;
 };
 
 
