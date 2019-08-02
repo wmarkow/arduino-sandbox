@@ -31,11 +31,6 @@
 RF24Device rf24Device;
 Interface radioRF24 = Interface(&rf24Device);
 
-// dummy start
-HC12Device hc12Device;
-Interface radioHC12 = Interface(&hc12Device);
-// dummy end
-
 FixedSizeArray<AbstractCommand*, 4> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 UptimeCommand uptimeCommand;
