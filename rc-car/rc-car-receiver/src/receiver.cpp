@@ -57,5 +57,5 @@ void setup()
 void loop(void)
 {
     terminal.loop();
-    radioRF24.loop();
+    LocalMeshNode.loop();
 }
