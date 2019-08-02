@@ -89,6 +89,8 @@ void loop(void)
         RCDatagram rcDatagrm;
         int8_t speedInPercent = map(joystickY, -512, 512, -100, 100);
         rcDatagrm.speedInPercent = speedInPercent;
+        // TODO: send this as UDP
+        //radioRF24.sendTcp(DST_ADDRESS, (uint8_t*) &rcDatagrm, sizeof(RCDatagram));
 
         if (joystickX != 0 || speedInPercent != 0)
         {
