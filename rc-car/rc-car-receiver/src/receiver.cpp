@@ -53,4 +53,13 @@ void loop(void)
 {
     terminal.loop();
     LocalMeshNode.loop();
+
+    IotPacket* incomingPacket = LocalMeshNode.getIncomingPacket();
+    if (incomingPacket != NULL)
+    {
+        RCDatagram* rcDatagram = (RCDatagram*) incomingPacket->payload;
+        Serial.println(rcDatagram->speedInPercent);
+
+        LocalMeshNode.markIncomingPacketConsumed();
+    }
 }

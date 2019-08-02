@@ -8,6 +8,8 @@
 #ifndef RCDATAGRAM_H_
 #define RCDATAGRAM_H_
 
+#include <stdint.h>
+
 struct RCDatagram
 {
     /***
