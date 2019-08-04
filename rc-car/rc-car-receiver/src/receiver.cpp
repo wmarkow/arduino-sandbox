@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <WString.h>
 
+#include <L298N.h>
+
 #include <Array.h>
 #include <FixedSizeArray.h>
 
@@ -33,6 +35,12 @@ Ifconfig ifconfigCommand;
 IpConfig ipConfigCommand;
 Terminal terminal(&Serial, commandsArray);
 
+#define MAIN_MOTOR_PWM_PIN 6
+#define MAIN_MOTOR_IN1_PIN 7
+#define MAIN_MOTOR_IN2_PIN 8
+
+L298N mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN, MAIN_MOTOR_IN2_PIN);
+
 void setup()
 {
     Serial.begin(9600);
@@ -47,6 +55,9 @@ void setup()
     radioRF24.up();
     LocalMeshNode.setRF24Interface(&radioRF24);
     LocalMeshNode.setIpAddress(IP_ADDRESS);
+
+    mainMotor.setSpeed(0);
+    mainMotor.stop();
 }
 
 void loop(void)
@@ -58,8 +69,27 @@ void loop(void)
     if (incomingPacket != NULL)
     {
         RCDatagram* rcDatagram = (RCDatagram*) incomingPacket->payload;
-        Serial.println(rcDatagram->speedInPercent);
-
+        int8_t speed = rcDatagram->speedInPercent;
         LocalMeshNode.markIncomingPacketConsumed();
+
+        Serial.println(speed);
+
+        if (speed == 0)
+        {
+            mainMotor.setSpeed(0);
+            mainMotor.stop();
+        }
+        else if (speed > 0)
+        {
+            uint8_t newSpeed = map(abs(speed), 0, 100, 0, 255);
+            mainMotor.setSpeed(newSpeed);
+            mainMotor.forward();
+        }
+        else if (speed < 0)
+        {
+            uint8_t newSpeed = map(abs(speed), 0, 100, 0, 255);
+            mainMotor.setSpeed(newSpeed);
+            mainMotor.backward();
+        }
     }
 }
