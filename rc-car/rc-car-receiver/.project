@@ -47,6 +47,11 @@
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/standard</locationURI>
 		</link>
 		<link>
+			<name>libraries/L298N</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/L298N/1.1.0</locationURI>
+		</link>
+		<link>
 			<name>libraries/RF24</name>
 			<type>2</type>
 			<location>C:/Users/wmarkowski/dev-test/sources/arduino/arduino-private-libs/RF24</location>
