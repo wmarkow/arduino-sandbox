@@ -24,6 +24,7 @@
 #define JOYSTICK_X_INPUT A0
 #define JOYSTICK_Y_INPUT A1
 #define TURBO_BUTTON_INPUT 2
+#define STATUS_LED_PIN 7
 
 #define IP_ADDRESS 1
 #define DST_ADDRESS 2
@@ -40,11 +41,14 @@ IpConfig ipConfigCommand;
 Terminal terminal(&Serial, commandsArray);
 
 unsigned long lastDisplayTime;
+unsigned long lastLedToggle;
 Joystick joystick(JOYSTICK_X_INPUT, JOYSTICK_Y_INPUT);
 
 void setup()
 {
     pinMode(TURBO_BUTTON_INPUT, INPUT);
+    pinMode(STATUS_LED_PIN, OUTPUT);
+    digitalWrite(STATUS_LED_PIN, LOW);
 
     Serial.begin(9600);
 
@@ -97,5 +101,11 @@ void loop(void)
         }
 
         lastDisplayTime = millis();
+    }
+
+    if (millis() - lastLedToggle > 500)
+    {
+        digitalWrite(STATUS_LED_PIN, !digitalRead(STATUS_LED_PIN));
+        lastLedToggle = millis();
     }
 }
