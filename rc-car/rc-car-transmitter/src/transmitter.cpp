@@ -79,17 +79,15 @@ void loop(void)
         int16_t joystickY = joystick.readY();
         uint8_t turboButton = digitalRead(TURBO_BUTTON_INPUT);
 
-        if (!turboButton)
-        {
-            joystickY >>= 1;
-        }
-
         // create a datagram and send it to the receiver
-        RCDatagram rcDatagrm;
+        RCDatagram rcDatagram;
         int8_t speedInPercent = map(joystickY, -512, 512, -100, 100);
-        rcDatagrm.speedInPercent = speedInPercent;
+        int8_t steeringAngleInPercent = map(joystickX, -512, 512, -100, 100);
+        rcDatagram.speedInPercent = speedInPercent;
+        rcDatagram.steeringAngleInPercent = steeringAngleInPercent;
+        rcDatagram.turboButtonState = turboButton;
 
-        LocalMeshNode.sendUdp(DST_ADDRESS, (uint8_t*) &rcDatagrm,
+        LocalMeshNode.sendUdp(DST_ADDRESS, (uint8_t*) &rcDatagram,
                 sizeof(RCDatagram));
 
         if (joystickX != 0 || speedInPercent != 0)

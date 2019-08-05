@@ -19,6 +19,21 @@ struct RCDatagram
      * Negative value means that it should go backward.
      */
     int8_t speedInPercent;
+
+    /***
+     * Steering angle from -100 to +100.
+     * 0 means that the steering should be set straight.
+     * Positive value means that the steering should go right.
+     * Negative value means that the steering should go left.
+     */
+    int8_t steeringAngleInPercent;
+
+    /***
+     * The state of the turbo button:
+     * 0 - button OFF
+     * 1 - button ON
+     */
+    uint8_t turboButtonState;
 };
 
 #endif /* RCDATAGRAM_H_ */
