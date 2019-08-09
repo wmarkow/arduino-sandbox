@@ -46,6 +46,8 @@ Terminal terminal(&Serial, commandsArray);
 L298N mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN, MAIN_MOTOR_IN2_PIN);
 L298N steeringWheel(MAIN_WHEEL_PWM_PIN, MAIN_WHEEL_IN1_PIN, MAIN_WHEEL_IN2_PIN);
 
+unsigned long lastReceivedDatagramMillis = 0;
+
 void setup()
 {
     Serial.begin(9600);
@@ -92,6 +94,15 @@ void loop(void)
 
         setSpeed(speed, turboButtonState);
         setSteering(steering);
+
+        lastReceivedDatagramMillis = millis();
+    }
+
+    if (millis() - lastReceivedDatagramMillis > 500)
+    {
+        // no communication since 500ms
+        setSpeed(0, 0);
+        setSteering(0);
     }
 }
 
