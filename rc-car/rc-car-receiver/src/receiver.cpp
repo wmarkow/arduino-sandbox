@@ -3,8 +3,6 @@
 #include <stdint.h>
 #include <WString.h>
 
-#include <L298N.h>
-
 #include <Array.h>
 #include <FixedSizeArray.h>
 
@@ -20,6 +18,7 @@
 #include <Terminal.h>
 #include <UptimeCommand.h>
 
+#include "MotorSoftDriver.h"
 #include "RCDatagram.h"
 
 #define IP_ADDRESS 2
@@ -43,7 +42,7 @@ Terminal terminal(&Serial, commandsArray);
 #define MAIN_WHEEL_IN1_PIN 2
 #define MAIN_WHEEL_IN2_PIN 4
 
-L298N mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN, MAIN_MOTOR_IN2_PIN);
+MotorSoftDriver mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN, MAIN_MOTOR_IN2_PIN);
 L298N steeringWheel(MAIN_WHEEL_PWM_PIN, MAIN_WHEEL_IN1_PIN, MAIN_WHEEL_IN2_PIN);
 
 unsigned long lastReceivedDatagramMillis = 0;
@@ -63,8 +62,8 @@ void setup()
     LocalMeshNode.setRF24Interface(&radioRF24);
     LocalMeshNode.setIpAddress(IP_ADDRESS);
 
-    mainMotor.setSpeed(0);
-    mainMotor.stop();
+    mainMotor.init();
+    mainMotor.setSpeedInPercent(0);
 
     steeringWheel.setSpeed(0);
     steeringWheel.stop();
@@ -77,6 +76,7 @@ void loop(void)
 {
     terminal.loop();
     LocalMeshNode.loop();
+    mainMotor.loop();
 
     IotPacket* incomingPacket = LocalMeshNode.getIncomingPacket();
     if (incomingPacket != NULL)
@@ -113,23 +113,7 @@ void setSpeed(int8_t speed, uint8_t turboButtonState)
         speed = 0.5 * speed;
     }
 
-    if (speed == 0)
-    {
-        mainMotor.setSpeed(0);
-        mainMotor.stop();
-    }
-    else if (speed > 0)
-    {
-        uint8_t newSpeed = map(abs(speed), 0, 100, 0, 255);
-        mainMotor.setSpeed(newSpeed);
-        mainMotor.forward();
-    }
-    else if (speed < 0)
-    {
-        uint8_t newSpeed = map(abs(speed), 0, 100, 0, 255);
-        mainMotor.setSpeed(newSpeed);
-        mainMotor.backward();
-    }
+    mainMotor.setSpeedInPercent(speed);
 }
 
 void setSteering(int8_t steering)
