@@ -9,7 +9,7 @@
 
 // Those two below define the max possible acceleration
 #define MAX_DELTA_SPEED 255
-#define MAX_DELTA_T_IN_MILLIS 500
+#define MAX_DELTA_T_IN_MILLIS 250
 
 #define DELTA_T_IN_MILLIS 10
 #define DELTA_SPEED (int)((float)DELTA_T_IN_MILLIS * ((float)MAX_DELTA_SPEED / (float)MAX_DELTA_T_IN_MILLIS))
