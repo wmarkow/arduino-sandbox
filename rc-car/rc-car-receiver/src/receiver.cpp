@@ -15,6 +15,7 @@
 #include <terminal/commands/Ifconfig.h>
 #include <terminal/commands/IpConfig.h>
 #include <terminal/commands/Ping.h>
+#include <terminal/commands/Wireshark.h>
 #include <Terminal.h>
 #include <UptimeCommand.h>
 
@@ -26,12 +27,13 @@
 RF24Device rf24Device;
 Interface radioRF24 = Interface(&rf24Device);
 
-FixedSizeArray<AbstractCommand*, 4> commands;
+FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 UptimeCommand uptimeCommand;
 Ping pingCommand;
 Ifconfig ifconfigCommand;
 IpConfig ipConfigCommand;
+Wireshark wiresharkCommand;
 Terminal terminal(&Serial, commandsArray);
 
 #define MAIN_MOTOR_PWM_PIN 6
@@ -57,6 +59,7 @@ void setup()
     commandsArray->add(&pingCommand);
     commandsArray->add(&ifconfigCommand);
     commandsArray->add(&ipConfigCommand);
+    commandsArray->add(&wiresharkCommand);
 
     radioRF24.up();
     LocalMeshNode.setRF24Interface(&radioRF24);
