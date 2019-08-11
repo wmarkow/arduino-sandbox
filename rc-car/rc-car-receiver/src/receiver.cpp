@@ -44,14 +44,15 @@ Terminal terminal(&Serial, commandsArray);
 #define MAIN_WHEEL_IN1_PIN 2
 #define MAIN_WHEEL_IN2_PIN 4
 
-MotorSoftDriver mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN, MAIN_MOTOR_IN2_PIN);
+MotorSoftDriver mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN,
+        MAIN_MOTOR_IN2_PIN);
 L298N steeringWheel(MAIN_WHEEL_PWM_PIN, MAIN_WHEEL_IN1_PIN, MAIN_WHEEL_IN2_PIN);
 
 unsigned long lastReceivedDatagramMillis = 0;
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     randomSeed(analogRead(0));
 
