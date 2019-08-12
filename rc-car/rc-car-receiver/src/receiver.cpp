@@ -45,7 +45,7 @@ Terminal terminal(&Serial, commandsArray);
 #define MAIN_WHEEL_IN2_PIN 4
 
 MotorSoftDriver mainMotor(MAIN_MOTOR_PWM_PIN, MAIN_MOTOR_IN1_PIN,
-        MAIN_MOTOR_IN2_PIN);
+MAIN_MOTOR_IN2_PIN);
 L298N steeringWheel(MAIN_WHEEL_PWM_PIN, MAIN_WHEEL_IN1_PIN, MAIN_WHEEL_IN2_PIN);
 
 unsigned long lastReceivedDatagramMillis = 0;
@@ -112,6 +112,11 @@ void loop(void)
 
 void setSpeed(int8_t speed, uint8_t turboButtonState)
 {
+    if (abs(speed) < 10)
+    {
+        speed = 0;
+    }
+
     if (turboButtonState == 0)
     {
         speed = 0.5 * speed;
