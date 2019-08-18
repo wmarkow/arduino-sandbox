@@ -69,6 +69,8 @@ void setup()
     commandsArray->add(&ipConfigCommand);
 
     radioRF24.up();
+    rf24Device.setPALevel(100); // must be called after up()
+
     LocalMeshNode.setRF24Interface(&radioRF24);
     LocalMeshNode.setIpAddress(IP_ADDRESS);
 }
