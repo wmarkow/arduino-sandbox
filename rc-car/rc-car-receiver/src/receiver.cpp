@@ -86,9 +86,9 @@ void loop(void)
     if (incomingPacket != NULL)
     {
         RCDatagram* rcDatagram = (RCDatagram*) incomingPacket->payload;
-        int8_t speed = rcDatagram->speedInPercent;
-        int8_t steering = rcDatagram->steeringAngleInPercent;
-        uint8_t turboButtonState = rcDatagram->turboButtonState;
+        int8_t speed = rcDatagram->leftYInPercent;
+        int8_t steering = rcDatagram->rightXInPercent;
+        uint8_t turboButtonState = rcDatagram->l1Button;
 
         LocalMeshNode.markIncomingPacketConsumed();
 
