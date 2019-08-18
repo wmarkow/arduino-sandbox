@@ -23,6 +23,8 @@
 
 #define RIGHT_JOYSTICK_X_INPUT A0
 #define RIGHT_JOYSTICK_Y_INPUT A1
+#define LEFT_JOYSTICK_X_INPUT A2
+#define LEFT_JOYSTICK_Y_INPUT A3
 #define L1_BUTTON_INPUT 2
 #define STATUS_LED_PIN 7
 
@@ -43,6 +45,7 @@ Terminal terminal(&Serial, commandsArray);
 unsigned long lastDisplayTime;
 unsigned long lastLedToggle;
 Joystick rightJoystick(RIGHT_JOYSTICK_X_INPUT, RIGHT_JOYSTICK_Y_INPUT);
+Joystick leftJoystick(LEFT_JOYSTICK_X_INPUT, LEFT_JOYSTICK_Y_INPUT);
 
 void setup()
 {
@@ -55,6 +58,8 @@ void setup()
     lastDisplayTime = 0;
     rightJoystick.setReverseY(true);
     rightJoystick.setZeroValueThreshold(20);
+    leftJoystick.setReverseY(true);
+    leftJoystick.setZeroValueThreshold(20);
 
     randomSeed(analogRead(0));
 
@@ -75,23 +80,36 @@ void loop(void)
 
     if (millis() - lastDisplayTime > 100)
     {
-        int16_t joystickX = rightJoystick.readX();
-        int16_t joystickY = rightJoystick.readY();
+        int16_t rightJoystickX = rightJoystick.readX();
+        int16_t rightJoystickY = rightJoystick.readY();
+        int16_t leftJoystickX = leftJoystick.readX();
+        int16_t leftJoystickY = leftJoystick.readY();
         uint8_t l1Button = digitalRead(L1_BUTTON_INPUT);
 
         // create a datagram and send it to the receiver
         RCDatagram rcDatagram;
-        rcDatagram.rightXInPercent = map(joystickX, -512, 512, -100, 100);
-        rcDatagram.rightYInPercent = map(joystickY, -512, 512, -100, 100);
+        rcDatagram.rightXInPercent = map(rightJoystickX, -512, 512, -100, 100);
+        rcDatagram.rightYInPercent = map(rightJoystickY, -512, 512, -100, 100);
+        rcDatagram.leftXInPercent = map(leftJoystickX, -512, 512, -100, 100);
+        rcDatagram.leftYInPercent = map(leftJoystickY, -512, 512, -100, 100);
         rcDatagram.l1Button = l1Button;
 
         LocalMeshNode.sendUdp(DST_ADDRESS, (uint8_t*) &rcDatagram,
                 sizeof(RCDatagram));
 
         char tbs[50];
-        sprintf(tbs, "X=%03d Y=%03d T=%1d", rcDatagram.rightXInPercent,
-                rcDatagram.rightYInPercent, l1Button);
-        Serial.println(tbs);
+        if (rcDatagram.rightXInPercent != 0 || rcDatagram.rightYInPercent != 0)
+        {
+            sprintf(tbs, "RX=%03d RY=%03d T=%1d", rcDatagram.rightXInPercent,
+                    rcDatagram.rightYInPercent, l1Button);
+            Serial.println(tbs);
+        }
+        if (rcDatagram.leftXInPercent != 0 || rcDatagram.leftYInPercent != 0)
+        {
+            sprintf(tbs, "LX=%03d LY=%03d T=%1d", rcDatagram.leftXInPercent,
+                    rcDatagram.leftYInPercent, l1Button);
+            Serial.println(tbs);
+        }
 
         lastDisplayTime = millis();
     }

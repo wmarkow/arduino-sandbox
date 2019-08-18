@@ -29,6 +29,22 @@ struct RCDatagram
     int8_t rightXInPercent;
 
     /***
+     * Left Y in range from -100 to +100.
+     *
+     * Positive value means joystick goes up/forward.
+     * Negative value means joystick goes down/backward.
+     */
+    int8_t leftYInPercent;
+
+    /***
+     * Left X in range from -100 to +100.
+     *
+     * Positive value means joystick goes right.
+     * Negative value means joystick goes left.
+     */
+    int8_t leftXInPercent;
+
+    /***
      * The state of the L1 button:
      * 0 - button OFF
      * 1 - button ON
