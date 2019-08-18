@@ -13,27 +13,27 @@
 struct RCDatagram
 {
     /***
-     * Speed in range from -100 to +100.
-     * 0 means that the car should stop.
-     * Positive value means that it should go forward.
-     * Negative value means that it should go backward.
+     * Right Y in range from -100 to +100.
+     *
+     * Positive value means joystick goes up/forward.
+     * Negative value means joystick goes down/backward.
      */
-    int8_t speedInPercent;
+    int8_t rightYInPercent;
 
     /***
-     * Steering angle from -100 to +100.
-     * 0 means that the steering should be set straight.
-     * Positive value means that the steering should go right.
-     * Negative value means that the steering should go left.
+     * Right X in range from -100 to +100.
+     *
+     * Positive value means joystick goes right.
+     * Negative value means joystick goes left.
      */
-    int8_t steeringAngleInPercent;
+    int8_t rightXInPercent;
 
     /***
-     * The state of the turbo button:
+     * The state of the L1 button:
      * 0 - button OFF
      * 1 - button ON
      */
-    uint8_t turboButtonState;
+    uint8_t l1Button;
 };
 
 #endif /* RCDATAGRAM_H_ */

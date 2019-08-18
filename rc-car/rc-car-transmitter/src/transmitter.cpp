@@ -21,9 +21,9 @@
 #include "Joystick.h"
 #include "RCDatagram.h"
 
-#define JOYSTICK_X_INPUT A0
-#define JOYSTICK_Y_INPUT A1
-#define TURBO_BUTTON_INPUT A2
+#define RIGHT_JOYSTICK_X_INPUT A0
+#define RIGHT_JOYSTICK_Y_INPUT A1
+#define L1_BUTTON_INPUT A2
 #define STATUS_LED_PIN 7
 
 #define IP_ADDRESS 1
@@ -42,19 +42,19 @@ Terminal terminal(&Serial, commandsArray);
 
 unsigned long lastDisplayTime;
 unsigned long lastLedToggle;
-Joystick joystick(JOYSTICK_X_INPUT, JOYSTICK_Y_INPUT);
+Joystick rightJoystick(RIGHT_JOYSTICK_X_INPUT, RIGHT_JOYSTICK_Y_INPUT);
 
 void setup()
 {
-    pinMode(TURBO_BUTTON_INPUT, INPUT);
+    pinMode(L1_BUTTON_INPUT, INPUT);
     pinMode(STATUS_LED_PIN, OUTPUT);
     digitalWrite(STATUS_LED_PIN, LOW);
 
     Serial.begin(9600);
 
     lastDisplayTime = 0;
-    joystick.setReverseY(true);
-    joystick.setZeroValueThreshold(20);
+    rightJoystick.setReverseY(true);
+    rightJoystick.setZeroValueThreshold(20);
 
     randomSeed(analogRead(0));
 
@@ -75,28 +75,23 @@ void loop(void)
 
     if (millis() - lastDisplayTime > 100)
     {
-        int16_t joystickX = joystick.readX();
-        int16_t joystickY = joystick.readY();
-        uint8_t turboButton = digitalRead(TURBO_BUTTON_INPUT);
+        int16_t joystickX = rightJoystick.readX();
+        int16_t joystickY = rightJoystick.readY();
+        uint8_t l1Button = digitalRead(L1_BUTTON_INPUT);
 
         // create a datagram and send it to the receiver
         RCDatagram rcDatagram;
-        int8_t speedInPercent = map(joystickY, -512, 512, -100, 100);
-        int8_t steeringAngleInPercent = map(joystickX, -512, 512, -100, 100);
-        rcDatagram.speedInPercent = speedInPercent;
-        rcDatagram.steeringAngleInPercent = steeringAngleInPercent;
-        rcDatagram.turboButtonState = turboButton;
+        rcDatagram.rightXInPercent = map(joystickX, -512, 512, -100, 100);
+        rcDatagram.rightYInPercent = map(joystickY, -512, 512, -100, 100);
+        rcDatagram.l1Button = l1Button;
 
         LocalMeshNode.sendUdp(DST_ADDRESS, (uint8_t*) &rcDatagram,
                 sizeof(RCDatagram));
 
-        if (joystickX != 0 || speedInPercent != 0)
-        {
-            char tbs[50];
-            sprintf(tbs, "X=%03d Y=%03d T=%1d", joystickX, speedInPercent,
-                    turboButton);
-            Serial.println(tbs);
-        }
+        char tbs[50];
+        sprintf(tbs, "X=%03d Y=%03d T=%1d", rcDatagram.rightXInPercent,
+                rcDatagram.rightYInPercent, l1Button);
+        Serial.println(tbs);
 
         lastDisplayTime = millis();
     }
