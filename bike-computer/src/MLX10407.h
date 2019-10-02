@@ -28,7 +28,6 @@
 #include <stdint.h>
 #include <SPI.h>
 
-
 class MLX10407
 {
 private:
@@ -36,7 +35,7 @@ private:
 public:
     MLX10407(uint8_t csPin);
     void init();
-    void setGauge(uint8_t gaugeNumber, uint16_t angle);
+    void writeLogo(uint8_t logoNumber, uint16_t angle);
 };
 
 #endif /* MLX10407_H_ */

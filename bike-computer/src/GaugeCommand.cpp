@@ -38,15 +38,15 @@ void GaugeCommand::process(CommandParams *params, HardwareSerial *serial)
 
         if (gaugeNumber == 0)
         {
-            gauge1.setGauge(0, gaugeValue);
+            gauge1.writeLogo(1, gaugeValue);
         }
         else if (gaugeNumber == 1)
         {
-            gauge1.setGauge(1, gaugeValue);
+            gauge1.writeLogo(2, gaugeValue);
         }
         else if (gaugeNumber == 2)
         {
-            gauge2.setGauge(0, gaugeValue);
+            gauge2.writeLogo(1, gaugeValue);
         }
     }
 }

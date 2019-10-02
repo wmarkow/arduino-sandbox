@@ -49,10 +49,10 @@ void demo()
 
     for (i = 0; i < 360; i++)
     {
-        gauge1.setGauge(0, i);
+        gauge1.writeLogo(1, i);
         delayMicroseconds(5);
-        gauge1.setGauge(1, i);
-        gauge2.setGauge(0, i);
+        gauge1.writeLogo(2, i);
+        gauge2.writeLogo(1, i);
 
         // A delay is also useful for preventing erratic needle slap and
         // good continuity between values.
@@ -62,10 +62,10 @@ void demo()
 
     for (i = 359; i >= 0; i--)
     {
-        gauge1.setGauge(0, i);
+        gauge1.writeLogo(1, i);
         delayMicroseconds(5);
-        gauge1.setGauge(1, i);
-        gauge2.setGauge(0, i);
+        gauge1.writeLogo(2, i);
+        gauge2.writeLogo(1, i);
 
         delay(10);
     }
