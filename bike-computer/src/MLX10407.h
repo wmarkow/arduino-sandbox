@@ -31,7 +31,10 @@
 
 class MLX10407
 {
+private:
+    uint8_t csPin;
 public:
+    MLX10407(uint8_t csPin);
     void init();
     void setGauge(uint8_t gaugeNumber, uint16_t angle);
 };

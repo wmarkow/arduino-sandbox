@@ -10,17 +10,21 @@
 // Use defines for pin definitions instead of const ints
 // defines are substituded at the precompile stage so
 // they use no RAM on your device.
-#define _MLX_CS_PIN         7
 #define _MLX_RST_PIN        8     // Now wire arduino pin 7 to MLX pin 15
 #define _MLX_START_BIT      0x80   // Prefixes all gauge updates
 
 const byte gauge_lookup[6] =
 { 0x10, 0x30, 0x40, 0x60, 0x50 };
 
+MLX10407::MLX10407(uint8_t csPin)
+{
+    this->csPin = csPin;
+}
+
 void MLX10407::init()
 {
     // Don't forget to do this, one some boards the gauges will not respond if you leave it out
-    pinMode(_MLX_CS_PIN, OUTPUT);
+    pinMode(csPin, OUTPUT);
     pinMode(_MLX_RST_PIN, OUTPUT);
 
     // Setup SPI
@@ -28,7 +32,7 @@ void MLX10407::init()
     SPI.setBitOrder(MSBFIRST);
     SPI.setDataMode(SPI_MODE0);
     SPI.setClockDivider(SPI_CLOCK_DIV32); // wire SPI clock pin to MLX pin SCLK (1MHz is adequate, 4MHz is fine too)
-    digitalWrite(_MLX_CS_PIN, LOW); // MLX expects CS to go high on transfer then low to latch them the bytes in
+    digitalWrite(csPin, LOW); // MLX expects CS to go high on transfer then low to latch them the bytes in
     digitalWrite(_MLX_RST_PIN, HIGH); // Reset has inverted logic and is active low
 }
 
@@ -51,7 +55,6 @@ void MLX10407::init()
 //    SPI.transfer(value << 3 | (newValue / 512));
 //    digitalWrite(_MLX_CS_PIN, LOW);
 //}
-
 /***
  * @param - gaugeNumber from 0 to 4
  * @param - newValue from 0 to 359
@@ -80,12 +83,12 @@ void MLX10407::setGauge(uint8_t gaugeNumber, uint16_t angle)
     }
 //    Serial.println(quadrant);
 
-
     uint16_t angleValue = map(angleQ, 0, 89, 0, 1023);
 //    Serial.println(angleValue);
 
-    digitalWrite(_MLX_CS_PIN, HIGH);
-    SPI.transfer(_MLX_START_BIT | gauge_lookup[gaugeNumber] | (angleValue >> 6));
+    digitalWrite(csPin, HIGH);
+    SPI.transfer(
+            _MLX_START_BIT | gauge_lookup[gaugeNumber] | (angleValue >> 6));
     SPI.transfer(((angleValue & 0b00111111) << 2) | quadrant);
-    digitalWrite(_MLX_CS_PIN, LOW);
+    digitalWrite(csPin, LOW);
 }

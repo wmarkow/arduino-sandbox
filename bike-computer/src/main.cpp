@@ -14,7 +14,9 @@
 #include "MLX10407.h"
 #include "GaugeCommand.h"
 
-MLX10407 gauge;
+#define FIRST_MLS10407_CS 7
+
+MLX10407 gauge(FIRST_MLS10407_CS);
 
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
