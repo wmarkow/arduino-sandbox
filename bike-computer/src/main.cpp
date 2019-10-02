@@ -15,8 +15,10 @@
 #include "GaugeCommand.h"
 
 #define FIRST_MLS10407_CS 7
+#define SECOND_MLS10407_CS 5
 
-MLX10407 gauge(FIRST_MLS10407_CS);
+MLX10407 gauge1(FIRST_MLS10407_CS);
+MLX10407 gauge2(SECOND_MLS10407_CS);
 
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
@@ -28,7 +30,8 @@ void demo();
 void setup()
 {
     Serial.begin(9600);
-    gauge.init();
+    gauge1.init();
+    gauge2.init();
 
     commandsArray->add(&gaugeCommand);
 
@@ -46,23 +49,24 @@ void demo()
 
     for (i = 0; i < 360; i++)
     {
-        gauge.setGauge(0, i);
-//        // You need at least 5us between transfers or the needles get unstable
-//        delayMicroseconds(5);
-//        gauge.setGauge(1, i);
+        gauge1.setGauge(0, i);
+        delayMicroseconds(5);
+        gauge1.setGauge(1, i);
+        gauge2.setGauge(0, i);
 
-// A 1ms delay is also useful for preventing erratic needle slap and
-// good continuity between values.
+        // A delay is also useful for preventing erratic needle slap and
+        // good continuity between values.
         delay(10);
-//        Serial.println(i);
     }
     delay(1000);
 
     for (i = 359; i >= 0; i--)
     {
-        gauge.setGauge(0, i);
-//        delayMicroseconds(5);
-//        gauge.setGauge(1, i);
+        gauge1.setGauge(0, i);
+        delayMicroseconds(5);
+        gauge1.setGauge(1, i);
+        gauge2.setGauge(0, i);
+
         delay(10);
     }
     delay(1000);
