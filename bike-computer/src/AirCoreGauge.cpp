@@ -115,3 +115,19 @@ void AirCoreGauge::setValue(int16_t value)
     uint16_t angle = map(value, minValue, maxValue, minAngle, maxAngle);
     setAngle(angle);
 }
+
+void AirCoreGauge::setValuePercents(uint8_t valueInPercents)
+{
+    uint16_t angle = map(valueInPercents, 0, 100, minAngle, maxAngle);
+    setAngle(angle);
+}
+
+boolean AirCoreGauge::isAdjusting()
+{
+    if (currentAngle != desiredAngle)
+    {
+        return true;
+    }
+
+    return false;
+}
