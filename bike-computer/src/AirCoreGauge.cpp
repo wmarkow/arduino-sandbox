@@ -17,6 +17,10 @@ AirCoreGauge::AirCoreGauge(MLX10407* driver, uint8_t logoNumber)
     this->currentAngle = 0;
     this->desiredAngle = 0;
     this->lastUpdateTimeMillis = 0;
+    this->minAngle = 0;
+    this->maxAngle = 359;
+    this->minValue = 0;
+    this->maxValue = 0;
 }
 
 void AirCoreGauge::init()
@@ -94,3 +98,20 @@ void AirCoreGauge::setAngle(uint16_t angle)
     this->desiredAngle = angle;
 }
 
+void AirCoreGauge::setMin(uint16_t angle, uint16_t value)
+{
+    this->minAngle = angle;
+    this->minValue = value;
+}
+
+void AirCoreGauge::setMax(uint16_t angle, uint16_t value)
+{
+    this->maxAngle = angle;
+    this->maxValue = value;
+}
+
+void AirCoreGauge::setValue(uint16_t value)
+{
+    uint16_t angle = map(value, minValue, maxValue, minAngle, maxAngle);
+    setAngle(angle);
+}
