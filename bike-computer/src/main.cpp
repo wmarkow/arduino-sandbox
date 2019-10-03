@@ -14,6 +14,7 @@
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
 #include "GaugeCommand.h"
+#include "SpeedCommand.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 5
@@ -29,6 +30,7 @@ FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 Terminal terminal(&Serial, commandsArray);
 GaugeCommand gaugeCommand;
+SpeedCommand speedCommand;
 
 void demo();
 
@@ -38,7 +40,11 @@ void setup()
     gauge1.init();
     gauge2.init();
 
+    speedGauge.setMin(3, 0);
+    speedGauge.setMax(260, 160);
+
     commandsArray->add(&gaugeCommand);
+    commandsArray->add(&speedCommand);
 
     demo();
 }
