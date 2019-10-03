@@ -38,11 +38,15 @@ void MLX10407::init()
 
 /***
  * @param - logoNumber from 1 to 5
- * @param - newValue from 0 to 359
+ * @param - angle      from -359 to 359
  */
-void MLX10407::writeLogo(uint8_t logoNumber, uint16_t angle)
+void MLX10407::writeLogo(uint8_t logoNumber, int16_t angle)
 {
     angle = angle % 360;
+    if(angle < 0)
+    {
+        angle += 360;
+    }
     uint8_t angleQ = angle % 90; // max 7 bits
 
     uint8_t quadrant;

@@ -35,7 +35,7 @@ void GaugeCommand::process(CommandParams *params, HardwareSerial *serial)
         uint8_t gaugeNumber = gaugeNumberAsString.toInt();
 
         String geugeValueAsString = params->getParam(2);
-        uint16_t gaugeValue = geugeValueAsString.toInt();
+        int16_t gaugeValue = geugeValueAsString.toInt();
 
         if (gaugeNumber == 0)
         {

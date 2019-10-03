@@ -35,7 +35,7 @@ private:
 public:
     MLX10407(uint8_t csPin);
     void init();
-    void writeLogo(uint8_t logoNumber, uint16_t angle);
+    void writeLogo(uint8_t logoNumber, int16_t angle);
 };
 
 #endif /* MLX10407_H_ */
