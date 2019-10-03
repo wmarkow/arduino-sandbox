@@ -86,7 +86,7 @@ void AirCoreGauge::loop()
 /***
  * @param angle - from 0 to 359
  */
-void AirCoreGauge::setAngle(uint16_t angle)
+void AirCoreGauge::setAngle(int16_t angle)
 {
     if (angle > 359)
     {
@@ -98,19 +98,19 @@ void AirCoreGauge::setAngle(uint16_t angle)
     this->desiredAngle = angle;
 }
 
-void AirCoreGauge::setMin(uint16_t angle, uint16_t value)
+void AirCoreGauge::setMin(int16_t angle, int16_t value)
 {
     this->minAngle = angle;
     this->minValue = value;
 }
 
-void AirCoreGauge::setMax(uint16_t angle, uint16_t value)
+void AirCoreGauge::setMax(int16_t angle, int16_t value)
 {
     this->maxAngle = angle;
     this->maxValue = value;
 }
 
-void AirCoreGauge::setValue(uint16_t value)
+void AirCoreGauge::setValue(int16_t value)
 {
     uint16_t angle = map(value, minValue, maxValue, minAngle, maxAngle);
     setAngle(angle);

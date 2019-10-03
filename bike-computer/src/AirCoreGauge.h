@@ -16,22 +16,22 @@ class AirCoreGauge
 private:
     MLX10407* driver;
     uint8_t logoNumber;
-    uint16_t currentAngle;
-    uint16_t desiredAngle;
-    uint16_t minAngle;
-    uint16_t maxAngle;
-    uint16_t minValue;
-    uint16_t maxValue;
+    int16_t currentAngle;
+    int16_t desiredAngle;
+    int16_t minAngle;
+    int16_t maxAngle;
+    int16_t minValue;
+    int16_t maxValue;
     unsigned long lastUpdateTimeMillis;
 
 public:
     AirCoreGauge(MLX10407* driver, uint8_t logoNumber);
     void init();
     void loop();
-    void setAngle(uint16_t angle);
-    void setMin(uint16_t angle, uint16_t value);
-    void setMax(uint16_t angle, uint16_t value);
-    void setValue(uint16_t value);
+    void setAngle(int16_t angle);
+    void setMin(int16_t angle, int16_t value);
+    void setMax(int16_t angle, int16_t value);
+    void setValue(int16_t value);
 };
 
 #endif /* AIRCOREGAUGE_H_ */
