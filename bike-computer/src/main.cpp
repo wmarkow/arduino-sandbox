@@ -12,6 +12,7 @@
 #include <HardwareSerial.h>
 
 #include "MLX10407.h"
+#include "AirCoreGauge.h"
 #include "GaugeCommand.h"
 
 #define FIRST_MLS10407_CS 7
@@ -19,6 +20,10 @@
 
 MLX10407 gauge1(FIRST_MLS10407_CS);
 MLX10407 gauge2(SECOND_MLS10407_CS);
+
+AirCoreGauge tempGauge(&gauge1, 1);
+AirCoreGauge speedGauge(&gauge1, 2);
+AirCoreGauge fuelGauge(&gauge2, 1);
 
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
@@ -41,6 +46,10 @@ void setup()
 void loop(void)
 {
     terminal.loop();
+
+    tempGauge.loop();
+    speedGauge.loop();
+    fuelGauge.loop();
 }
 
 void demo()

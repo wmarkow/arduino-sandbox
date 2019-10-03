@@ -14,10 +14,11 @@
 #include <stdbool.h>
 #include <WString.h>
 
-#include "MLX10407.h"
+#include "AirCoreGauge.h"
 
-extern MLX10407 gauge1;
-extern MLX10407 gauge2;
+extern AirCoreGauge tempGauge;
+extern AirCoreGauge speedGauge;
+extern AirCoreGauge fuelGauge;
 
 const __FlashStringHelper* GaugeCommand::getName()
 {
@@ -38,15 +39,15 @@ void GaugeCommand::process(CommandParams *params, HardwareSerial *serial)
 
         if (gaugeNumber == 0)
         {
-            gauge1.writeLogo(1, gaugeValue);
+            tempGauge.setAngle(gaugeValue);
         }
         else if (gaugeNumber == 1)
         {
-            gauge1.writeLogo(2, gaugeValue);
+            speedGauge.setAngle(gaugeValue);
         }
         else if (gaugeNumber == 2)
         {
-            gauge2.writeLogo(1, gaugeValue);
+            fuelGauge.setAngle(gaugeValue);
         }
     }
 }
