@@ -72,29 +72,19 @@ void loop(void)
 
 void demo()
 {
-    int i = 0;
 
-    for (i = 0; i < 360; i++)
+    tempGauge.setValuePercents(100);
+    speedGauge.setValuePercents(100);
+    fuelGauge.setValuePercents(100);
+
+    while (tempGauge.isAdjusting() || speedGauge.isAdjusting() || fuelGauge.isAdjusting())
     {
-        gauge1.writeLogo(1, i);
-        delayMicroseconds(5);
-        gauge1.writeLogo(2, i);
-        gauge2.writeLogo(1, i);
-
-        // A delay is also useful for preventing erratic needle slap and
-        // good continuity between values.
-        delay(10);
+        loop();
     }
-    delay(1000);
 
-    for (i = 359; i >= 0; i--)
-    {
-        gauge1.writeLogo(1, i);
-        delayMicroseconds(5);
-        gauge1.writeLogo(2, i);
-        gauge2.writeLogo(1, i);
+    delay(100);
 
-        delay(10);
-    }
-    delay(1000);
+    tempGauge.setValuePercents(0);
+    speedGauge.setValuePercents(0);
+    fuelGauge.setValuePercents(0);
 }
