@@ -16,6 +16,7 @@
 #include "GaugeCommand.h"
 #include "SpeedCommand.h"
 #include "TempCommand.h"
+#include "FuelCommand.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 5
@@ -33,6 +34,7 @@ Terminal terminal(&Serial, commandsArray);
 GaugeCommand gaugeCommand;
 SpeedCommand speedCommand;
 TempCommand tempCommand;
+FuelCommand fuelCommand;
 
 void demo();
 
@@ -48,9 +50,13 @@ void setup()
     tempGauge.setMin(-90, 0);
     tempGauge.setMax(90, 100);
 
+    fuelGauge.setMin(-90, 0);
+    fuelGauge.setMax(90, 100);
+
     commandsArray->add(&gaugeCommand);
     commandsArray->add(&speedCommand);
     commandsArray->add(&tempCommand);
+    commandsArray->add(&fuelCommand);
 
     demo();
 }
