@@ -27,6 +27,18 @@ const __FlashStringHelper* DashCommand::getName()
 
 void DashCommand::process(CommandParams *params, HardwareSerial *serial)
 {
+    if (params->getNumberOfParameters() == 2)
+    {
+        String subcommand = params->getParam(1);
+
+        if (subcommand.equals("--help"))
+        {
+            printUsage(serial);
+
+            return;
+        }
+    }
+
     if (params->getNumberOfParameters() == 3)
     {
         String subcommand = params->getParam(1);
@@ -51,4 +63,11 @@ void DashCommand::process(CommandParams *params, HardwareSerial *serial)
 
 void DashCommand::processBackground(HardwareSerial *serial)
 {
+}
+
+void DashCommand::printUsage(HardwareSerial *serial)
+{
+    serial->println(F("Usage: dash speed <0-160>"));
+    serial->println(F("Usage: dash  temp <0-100>"));
+    serial->println(F("Usage: dash  fuel <0-100>"));
 }

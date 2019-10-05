@@ -12,6 +12,8 @@
 
 class DashCommand: public AbstractCommand
 {
+private:
+    void printUsage(HardwareSerial *serial);
 public:
     const __FlashStringHelper* getName();
     void process(CommandParams *params, HardwareSerial *serial);
