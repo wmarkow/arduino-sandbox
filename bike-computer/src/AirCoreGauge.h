@@ -28,11 +28,15 @@ public:
     AirCoreGauge(MLX10407* driver, uint8_t logoNumber);
     void init();
     void loop();
+    void setAngleRange(int16_t min, int16_t max);
+    void setAngle(int16_t angle);
+    void setAnglePercents(uint8_t percents);
+    void setValueRange(int16_t min, int16_t max);
+    void setValue(int16_t value);
+
     void setMin(int16_t angle, int16_t value);
     void setMax(int16_t angle, int16_t value);
-    void setValue(int16_t value);
-    void setValuePercents(uint8_t valueInPercents);
-    void setAngle(int16_t angle);
+
     boolean isAdjusting();
 };
 

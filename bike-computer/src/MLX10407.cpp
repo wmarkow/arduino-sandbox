@@ -16,11 +16,25 @@
 const byte gauge_lookup[6] =
 { 0x00, 0x10, 0x30, 0x40, 0x60, 0x50 };
 
+/***
+ * Constructor.
+ *
+ * @param csPin the number of chip select pin
+ */
 MLX10407::MLX10407(uint8_t csPin)
 {
     this->csPin = csPin;
 }
 
+/***
+ * Prepares the driver to work.
+ * In particular:
+ * <ul>
+ * </li>configures CS pin</li>
+ * </li>configures Reset pin</li>
+ * </li>configures SPI</li>
+ * </ul>
+ */
 void MLX10407::init()
 {
     // Don't forget to do this, one some boards the gauges will not respond if you leave it out
@@ -37,13 +51,33 @@ void MLX10407::init()
 }
 
 /***
- * @param - logoNumber from 1 to 5
- * @param - angle      from -359 to 359
+ * Sets an angle value to the specific logo.
+ * It supports positive and negative angles.
+ *
+ * It is not assured in which direction (clockwise or counterclockwise) the needle will go.
+ * With air core gauges there is a known issue, that the needle chooses the closest way
+ * when moving from start point to the end point.
+ *
+ * Example:
+ * with this coordinate system:
+ *       N(90)
+ * W(0)          E(180)
+ *       S(270)
+ * When moving from 0 degree to 270 degree two paths are possible:
+ * <ul>
+ * <il>a longer path clockwise from 0 to 270</il>
+ * <il>a shorter path counterclockwise from 0 to 270</il>
+ * </ul>
+ * The needle will choose the shorter path, it may be clockwise or counterclockwise,
+ * it depends on the gauge construction itself.
+ *
+ * @param logoNumber from 1 to 5. Logos 1 and 2 are 360 degree actuators. Logos 3 to 5 are 90 degrees actuators.
+ * @param angle from -359 to 359
  */
 void MLX10407::writeLogo(uint8_t logoNumber, int16_t angle)
 {
     angle = angle % 360;
-    if(angle < 0)
+    if (angle < 0)
     {
         angle += 360;
     }

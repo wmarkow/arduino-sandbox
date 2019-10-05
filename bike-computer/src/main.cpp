@@ -44,14 +44,14 @@ void setup()
     gauge1.init();
     gauge2.init();
 
-    speedGauge.setMin(3, 0);
-    speedGauge.setMax(260, 160);
+    speedGauge.setAngleRange(3, 260);
+    speedGauge.setValueRange(0, 160);
 
-    tempGauge.setMin(-90, 0);
-    tempGauge.setMax(90, 100);
+    tempGauge.setAngleRange(-90, 90);
+    tempGauge.setValueRange(0, 100);
 
-    fuelGauge.setMin(-90, 0);
-    fuelGauge.setMax(90, 100);
+    fuelGauge.setAngleRange(-90, 90);
+    fuelGauge.setValueRange(0, 100);
 
     commandsArray->add(&gaugeCommand);
     commandsArray->add(&speedCommand);
@@ -72,19 +72,19 @@ void loop(void)
 
 void demo()
 {
+    tempGauge.setAnglePercents(100);
+    speedGauge.setAnglePercents(100);
+    fuelGauge.setAnglePercents(100);
 
-    tempGauge.setValuePercents(100);
-    speedGauge.setValuePercents(100);
-    fuelGauge.setValuePercents(100);
-
-    while (tempGauge.isAdjusting() || speedGauge.isAdjusting() || fuelGauge.isAdjusting())
+    while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
+            || fuelGauge.isAdjusting())
     {
         loop();
     }
 
     delay(100);
 
-    tempGauge.setValuePercents(0);
-    speedGauge.setValuePercents(0);
-    fuelGauge.setValuePercents(0);
+    tempGauge.setAnglePercents(0);
+    speedGauge.setAnglePercents(0);
+    fuelGauge.setAnglePercents(0);
 }
