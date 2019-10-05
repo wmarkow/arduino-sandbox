@@ -37,7 +37,7 @@ public:
     void setMin(int16_t angle, int16_t value);
     void setMax(int16_t angle, int16_t value);
 
-    boolean isAdjusting();
+    bool isAdjusting();
 };
 
 #endif /* AIRCOREGAUGE_H_ */

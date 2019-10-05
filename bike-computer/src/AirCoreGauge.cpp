@@ -145,7 +145,7 @@ void AirCoreGauge::setValue(int16_t value)
  * @return true if the needle is moving to the destination point
  *         false if the needle is in its destination point and not moving
  */
-boolean AirCoreGauge::isAdjusting()
+bool AirCoreGauge::isAdjusting()
 {
     if (currentAngle != desiredAngle)
     {
