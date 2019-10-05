@@ -1,17 +1,16 @@
 /*
- * FuelCommand.h
+ * DashCommand.h
  *
- *  Created on: 3 paü 2019
+ *  Created on: 5 paü 2019
  *      Author: wmarkowski
  */
 
-#ifndef FUELCOMMAND_H_
-#define FUELCOMMAND_H_
-
+#ifndef DASHCOMMAND_H_
+#define DASHCOMMAND_H_
 
 #include <AbstractCommand.h>
 
-class FuelCommand: public AbstractCommand
+class DashCommand: public AbstractCommand
 {
 public:
     const __FlashStringHelper* getName();
@@ -19,4 +18,4 @@ public:
     void processBackground(HardwareSerial *serial);
 };
 
-#endif /* FUELCOMMAND_H_ */
+#endif /* DASHCOMMAND_H_ */

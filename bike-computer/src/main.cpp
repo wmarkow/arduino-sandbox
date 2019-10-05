@@ -14,9 +14,7 @@
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
 #include "GaugeCommand.h"
-#include "SpeedCommand.h"
-#include "TempCommand.h"
-#include "FuelCommand.h"
+#include "DashCommand.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 5
@@ -32,9 +30,7 @@ FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 Terminal terminal(&Serial, commandsArray);
 GaugeCommand gaugeCommand;
-SpeedCommand speedCommand;
-TempCommand tempCommand;
-FuelCommand fuelCommand;
+DashCommand dashCommand;
 
 void demo();
 
@@ -54,9 +50,7 @@ void setup()
     fuelGauge.setValueRange(0, 100);
 
     commandsArray->add(&gaugeCommand);
-    commandsArray->add(&speedCommand);
-    commandsArray->add(&tempCommand);
-    commandsArray->add(&fuelCommand);
+    commandsArray->add(&dashCommand);
 
     demo();
 }

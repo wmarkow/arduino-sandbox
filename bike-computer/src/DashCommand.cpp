@@ -1,0 +1,54 @@
+/*
+ * DashCommand.cpp
+ *
+ *  Created on: 5 paü 2019
+ *      Author: wmarkowski
+ */
+
+#include "DashCommand.h"
+
+#include <avr/pgmspace.h>
+#include <Arduino.h>
+#include <CommandParams.h>
+#include <HardwareSerial.h>
+#include <stdbool.h>
+#include <WString.h>
+
+#include "AirCoreGauge.h"
+
+extern AirCoreGauge speedGauge;
+extern AirCoreGauge tempGauge;
+extern AirCoreGauge fuelGauge;
+
+const __FlashStringHelper* DashCommand::getName()
+{
+    return F("dash");
+}
+
+void DashCommand::process(CommandParams *params, HardwareSerial *serial)
+{
+    if (params->getNumberOfParameters() == 3)
+    {
+        String subcommand = params->getParam(1);
+
+        String valueAsString = params->getParam(2);
+        uint16_t value = valueAsString.toInt();
+
+        if (subcommand.equals("speed"))
+        {
+            speedGauge.setValue(value);
+        }
+        else if (subcommand.equals("temp"))
+        {
+            tempGauge.setValue(value);
+        }
+        else if (subcommand.equals("fuel"))
+        {
+            fuelGauge.setValue(value);
+        }
+    }
+}
+
+void DashCommand::processBackground(HardwareSerial *serial)
+{
+}
