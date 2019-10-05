@@ -34,3 +34,6 @@ libraries/**
 
 /Release/
 spec.d
+
+.project
+.cproject
