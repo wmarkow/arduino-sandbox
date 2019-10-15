@@ -10,6 +10,7 @@
 #include <Array.h>
 #include <FixedSizeArray.h>
 #include <HardwareSerial.h>
+#include <PinChangeInterrupt.h>
 
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
@@ -18,6 +19,8 @@
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 5
+#define WHEEL_SENSOR_PIN A2
+#define CADENCE_SENSOR_PIN A3
 
 MLX10407 gauge1(FIRST_MLS10407_CS);
 MLX10407 gauge2(SECOND_MLS10407_CS);
@@ -32,10 +35,23 @@ Terminal terminal(&Serial, commandsArray);
 GaugeCommand gaugeCommand;
 DashCommand dashCommand;
 
+#define DEBOUNCE_MILLIS 100L
+volatile unsigned long lastWheelEventMillis = 0;
+volatile unsigned long lastCadenceEventMillis = 0;
+
 void demo();
+void onWheelSensorEvent();
+void onCadenceSensorEvent();
 
 void setup()
 {
+    pinMode(WHEEL_SENSOR_PIN, INPUT_PULLUP);
+    pinMode(CADENCE_SENSOR_PIN, INPUT_PULLUP);
+    attachPCINT(digitalPinToPCINT(WHEEL_SENSOR_PIN), onWheelSensorEvent,
+    FALLING);
+    attachPCINT(digitalPinToPCINT(CADENCE_SENSOR_PIN), onCadenceSensorEvent,
+    FALLING);
+
     Serial.begin(9600);
     gauge1.init();
     gauge2.init();
@@ -44,7 +60,7 @@ void setup()
     speedGauge.setValueRange(0, 160);
 
     tempGauge.setAngleRange(-90, 90);
-    tempGauge.setValueRange(0, 100);
+    tempGauge.setValueRange(0, 30);
 
     fuelGauge.setAngleRange(-90, 90);
     fuelGauge.setValueRange(0, 100);
@@ -81,4 +97,32 @@ void demo()
     tempGauge.setAnglePercents(0);
     speedGauge.setAnglePercents(0);
     fuelGauge.setAnglePercents(0);
+}
+
+void onWheelSensorEvent()
+{
+    unsigned long now = millis();
+    unsigned long delta = millis() - lastWheelEventMillis;
+    if (delta < DEBOUNCE_MILLIS)
+    {
+        return;
+    }
+
+    double speed = 24.0 * 287.0 / delta;
+    lastWheelEventMillis = now;
+    tempGauge.setValue(speed);
+
+    Serial.println(speed);
+}
+
+void onCadenceSensorEvent()
+{
+    if (millis() - lastCadenceEventMillis < DEBOUNCE_MILLIS)
+    {
+        return;
+    }
+
+    lastCadenceEventMillis = millis();
+
+    Serial.println(F("cadence event"));
 }
