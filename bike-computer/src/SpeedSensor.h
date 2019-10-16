@@ -13,8 +13,8 @@
 class SpeedSensor
 {
 private:
-    unsigned long tickInMillis;
-    unsigned long previousTickInMillis;
+    unsigned long t1;
+    unsigned long t0;
     uint8_t wheelDiameterInInches;
 public:
     SpeedSensor();

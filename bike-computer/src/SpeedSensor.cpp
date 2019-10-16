@@ -12,21 +12,21 @@
 
 SpeedSensor::SpeedSensor()
 {
-    tickInMillis = 0;
-    previousTickInMillis = 0;
+    t0 = 0;
+    t1 = 0;
     wheelDiameterInInches = 27;
 }
 
 void SpeedSensor::tick(unsigned long currentMillis)
 {
-    unsigned long delta = currentMillis - tickInMillis;
+    unsigned long delta = currentMillis - t0;
     if (delta < DEBOUNCE_MILLIS)
     {
         return;
     }
 
-    previousTickInMillis = tickInMillis;
-    tickInMillis = currentMillis;
+    t1 = t0;
+    t0 = currentMillis;
 }
 
 void SpeedSensor::setWheelDiamieter(uint8_t diameterInInches)
@@ -36,8 +36,8 @@ void SpeedSensor::setWheelDiamieter(uint8_t diameterInInches)
 
 uint8_t SpeedSensor::getSpeed()
 {
-    unsigned long delta = tickInMillis - previousTickInMillis;
-    unsigned long deltaToLastTick = millis() - tickInMillis;
+    unsigned long delta = t0 - t1;
+    unsigned long deltaToLastTick = millis() - t0;
 
     delta = max(delta, deltaToLastTick);
 
