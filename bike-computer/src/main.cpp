@@ -16,6 +16,7 @@
 #include "AirCoreGauge.h"
 #include "GaugeCommand.h"
 #include "DashCommand.h"
+#include "SpeedSensor.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 5
@@ -35,10 +36,12 @@ Terminal terminal(&Serial, commandsArray);
 GaugeCommand gaugeCommand;
 DashCommand dashCommand;
 
-#define DEBOUNCE_MILLIS 100L
+SpeedSensor speedSensor;
+
 volatile unsigned long lastWheelEventMillis = 0;
 volatile unsigned long lastCadenceEventMillis = 0;
 
+void loop0();
 void demo();
 void onWheelSensorEvent();
 void onCadenceSensorEvent();
@@ -52,6 +55,8 @@ void setup()
     attachPCINT(digitalPinToPCINT(CADENCE_SENSOR_PIN), onCadenceSensorEvent,
     FALLING);
 
+    speedSensor.setWheelDiamieter(24);
+
     Serial.begin(9600);
     gauge1.init();
     gauge2.init();
@@ -60,7 +65,7 @@ void setup()
     speedGauge.setValueRange(0, 160);
 
     tempGauge.setAngleRange(-90, 90);
-    tempGauge.setValueRange(0, 30);
+    tempGauge.setValueRange(0, 40);
 
     fuelGauge.setAngleRange(-90, 90);
     fuelGauge.setValueRange(0, 100);
@@ -72,6 +77,14 @@ void setup()
 }
 
 void loop(void)
+{
+    loop0();
+
+    uint8_t speed = speedSensor.getSpeed();
+    tempGauge.setValue(speed);
+}
+
+void loop0()
 {
     terminal.loop();
 
@@ -89,7 +102,7 @@ void demo()
     while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
             || fuelGauge.isAdjusting())
     {
-        loop();
+        loop0();
     }
 
     delay(100);
@@ -101,28 +114,13 @@ void demo()
 
 void onWheelSensorEvent()
 {
-    unsigned long now = millis();
-    unsigned long delta = millis() - lastWheelEventMillis;
-    if (delta < DEBOUNCE_MILLIS)
-    {
-        return;
-    }
+    speedSensor.tick(millis());
 
-    double speed = 24.0 * 287.0 / delta;
-    lastWheelEventMillis = now;
-    tempGauge.setValue(speed);
-
+    uint8_t speed = speedSensor.getSpeed();
     Serial.println(speed);
 }
 
 void onCadenceSensorEvent()
 {
-    if (millis() - lastCadenceEventMillis < DEBOUNCE_MILLIS)
-    {
-        return;
-    }
-
-    lastCadenceEventMillis = millis();
-
     Serial.println(F("cadence event"));
 }
