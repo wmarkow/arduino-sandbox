@@ -13,14 +13,16 @@
 class SpeedSensor
 {
 private:
-    unsigned long t1;
     unsigned long t0;
+    unsigned long t1;
+    unsigned long t2;
     uint8_t wheelDiameterInInches;
 public:
     SpeedSensor();
     void tick(unsigned long currentMillis);
     void setWheelDiamieter(uint8_t diameterInInches);
     uint8_t getSpeed();
+    float getAcceleration();
 };
 
 

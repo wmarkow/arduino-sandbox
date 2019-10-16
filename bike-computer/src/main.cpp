@@ -117,7 +117,11 @@ void onWheelSensorEvent()
     speedSensor.tick(millis());
 
     uint8_t speed = speedSensor.getSpeed();
-    Serial.println(speed);
+    float acceleration = speedSensor.getAcceleration();
+
+    Serial.print(speed);
+    Serial.print("   ");
+    Serial.println(acceleration);
 }
 
 void onCadenceSensorEvent()
