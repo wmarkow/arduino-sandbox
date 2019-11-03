@@ -15,10 +15,12 @@
 #include <WString.h>
 
 #include "AirCoreGauge.h"
+#include "Backlight.h"
 
 extern AirCoreGauge speedGauge;
 extern AirCoreGauge tempGauge;
 extern AirCoreGauge fuelGauge;
+extern Backlight backlight;
 
 const __FlashStringHelper* DashCommand::getName()
 {
@@ -58,6 +60,10 @@ void DashCommand::process(CommandParams *params, HardwareSerial *serial)
         {
             fuelGauge.setValue(value);
         }
+        else if (subcommand.equals("backlight"))
+        {
+            backlight.setValuePercent(value);
+        }
     }
 }
 
@@ -67,7 +73,8 @@ void DashCommand::processBackground(HardwareSerial *serial)
 
 void DashCommand::printUsage(HardwareSerial *serial)
 {
-    serial->println(F("Usage: dash speed <0-160>"));
-    serial->println(F("Usage: dash  temp <0-100>"));
-    serial->println(F("Usage: dash  fuel <0-100>"));
+    serial->println(F("Usage: dash speed      <0-160>"));
+    serial->println(F("Usage: dash  temp      <0-100>"));
+    serial->println(F("Usage: dash  fuel      <0-100>"));
+    serial->println(F("Usage: dash  backlight <0-100>"));
 }

@@ -17,6 +17,7 @@
 #include "GaugeCommand.h"
 #include "DashCommand.h"
 #include "SpeedSensor.h"
+#include "Backlight.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 4
@@ -29,6 +30,8 @@ MLX10407 gauge2(SECOND_MLS10407_CS);
 AirCoreGauge tempGauge(&gauge1, 1);
 AirCoreGauge speedGauge(&gauge1, 2);
 AirCoreGauge fuelGauge(&gauge2, 1);
+
+Backlight backlight;
 
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
@@ -54,6 +57,8 @@ void setup()
     FALLING);
     attachPCINT(digitalPinToPCINT(CADENCE_SENSOR_PIN), onCadenceSensorEvent,
     FALLING);
+
+    backlight.init();
 
     speedSensor.setWheelDiamieter(24);
 
