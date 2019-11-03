@@ -19,7 +19,7 @@
 #include "SpeedSensor.h"
 
 #define FIRST_MLS10407_CS 7
-#define SECOND_MLS10407_CS 5
+#define SECOND_MLS10407_CS 4
 #define WHEEL_SENSOR_PIN A2
 #define CADENCE_SENSOR_PIN A3
 

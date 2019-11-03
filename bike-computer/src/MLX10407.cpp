@@ -10,7 +10,7 @@
 // Use defines for pin definitions instead of const ints
 // defines are substituded at the precompile stage so
 // they use no RAM on your device.
-#define _MLX_RST_PIN        8     // Now wire arduino pin 7 to MLX pin 15
+#define _MLX_RST_PIN        8
 #define _MLX_START_BIT      0x80   // Prefixes all gauge updates
 
 const byte gauge_lookup[6] =
