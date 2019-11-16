@@ -95,7 +95,7 @@ void loop(void)
     fuelGauge.loop();
 
     uint8_t speed = speedSensor.getSpeed();
-//    speedGauge.setValue(speed);
+    speedGauge.setValue(speed);
 }
 
 void onWheelSensorEvent()
