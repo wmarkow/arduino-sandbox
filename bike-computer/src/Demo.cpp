@@ -6,11 +6,13 @@
  */
 
 #include "AirCoreGauge.h"
+#include "Backlight.h"
 #include "Demo.h"
 
 extern AirCoreGauge speedGauge;
 extern AirCoreGauge tempGauge;
 extern AirCoreGauge fuelGauge;
+extern Backlight backlight;
 
 void demo()
 {
@@ -28,6 +30,7 @@ void demo()
         tempGauge.setAnglePercents(perc);
         speedGauge.setAnglePercents(perc);
         fuelGauge.setAnglePercents(perc);
+        backlight.setValuePercent(perc);
 
         while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
                 || fuelGauge.isAdjusting())
@@ -43,6 +46,7 @@ void demo()
         tempGauge.setAnglePercents(perc);
         speedGauge.setAnglePercents(perc);
         fuelGauge.setAnglePercents(perc);
+        backlight.setValuePercent(perc);
 
         while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
                 || fuelGauge.isAdjusting())
