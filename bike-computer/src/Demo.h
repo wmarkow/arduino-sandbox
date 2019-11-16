@@ -9,5 +9,6 @@
 #define DEMO_H_
 
 void demo();
+void demoLoop();
 
 #endif /* DEMO_H_ */

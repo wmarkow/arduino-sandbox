@@ -12,8 +12,6 @@
 #include <HardwareSerial.h>
 #include <PinChangeInterrupt.h>
 
-#include "main.h"
-
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
 #include "GaugeCommand.h"
@@ -46,6 +44,9 @@ SpeedSensor speedSensor;
 
 volatile unsigned long lastWheelEventMillis = 0;
 volatile unsigned long lastCadenceEventMillis = 0;
+
+void onWheelSensorEvent();
+void onCadenceSensorEvent();
 
 void setup()
 {
@@ -87,19 +88,14 @@ void setup()
 
 void loop(void)
 {
-    loop0();
-
-    uint8_t speed = speedSensor.getSpeed();
-//    speedGauge.setValue(speed);
-}
-
-void loop0()
-{
     terminal.loop();
 
     tempGauge.loop();
     speedGauge.loop();
     fuelGauge.loop();
+
+    uint8_t speed = speedSensor.getSpeed();
+//    speedGauge.setValue(speed);
 }
 
 void onWheelSensorEvent()

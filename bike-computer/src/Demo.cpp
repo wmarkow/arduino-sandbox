@@ -7,7 +7,6 @@
 
 #include "AirCoreGauge.h"
 #include "Demo.h"
-#include "main.h"
 
 extern AirCoreGauge speedGauge;
 extern AirCoreGauge tempGauge;
@@ -21,7 +20,7 @@ void demo()
     while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
             || fuelGauge.isAdjusting())
     {
-        loop0();
+        demoLoop();
     }
 
     for (int8_t perc = 0; perc <= 100; perc++)
@@ -33,7 +32,7 @@ void demo()
         while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
                 || fuelGauge.isAdjusting())
         {
-            loop0();
+            demoLoop();
         }
     }
 
@@ -48,8 +47,14 @@ void demo()
         while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
                 || fuelGauge.isAdjusting())
         {
-            loop0();
+            demoLoop();
         }
     }
 }
 
+void demoLoop()
+{
+    tempGauge.loop();
+    speedGauge.loop();
+    fuelGauge.loop();
+}
