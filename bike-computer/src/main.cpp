@@ -69,10 +69,16 @@ void setup()
     speedGauge.setAngleRange(3, 260);
     speedGauge.setValueRange(0, 160);
 
-    tempGauge.setAngleRange(-90, 90);
-    tempGauge.setValueRange(0, 40);
+    // angle 0 points to hour 9
+    // angle 90 points to hour 12
+    // angle -90 points to hour 6
+    tempGauge.setAngleRange(-60, 25);
+    tempGauge.setValueRange(0, 100);
 
-    fuelGauge.setAngleRange(-90, 90);
+    // angle 0 points to hour 3
+    // angle 90 points to hour 12
+    // angle -90 points to hour 6
+    fuelGauge.setAngleRange(-60, 25);
     fuelGauge.setValueRange(0, 100);
 
     commandsArray->add(&gaugeCommand);
