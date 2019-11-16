@@ -73,7 +73,7 @@ void DashCommand::processBackground(HardwareSerial *serial)
 
 void DashCommand::printUsage(HardwareSerial *serial)
 {
-    serial->println(F("Usage: dash speed      <0-160>"));
+    serial->println(F("Usage: dash speed      <0-100>"));
     serial->println(F("Usage: dash  temp      <0-100>"));
     serial->println(F("Usage: dash  fuel      <0-100>"));
     serial->println(F("Usage: dash  backlight <0-100>"));

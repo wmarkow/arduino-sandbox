@@ -67,7 +67,7 @@ void setup()
     gauge2.init();
 
     speedGauge.setAngleRange(3, 260);
-    speedGauge.setValueRange(0, 160);
+    speedGauge.setValueRange(0, 100); // in mph
 
     // angle 0 points to hour 9
     // angle 90 points to hour 12
@@ -92,7 +92,7 @@ void loop(void)
     loop0();
 
     uint8_t speed = speedSensor.getSpeed();
-    tempGauge.setValue(speed);
+//    speedGauge.setValue(speed);
 }
 
 void loop0()
@@ -106,21 +106,42 @@ void loop0()
 
 void demo()
 {
-    tempGauge.setAnglePercents(100);
-    speedGauge.setAnglePercents(100);
-    fuelGauge.setAnglePercents(100);
-
+    speedGauge.setAnglePercents(0);
+    tempGauge.setAnglePercents(0);
+    fuelGauge.setAnglePercents(0);
     while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
             || fuelGauge.isAdjusting())
     {
         loop0();
     }
 
-    delay(100);
+    for (int8_t perc = 0; perc <= 100; perc++)
+    {
+        tempGauge.setAnglePercents(perc);
+        speedGauge.setAnglePercents(perc);
+        fuelGauge.setAnglePercents(perc);
 
-    tempGauge.setAnglePercents(0);
-    speedGauge.setAnglePercents(0);
-    fuelGauge.setAnglePercents(0);
+        while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
+                || fuelGauge.isAdjusting())
+        {
+            loop0();
+        }
+    }
+
+    delay(200);
+
+    for (int8_t perc = 100; perc >= 0; perc--)
+    {
+        tempGauge.setAnglePercents(perc);
+        speedGauge.setAnglePercents(perc);
+        fuelGauge.setAnglePercents(perc);
+
+        while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
+                || fuelGauge.isAdjusting())
+        {
+            loop0();
+        }
+    }
 }
 
 void onWheelSensorEvent()
