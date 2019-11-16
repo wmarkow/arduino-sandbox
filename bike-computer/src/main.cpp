@@ -12,12 +12,15 @@
 #include <HardwareSerial.h>
 #include <PinChangeInterrupt.h>
 
+#include "main.h"
+
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
 #include "GaugeCommand.h"
 #include "DashCommand.h"
 #include "SpeedSensor.h"
 #include "Backlight.h"
+#include "Demo.h"
 
 #define FIRST_MLS10407_CS 7
 #define SECOND_MLS10407_CS 4
@@ -43,11 +46,6 @@ SpeedSensor speedSensor;
 
 volatile unsigned long lastWheelEventMillis = 0;
 volatile unsigned long lastCadenceEventMillis = 0;
-
-void loop0();
-void demo();
-void onWheelSensorEvent();
-void onCadenceSensorEvent();
 
 void setup()
 {
@@ -102,46 +100,6 @@ void loop0()
     tempGauge.loop();
     speedGauge.loop();
     fuelGauge.loop();
-}
-
-void demo()
-{
-    speedGauge.setAnglePercents(0);
-    tempGauge.setAnglePercents(0);
-    fuelGauge.setAnglePercents(0);
-    while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
-            || fuelGauge.isAdjusting())
-    {
-        loop0();
-    }
-
-    for (int8_t perc = 0; perc <= 100; perc++)
-    {
-        tempGauge.setAnglePercents(perc);
-        speedGauge.setAnglePercents(perc);
-        fuelGauge.setAnglePercents(perc);
-
-        while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
-                || fuelGauge.isAdjusting())
-        {
-            loop0();
-        }
-    }
-
-    delay(200);
-
-    for (int8_t perc = 100; perc >= 0; perc--)
-    {
-        tempGauge.setAnglePercents(perc);
-        speedGauge.setAnglePercents(perc);
-        fuelGauge.setAnglePercents(perc);
-
-        while (tempGauge.isAdjusting() || speedGauge.isAdjusting()
-                || fuelGauge.isAdjusting())
-        {
-            loop0();
-        }
-    }
 }
 
 void onWheelSensorEvent()
