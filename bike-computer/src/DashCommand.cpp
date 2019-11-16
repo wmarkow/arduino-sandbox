@@ -16,6 +16,7 @@
 
 #include "AirCoreGauge.h"
 #include "Backlight.h"
+#include "Demo.h"
 
 extern AirCoreGauge speedGauge;
 extern AirCoreGauge tempGauge;
@@ -36,6 +37,12 @@ void DashCommand::process(CommandParams *params, HardwareSerial *serial)
         if (subcommand.equals("--help"))
         {
             printUsage(serial);
+
+            return;
+        }
+        if (subcommand.equals("demo"))
+        {
+            demo();
 
             return;
         }
@@ -73,8 +80,9 @@ void DashCommand::processBackground(HardwareSerial *serial)
 
 void DashCommand::printUsage(HardwareSerial *serial)
 {
-    serial->println(F("Usage: dash speed      <0-100>"));
+    serial->println(F("Usage: dash  speed     <0-100>"));
     serial->println(F("Usage: dash  temp      <0-100>"));
     serial->println(F("Usage: dash  fuel      <0-100>"));
     serial->println(F("Usage: dash  backlight <0-100>"));
+    serial->println(F("Usage: dash  demo"));
 }
