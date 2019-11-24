@@ -1,10 +1,7 @@
-#include <DFRobotDFPlayerMini.h>
-#include <HardwareSerial.h>
-#include <stdint.h>
+#include <Arduino.h>
 #include <SoftwareSerial.h>
-#include <WString.h>
+#include <DFRobotDFPlayerMini.h>
 
-#include "../../../../../../tools/eclipse-cdt-2019-03/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/variants/standard/pins_arduino.h"
 #include "LightSwitch.h"
 #include "PlaySoundSwitch.h"
 

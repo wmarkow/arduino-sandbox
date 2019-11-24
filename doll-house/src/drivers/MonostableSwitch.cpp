@@ -5,8 +5,8 @@
  *      Author: wmarkowski
  */
 
+#include <Arduino.h>
 #include "MonostableSwitch.h"
-#include "Arduino.h"
 
 MonostableSwitch::MonostableSwitch(uint8_t pin) :
         AbstractSwitch(pin)

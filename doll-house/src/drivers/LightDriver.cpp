@@ -4,9 +4,8 @@
  *  Created on: 30.08.2017
  *      Author: wmarkow
  */
-
-#include "LightDriver.h"
 #include <Arduino.h>
+#include "LightDriver.h"
 
 LightDriver::LightDriver(uint8_t pin)
 {

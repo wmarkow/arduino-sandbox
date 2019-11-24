@@ -4,9 +4,8 @@
  *  Created on: 26.07.2017
  *      Author: wmarkowski
  */
-
+#include <Arduino.h>
 #include "BistableOverMonostableSwitch.h"
-#include "Arduino.h"
 
 BistableOverMonostableSwitch::BistableOverMonostableSwitch(uint8_t pin) :
         MonostableSwitch(pin)

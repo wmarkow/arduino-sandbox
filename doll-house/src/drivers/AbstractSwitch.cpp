@@ -4,9 +4,8 @@
  *  Created on: 26.07.2017
  *      Author: wmarkowski
  */
-
-#include "AbstractSwitch.h"
 #include <Arduino.h>
+#include "AbstractSwitch.h"
 
 AbstractSwitch::AbstractSwitch(uint8_t pin)
 {
