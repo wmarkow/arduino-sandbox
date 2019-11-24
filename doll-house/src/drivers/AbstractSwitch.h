@@ -18,19 +18,18 @@
 class AbstractSwitch
 {
 public:
-	AbstractSwitch(uint8_t pin);
-	void init();
-	void loop();
+    AbstractSwitch(uint8_t pin);
+    void init();
+    void loop();
 
 protected:
-	virtual void onSwitchOnInternal() = 0;
-	virtual void onSwitchOffInternal() = 0;
+    virtual void onSwitchOnInternal() = 0;
+    virtual void onSwitchOffInternal() = 0;
 
 private:
-	uint8_t pin;
-	uint8_t state;
-	unsigned long firstTimestamp;
+    uint8_t pin;
+    uint8_t state;
+    unsigned long firstTimestamp;
 };
-
 
 #endif /* ABSTRACTSWITCH_H_ */

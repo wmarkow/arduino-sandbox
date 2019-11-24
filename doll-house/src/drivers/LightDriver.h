@@ -13,16 +13,14 @@
 class LightDriver
 {
 public:
-	LightDriver(uint8_t pin);
-	void init();
-	void switchOn();
-	void switchOff();
-	bool isOn();
-	void toggle();
+    LightDriver(uint8_t pin);
+    void init();
+    void switchOn();
+    void switchOff();
+    bool isOn();
+    void toggle();
 private:
-	uint8_t pin;
+    uint8_t pin;
 };
-
-
 
 #endif /* LIGHTDRIVER_H_ */

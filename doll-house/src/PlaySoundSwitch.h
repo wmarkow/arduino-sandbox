@@ -10,19 +10,18 @@
 
 #include "drivers/MonostableSwitch.h"
 
-class PlaySoundSwitch : public MonostableSwitch
+class PlaySoundSwitch: public MonostableSwitch
 {
 private:
-	uint8_t onSwitchOnSoundId = 0;
-	uint8_t onSwitchOffSoundId = 0;
+    uint8_t onSwitchOnSoundId = 0;
+    uint8_t onSwitchOffSoundId = 0;
 protected:
-	void onSwitchOnInternal();
-	void onSwitchOffInternal();
+    void onSwitchOnInternal();
+    void onSwitchOffInternal();
 public:
-	PlaySoundSwitch(uint8_t pin);
-	void setOnSwitchOnSoundId(uint8_t id);
-	void setOnSwitchOffSoundId(uint8_t id);
+    PlaySoundSwitch(uint8_t pin);
+    void setOnSwitchOnSoundId(uint8_t id);
+    void setOnSwitchOffSoundId(uint8_t id);
 };
-
 
 #endif /* PLAYSOUNDSWITCH_H_ */

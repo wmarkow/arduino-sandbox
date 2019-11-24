@@ -8,7 +8,8 @@
 #include "MonostableSwitch.h"
 #include "Arduino.h"
 
-MonostableSwitch::MonostableSwitch(uint8_t pin) : AbstractSwitch(pin)
+MonostableSwitch::MonostableSwitch(uint8_t pin) :
+        AbstractSwitch(pin)
 {
 }
 

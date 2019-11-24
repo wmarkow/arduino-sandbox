@@ -10,43 +10,43 @@
 
 LightDriver::LightDriver(uint8_t pin)
 {
-	this->pin = pin;
+    this->pin = pin;
 }
 
 void LightDriver::init()
 {
-	pinMode(pin, OUTPUT);
-	switchOff();
+    pinMode(pin, OUTPUT);
+    switchOff();
 }
 
 void LightDriver::switchOn()
 {
-	digitalWrite(pin, HIGH);
+    digitalWrite(pin, HIGH);
 }
 
 void LightDriver::switchOff()
 {
-	digitalWrite(pin, LOW);
+    digitalWrite(pin, LOW);
 }
 
 bool LightDriver::isOn()
 {
-	if(digitalRead(pin) == HIGH)
-	{
-		return true;
-	}
+    if (digitalRead(pin) == HIGH)
+    {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 void LightDriver::toggle()
 {
-	if(isOn())
-	{
-		switchOff();
-	}
-	else
-	{
-		switchOn();
-	}
+    if (isOn())
+    {
+        switchOff();
+    }
+    else
+    {
+        switchOn();
+    }
 }

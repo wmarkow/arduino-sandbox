@@ -9,37 +9,35 @@
 
 extern DFRobotDFPlayerMini myDFPlayer;
 
-PlaySoundSwitch::PlaySoundSwitch(uint8_t pin) : MonostableSwitch(pin)
+PlaySoundSwitch::PlaySoundSwitch(uint8_t pin) :
+        MonostableSwitch(pin)
 {
 
 }
 
 void PlaySoundSwitch::setOnSwitchOnSoundId(uint8_t id)
 {
-	onSwitchOnSoundId = id;
+    onSwitchOnSoundId = id;
 }
 
 void PlaySoundSwitch::setOnSwitchOffSoundId(uint8_t id)
 {
-	onSwitchOffSoundId = id;
+    onSwitchOffSoundId = id;
 }
 
 void PlaySoundSwitch::onSwitchOnInternal()
 {
-	if(onSwitchOnSoundId != 0)
-	{
-		myDFPlayer.playMp3Folder(onSwitchOnSoundId);
-	}
+    if (onSwitchOnSoundId != 0)
+    {
+        myDFPlayer.playMp3Folder(onSwitchOnSoundId);
+    }
 }
 
 void PlaySoundSwitch::onSwitchOffInternal()
 {
-	if(onSwitchOnSoundId != 0)
-	{
-		myDFPlayer.playMp3Folder(onSwitchOffSoundId);
-	}
+    if (onSwitchOnSoundId != 0)
+    {
+        myDFPlayer.playMp3Folder(onSwitchOffSoundId);
+    }
 }
-
-
-
 
