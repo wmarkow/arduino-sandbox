@@ -13,6 +13,7 @@ PlaySoundSwitch doorSwitch(A0);
 LightSwitch atticLightSwitch(A5, 6);
 LightSwitch bathroomLightSwitch(A1, 2);
 LightSwitch bedroomLightSwitch(A4, 5);
+LightSwitch livingRoomLightSwitch(A2, 7);
 
 void setup()
 {
@@ -28,6 +29,9 @@ void setup()
 
     bedroomLightSwitch.init();
     bedroomLightSwitch.switchOn();
+
+    livingRoomLightSwitch.init();
+    livingRoomLightSwitch.switchOn();
 
     mySoftwareSerial.begin(9600);
     Serial.begin(9600);
@@ -46,16 +50,17 @@ void setup()
     }
     Serial.println(F("DFPlayer Mini online."));
 
-    myDFPlayer.volume(15);  //Set volume value. From 0 to 30
+    myDFPlayer.volume(20);  //Set volume value. From 0 to 30
 }
 
 void loop()
 {
     doorSwitch.loop();
+
     bathroomLightSwitch.loop();
     bedroomLightSwitch.loop();
-
     atticLightSwitch.loop();
+    livingRoomLightSwitch.loop();
 }
 
 void printDetail(uint8_t type, int value)
