@@ -9,8 +9,9 @@
 
 extern DFRobotDFPlayerMini myDFPlayer;
 
-PlaySoundSwitch::PlaySoundSwitch(uint8_t pin) :
-        MonostableSwitch(pin)
+PlaySoundSwitch::PlaySoundSwitch(uint8_t pin, uint16_t minValue,
+        uint16_t maxValue) :
+        MonostableAnalogSwitch(pin, minValue, maxValue)
 {
 
 }

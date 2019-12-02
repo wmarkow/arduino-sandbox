@@ -8,9 +8,9 @@
 #ifndef PLAYSOUNDSWITCH_H_
 #define PLAYSOUNDSWITCH_H_
 
-#include "drivers/MonostableSwitch.h"
+#include "drivers/MonostableAnalogSwitch.h"
 
-class PlaySoundSwitch: public MonostableSwitch
+class PlaySoundSwitch: public MonostableAnalogSwitch
 {
 private:
     uint8_t onSwitchOnSoundId = 0;
@@ -19,7 +19,7 @@ protected:
     void onSwitchOnInternal();
     void onSwitchOffInternal();
 public:
-    PlaySoundSwitch(uint8_t pin);
+    PlaySoundSwitch(uint8_t pin, uint16_t minValue, uint16_t maxValue);
     void setOnSwitchOnSoundId(uint8_t id);
     void setOnSwitchOffSoundId(uint8_t id);
 };

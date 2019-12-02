@@ -9,7 +9,7 @@ SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
 
-PlaySoundSwitch doorSwitch(A0);
+PlaySoundSwitch doorSwitch(A0, 0, 24);
 LightSwitch atticLightSwitch(A5, 6);
 LightSwitch bathroomLightSwitch(A1, 2);
 LightSwitch bedroomLightSwitch(A4, 5);
