@@ -7,22 +7,15 @@
 #include <Arduino.h>
 #include "AbstractSwitch.h"
 
-AbstractSwitch::AbstractSwitch(uint8_t pin)
+AbstractSwitch::AbstractSwitch()
 {
-    this->pin = pin;
     this->state = STATE_OFF;
     this->firstTimestamp = 0;
 }
 
-void AbstractSwitch::init()
-{
-    pinMode(pin, INPUT);
-    digitalWrite(pin, HIGH);
-}
-
 void AbstractSwitch::loop()
 {
-    int readPin = digitalRead(pin);
+    int readPin = readButtonState();
 
     switch (state)
     {

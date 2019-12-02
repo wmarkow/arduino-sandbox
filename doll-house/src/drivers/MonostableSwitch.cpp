@@ -8,8 +8,18 @@
 #include <Arduino.h>
 #include "MonostableSwitch.h"
 
-MonostableSwitch::MonostableSwitch(uint8_t pin) :
-        AbstractSwitch(pin)
+MonostableSwitch::MonostableSwitch(uint8_t pin)
 {
+    this->pin = pin;
 }
 
+void MonostableSwitch::init()
+{
+    pinMode(pin, INPUT);
+    digitalWrite(pin, HIGH);
+}
+
+int MonostableSwitch::readButtonState()
+{
+    return digitalRead(pin);
+}
