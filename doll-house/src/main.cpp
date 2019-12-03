@@ -9,7 +9,9 @@ SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
 
-PlaySoundSwitch doorSwitch(A0, 0, 24);
+PlaySoundSwitch doorSwitch(A0, 0, 24);   // 0 Ohm
+PlaySoundSwitch owlSwitch(A0, 124, 137); // 10 kOhm
+
 LightSwitch atticLightSwitch(A5, 6);
 LightSwitch bathroomLightSwitch(A1, 2);
 LightSwitch bedroomLightSwitch(A4, 5);
@@ -20,6 +22,9 @@ void setup()
     doorSwitch.init();
     doorSwitch.setOnSwitchOnSoundId(13);
     doorSwitch.setOnSwitchOffSoundId(12);
+
+    owlSwitch.init();
+    owlSwitch.setOnSwitchOnSoundId(6);
 
     atticLightSwitch.init();
     atticLightSwitch.switchOn();
@@ -56,6 +61,7 @@ void setup()
 void loop()
 {
     doorSwitch.loop();
+    owlSwitch.loop();
 
     bathroomLightSwitch.loop();
     bedroomLightSwitch.loop();
