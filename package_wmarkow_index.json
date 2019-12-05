@@ -51,7 +51,7 @@
           ],
           "toolsDependencies": [
             {
-              "packager": "arduino",
+              "packager": "wmarkow",
               "name": "avr-gcc",
               "version": "avr-gcc-8.3.0-x64-mingw"
             },
@@ -109,7 +109,7 @@
           ],
           "toolsDependencies": [
             {
-              "packager": "arduino",
+              "packager": "wmarkow",
               "name": "avr-gcc",
               "version": "avr-gcc-9.1.0-x64-mingw"
             },
