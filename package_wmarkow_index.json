@@ -140,6 +140,19 @@
             }
           ]
         },
+		{
+          "name": "avr-gcc",
+          "version": "avr-gcc-9.1.0-x64-mingw",
+          "systems": [
+            {
+              "size": "59218638",
+              "checksum": "SHA-256:6665bd28744c234e85cf4be045abe7b6d69e986a57dd5cb225b2e0b9cb71f26d",
+              "host": "i686-mingw32",
+              "archiveFileName": "avr-gcc-9.1.0-x64-mingw.zip",
+              "url": "https://blog.zakkemble.net/download/avr-gcc-9.1.0-x64-mingw.zip"
+            }
+          ]
+        },
         {
           "name": "avrdude",
           "version": "6.3.0-arduino17",
