@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "name": "arduino",
+      "name": "wmarkow",
       "maintainer": "Arduino",
       "websiteURL": "http://www.arduino.cc/",
       "email": "packages@arduino.cc",
