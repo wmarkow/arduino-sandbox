@@ -12,6 +12,6 @@ Links:
 
 [My Homemade PBX](http://wandel.ca/homepage/pbx.html)
 
-[EE476 Final Project AT90LS8515 PBX (Private Branch Exchange)(https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/s2001/pr57/REPORT.htm])
+[EE476 Final Project AT90LS8515 PBX Private Branch Exchange](https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/s2001/pr57/REPORT.htm])
 
 [Homemade Intercom (PBX) With GPIO](https://www.instructables.com/id/Homemade-Intercom-PBX-With-GPIO/#discuss)
