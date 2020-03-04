@@ -14,6 +14,7 @@
 
 #include "MLX10407.h"
 #include "AirCoreGauge.h"
+#include "StepperGauge.h"
 #include "GaugeCommand.h"
 #include "DashCommand.h"
 #include "SpeedSensor.h"
@@ -31,6 +32,7 @@ MLX10407 gauge2(SECOND_MLS10407_CS);
 AirCoreGauge tempGauge(&gauge1, 1);
 AirCoreGauge speedGauge(&gauge1, 2);
 AirCoreGauge fuelGauge(&gauge2, 1);
+StepperGauge stepperGauge;
 
 Backlight backlight;
 
@@ -64,6 +66,7 @@ void setup()
     Serial.begin(9600);
     gauge1.init();
     gauge2.init();
+    stepperGauge.init();
 
     speedGauge.setAngleRange(3, 260);
     speedGauge.setValueRange(0, 100); // in mph
@@ -80,6 +83,9 @@ void setup()
     fuelGauge.setAngleRange(-60, 25);
     fuelGauge.setValueRange(0, 100);
 
+    stepperGauge.setAngleRange(0, 300);
+    stepperGauge.setValueRange(0, 100);
+
     commandsArray->add(&gaugeCommand);
     commandsArray->add(&dashCommand);
 
@@ -93,6 +99,7 @@ void loop(void)
     tempGauge.loop();
     speedGauge.loop();
     fuelGauge.loop();
+    stepperGauge.loop();
 
     uint8_t speed = speedSensor.getSpeed();
     speedGauge.setValue(speed);

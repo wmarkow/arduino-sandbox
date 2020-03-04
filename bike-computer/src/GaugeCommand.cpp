@@ -6,7 +6,6 @@
  */
 
 #include "GaugeCommand.h"
-
 #include <avr/pgmspace.h>
 #include <Arduino.h>
 #include <CommandParams.h>
@@ -15,10 +14,12 @@
 #include <WString.h>
 
 #include "AirCoreGauge.h"
+#include "StepperGauge.h"
 
 extern AirCoreGauge tempGauge;
 extern AirCoreGauge speedGauge;
 extern AirCoreGauge fuelGauge;
+extern StepperGauge stepperGauge;
 
 const __FlashStringHelper* GaugeCommand::getName()
 {
@@ -48,6 +49,9 @@ void GaugeCommand::process(CommandParams *params, HardwareSerial *serial)
         else if (gaugeNumber == 2)
         {
             fuelGauge.setAngle(gaugeValue);
+        }else if (gaugeNumber == 3)
+        {
+            stepperGauge.setAngle(gaugeValue);
         }
     }
 }
