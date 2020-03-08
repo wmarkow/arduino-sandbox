@@ -23,6 +23,7 @@ private:
     unsigned long lastUpdateTimeMillis;
 protected:
     void updateDriverDelta(int16_t delta);
+    void updateDriverAbsolute(int16_t currentAngle);
 public:
     StepperGauge();
     void init();

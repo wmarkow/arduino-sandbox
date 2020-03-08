@@ -71,7 +71,7 @@ void AirCoreGauge::loop()
         updateDriverDelta(-DELTA_ANGLE);
     }
 
-    driver->writeLogo(logoNumber, currentAngle);
+    updateDriverAbsolute(currentAngle);
 
     lastUpdateTimeMillis = millis();
 }
@@ -161,5 +161,10 @@ bool AirCoreGauge::isAdjusting()
 
 void AirCoreGauge::updateDriverDelta(int16_t delta)
 {
-	// nothing to do here, do not support delta update
+	// nothing to do here; do not support delta update
+}
+
+void AirCoreGauge::updateDriverAbsolute(int16_t currentAngle)
+{
+	driver->writeLogo(logoNumber, currentAngle);
 }

@@ -75,8 +75,7 @@ void StepperGauge::loop()
         updateDriverDelta(-DELTA_ANGLE);
     }
 
-    //     TODO: step the needle to currentAngle
-    //    driver->writeLogo(logoNumber, currentAngle);
+    updateDriverAbsolute(currentAngle);
 
     lastUpdateTimeMillis = millis();
 }
@@ -184,4 +183,9 @@ void StepperGauge::updateDriverDelta(int16_t delta)
 	    digitalWrite(STEPS_PIN, LOW);
 	    delayMicroseconds(STEPPER_DELAY_IN_MICROS);
 	}
+}
+
+void StepperGauge::updateDriverAbsolute(int16_t currentAngle)
+{
+	// nothing to do here; do not support absolute update
 }
