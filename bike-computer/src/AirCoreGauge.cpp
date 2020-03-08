@@ -57,6 +57,8 @@ void AirCoreGauge::loop()
         {
             currentAngle = desiredAngle;
         }
+
+        updateDriverDelta(DELTA_ANGLE);
     }
     else if (currentAngle > desiredAngle)
     {
@@ -65,6 +67,8 @@ void AirCoreGauge::loop()
         {
             currentAngle = desiredAngle;
         }
+
+        updateDriverDelta(-DELTA_ANGLE);
     }
 
     driver->writeLogo(logoNumber, currentAngle);
@@ -153,4 +157,9 @@ bool AirCoreGauge::isAdjusting()
     }
 
     return false;
+}
+
+void AirCoreGauge::updateDriverDelta(int16_t delta)
+{
+	// nothing to do here, do not support delta update
 }

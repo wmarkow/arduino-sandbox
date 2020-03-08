@@ -23,7 +23,8 @@ private:
     int16_t minValue;
     int16_t maxValue;
     unsigned long lastUpdateTimeMillis;
-
+protected:
+    void updateDriverDelta(int16_t delta);
 public:
     AirCoreGauge(MLX10407* driver, uint8_t logoNumber);
     void init();

@@ -61,13 +61,8 @@ void StepperGauge::loop()
         {
             currentAngle = desiredAngle;
         }
-        // plus one step (clockwise)
-        digitalWrite(DIR_PIN, LOW);
-        digitalWrite(STEPS_PIN, HIGH);
-        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
-        digitalWrite(STEPS_PIN, LOW);
-        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
-        Serial.println("step+");
+
+        updateDriverDelta(DELTA_ANGLE);
     }
     else if (currentAngle > desiredAngle)
     {
@@ -76,13 +71,8 @@ void StepperGauge::loop()
         {
             currentAngle = desiredAngle;
         }
-        // minus one step
-        digitalWrite(DIR_PIN, HIGH);
-        digitalWrite(STEPS_PIN, HIGH);
-        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
-        digitalWrite(STEPS_PIN, LOW);
-        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
-        Serial.println("step-");
+
+        updateDriverDelta(-DELTA_ANGLE);
     }
 
     //     TODO: step the needle to currentAngle
@@ -174,4 +164,24 @@ bool StepperGauge::isAdjusting()
     return false;
 }
 
+void StepperGauge::updateDriverDelta(int16_t delta)
+{
+	if(delta > 0)
+	{
+        digitalWrite(DIR_PIN, LOW);
+	}
+	else
+	{
+		digitalWrite(DIR_PIN, HIGH);
+	}
 
+	uint16_t max = abs(delta);
+
+	for(uint16_t q = 0 ; q < max ; q++)
+	{
+	    digitalWrite(STEPS_PIN, HIGH);
+	    delayMicroseconds(STEPPER_DELAY_IN_MICROS);
+	    digitalWrite(STEPS_PIN, LOW);
+	    delayMicroseconds(STEPPER_DELAY_IN_MICROS);
+	}
+}

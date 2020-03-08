@@ -21,7 +21,8 @@ private:
     int16_t minValue;
     int16_t maxValue;
     unsigned long lastUpdateTimeMillis;
-
+protected:
+    void updateDriverDelta(int16_t delta);
 public:
     StepperGauge();
     void init();
