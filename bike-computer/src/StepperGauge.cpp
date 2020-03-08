@@ -8,12 +8,12 @@
 #include "StepperGauge.h"
 #include <HardwareSerial.h>
 
-#define DELTA_T_IN_MILLIS 2
+#define DELTA_T_IN_MILLIS 20
 #define DELTA_ANGLE 1
 
 #define STEPS_PIN 2
 #define DIR_PIN 3
-#define STEP_TIME_IN_MILLIS 1
+#define STEPPER_DELAY_IN_MICROS 100
 
 
 StepperGauge::StepperGauge()
@@ -64,11 +64,9 @@ void StepperGauge::loop()
         // plus one step (clockwise)
         digitalWrite(DIR_PIN, LOW);
         digitalWrite(STEPS_PIN, HIGH);
-//        delay(STEP_TIME_IN_MILLIS);
-        delayMicroseconds(100);
+        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
         digitalWrite(STEPS_PIN, LOW);
-//        delay(STEP_TIME_IN_MILLIS);
-        delayMicroseconds(100);
+        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
         Serial.println("step+");
     }
     else if (currentAngle > desiredAngle)
@@ -81,11 +79,9 @@ void StepperGauge::loop()
         // minus one step
         digitalWrite(DIR_PIN, HIGH);
         digitalWrite(STEPS_PIN, HIGH);
-//        delay(STEP_TIME_IN_MILLIS);
-        delayMicroseconds(100);
+        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
         digitalWrite(STEPS_PIN, LOW);
-//        delay(STEP_TIME_IN_MILLIS);
-        delayMicroseconds(100);
+        delayMicroseconds(STEPPER_DELAY_IN_MICROS);
         Serial.println("step-");
     }
 
@@ -93,28 +89,6 @@ void StepperGauge::loop()
     //    driver->writeLogo(logoNumber, currentAngle);
 
     lastUpdateTimeMillis = millis();
-
-
-//    int steps = 10;
-//    int dir = 11;
-//    int stepTime=100;
-//
-//
-//
-//    void setup() {
-//
-//      pinMode(steps, OUTPUT);
-//      pinMode(dir, OUTPUT);
-//    }
-//
-//
-//    void loop() {
-//      digitalWrite(dir, HIGH);
-//      digitalWrite(steps, HIGH);
-//      delay(stepTime);
-//      digitalWrite(steps, LOW);
-//      delay(stepTime);
-
 }
 
 /***
