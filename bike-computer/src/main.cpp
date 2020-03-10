@@ -83,7 +83,7 @@ void setup()
     fuelGauge.setAngleRange(-60, 25);
     fuelGauge.setValueRange(0, 100);
 
-    stepperGauge.setAngleRange(0, 300);
+    stepperGauge.setAngleRange(0, 315);
     stepperGauge.setValueRange(0, 100);
 
     commandsArray->add(&gaugeCommand);
