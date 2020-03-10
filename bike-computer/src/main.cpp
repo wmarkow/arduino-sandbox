@@ -90,6 +90,7 @@ void setup()
     commandsArray->add(&dashCommand);
 
     demo();
+    stepperGauge.reset();
 }
 
 void loop(void)
