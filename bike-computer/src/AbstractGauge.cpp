@@ -13,6 +13,7 @@
 
 AbstractGauge::AbstractGauge()
 {
+	this->userDesiredAngle = 0;
     this->currentAngle = 0;
     this->desiredAngle = 0;
     this->lastUpdateTimeMillis = 0;
@@ -20,6 +21,7 @@ AbstractGauge::AbstractGauge()
     this->maxAngle = 359;
     this->minValue = 0;
     this->maxValue = 0;
+    this->inReset = false;
 }
 
 void AbstractGauge::init()
@@ -39,6 +41,11 @@ void AbstractGauge::init()
  */
 void AbstractGauge::loop()
 {
+	if(inReset == false)
+	{
+		desiredAngle = userDesiredAngle;
+	}
+
     if (currentAngle == desiredAngle)
     {
         return;
@@ -97,12 +104,12 @@ void AbstractGauge::setAngle(int16_t angle)
 {
     if (angle > 359)
     {
-        this->desiredAngle = 359;
+        this->userDesiredAngle = 359;
 
         return;
     }
 
-    this->desiredAngle = angle;
+    this->userDesiredAngle = angle;
 }
 
 /***

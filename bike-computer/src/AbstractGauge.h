@@ -13,12 +13,14 @@
 class AbstractGauge
 {
 private:
+    int16_t userDesiredAngle;
     int16_t currentAngle;
     int16_t desiredAngle;
     int16_t minAngle;
     int16_t maxAngle;
     int16_t minValue;
     int16_t maxValue;
+    bool inReset;
     unsigned long lastUpdateTimeMillis;
 
 protected:
