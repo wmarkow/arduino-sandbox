@@ -102,9 +102,15 @@ void AbstractGauge::setAngleRange(int16_t min, int16_t max)
  */
 void AbstractGauge::setAngle(int16_t angle)
 {
-    if (angle > 359)
+    if (angle > maxAngle)
     {
-        this->userDesiredAngle = 359;
+        this->userDesiredAngle = maxAngle;
+
+        return;
+    }
+    if (angle < minAngle)
+    {
+        this->userDesiredAngle = minAngle;
 
         return;
     }
