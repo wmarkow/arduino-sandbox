@@ -30,13 +30,34 @@ void GaugeCommand::process(CommandParams *params, HardwareSerial *serial)
 {
     lastProcessTime = millis();
 
+    if (params->getNumberOfParameters() == 2)
+	{
+		String subcommand = params->getParam(1);
+
+		if (subcommand.equals("--help"))
+		{
+			printUsage(serial);
+
+			return;
+		}
+
+		return;
+	}
+
     if (params->getNumberOfParameters() == 3)
     {
         String gaugeNumberAsString = params->getParam(1);
         uint8_t gaugeNumber = gaugeNumberAsString.toInt();
 
-        String geugeValueAsString = params->getParam(2);
-        int16_t gaugeValue = geugeValueAsString.toInt();
+        String gaugeValueAsString = params->getParam(2);
+        if (gaugeValueAsString.equals("reset"))
+        {
+            reset(gaugeNumber);
+
+            return;
+        }
+
+        int16_t gaugeValue = gaugeValueAsString.toInt();
 
         if (gaugeNumber == 0)
         {
@@ -65,4 +86,29 @@ void GaugeCommand::processBackground(HardwareSerial *serial)
     }
 
     lastProcessTime = currentMillis;
+}
+
+void GaugeCommand::reset(uint8_t gaugeNumber)
+{
+	if (gaugeNumber == 0)
+	{
+		tempGauge.reset();
+	}
+	else if (gaugeNumber == 1)
+	{
+		speedGauge.reset();
+	}
+	else if (gaugeNumber == 2)
+	{
+		fuelGauge.reset();
+	}else if (gaugeNumber == 3)
+	{
+		stepperGauge.reset();
+	}
+}
+
+void GaugeCommand::printUsage(HardwareSerial *serial)
+{
+    serial->println(F("Usage: gauge <gauge number> <angle value>"));
+    serial->println(F("Usage: gauge <gauge number> reset"));
 }

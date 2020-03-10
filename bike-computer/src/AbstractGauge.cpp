@@ -45,6 +45,20 @@ void AbstractGauge::loop()
 	{
 		desiredAngle = userDesiredAngle;
 	}
+	else
+	{
+		if(currentAngle == desiredAngle && currentAngle == maxAngle)
+		{
+			// needle is at max position
+			// now need to go back to min position
+			desiredAngle = minAngle;
+		} else if(currentAngle == desiredAngle && currentAngle == minAngle)
+		{
+			// needle is at min position
+			// end of reset
+			inReset = false;
+		}
+	}
 
     if (currentAngle == desiredAngle)
     {
@@ -80,6 +94,13 @@ void AbstractGauge::loop()
     updateDriverAbsolute(currentAngle);
 
     lastUpdateTimeMillis = millis();
+}
+
+void AbstractGauge::reset()
+{
+    inReset = true;
+    desiredAngle = maxAngle;
+    currentAngle = 0;
 }
 
 /***

@@ -11,15 +11,22 @@
 #define STEPS_PIN 2
 #define DIR_PIN 3
 #define STEPPER_DELAY_IN_MICROS 100
+#define STEPS_PER_MAX_ANGLE 185
 
 StepperGauge::StepperGauge() : AbstractGauge()
 {
+	setAngleRange(0, STEPS_PER_MAX_ANGLE);
 }
 
 void StepperGauge::init()
 {
 	pinMode(STEPS_PIN, OUTPUT);
 	pinMode(DIR_PIN, OUTPUT);
+}
+
+void StepperGauge::setAngleRange(int16_t min, int16_t max)
+{
+	AbstractGauge::setAngleRange(0, STEPS_PER_MAX_ANGLE);
 }
 
 void StepperGauge::updateDriverDelta(int16_t deltaAngle)

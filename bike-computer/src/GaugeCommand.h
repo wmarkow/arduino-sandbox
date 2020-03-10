@@ -13,10 +13,12 @@
 class GaugeCommand : public AbstractCommand {
  private:
   unsigned long lastProcessTime = 0;
+  void printUsage(HardwareSerial *serial);
  public:
   const __FlashStringHelper* getName();
   void process(CommandParams *params, HardwareSerial *serial);
   void processBackground(HardwareSerial *serial);
+  void reset(uint8_t gaugeNumber);
 };
 
 

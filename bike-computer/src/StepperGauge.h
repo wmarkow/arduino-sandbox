@@ -19,6 +19,7 @@ protected:
 public:
     StepperGauge();
     void init();
+    void setAngleRange(int16_t min, int16_t max);
 };
 
 #endif /* STEPPERGAUGE_H_ */
