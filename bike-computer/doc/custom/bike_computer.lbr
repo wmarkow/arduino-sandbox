@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE eagle SYSTEM "eagle.dtd">
+<eagle version="9.5.2">
+<drawing>
+<settings>
+<setting alwaysvectorfont="no"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="24" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="88" name="SimResults" color="9" fill="1" visible="yes" active="yes"/>
+<layer number="89" name="SimProbes" color="9" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="STEPPER_GAUGE">
+<wire x1="4.25" y1="15.25" x2="-4.25" y2="15.25" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-15.25" x2="14.5" y2="-15.25" width="0.1524" layer="21"/>
+<wire x1="6.75" y1="-9" x2="6.75" y2="-6" width="0.1524" layer="21"/>
+<wire x1="8.25" y1="-7.5" x2="5.25" y2="-7.5" width="0.1524" layer="21"/>
+<wire x1="-12" y1="4.75" x2="-11.25" y2="8" width="0.1524" layer="21"/>
+<wire x1="12" y1="4.75" x2="11.25" y2="8" width="0.1524" layer="21"/>
+<wire x1="-4.25" y1="15.25" x2="-11.25" y2="8" width="0.1524" layer="21" curve="92.045408"/>
+<wire x1="4.25" y1="15.25" x2="11.25" y2="8" width="0.1524" layer="21" curve="-92.045408"/>
+<circle x="12.25" y="2.5" radius="2.26384375" width="0.1524" layer="45"/>
+<circle x="-12.25" y="2.5" radius="2.25" width="0.1524" layer="45"/>
+<wire x1="-2.25" y1="-10.25" x2="-2.25" y2="-8.25" width="0.1524" layer="21"/>
+<wire x1="-3.25" y1="-9.25" x2="-1.25" y2="-9.25" width="0.1524" layer="21"/>
+<circle x="-2.25" y="-9.25" radius="1.5" width="0.1524" layer="45"/>
+<circle x="6.75" y="-7.5" radius="3.04138125" width="0.1524" layer="21"/>
+<circle x="6.75" y="-7.5" radius="2" width="0.1524" layer="21"/>
+<wire x1="14.5" y1="-15.25" x2="14.5" y2="2.5" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-15.25" x2="-14.5" y2="-11.75" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-11.75" x2="-14.5" y2="-4.75" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-4.75" x2="-14.5" y2="2.5" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-11.75" x2="-5.5" y2="-11.75" width="0.1524" layer="21"/>
+<wire x1="-14.5" y1="-4.75" x2="-5.5" y2="-4.75" width="0.1524" layer="21"/>
+<wire x1="4.75" y1="6.25" x2="-5.75" y2="6.25" width="0.1524" layer="21"/>
+<wire x1="3.5" y1="13" x2="-7" y2="13" width="0.1524" layer="21"/>
+<wire x1="4.75" y1="5" x2="-5.75" y2="5" width="0.1524" layer="21"/>
+<wire x1="3.5" y1="11.75" x2="-7" y2="11.75" width="0.1524" layer="21"/>
+<wire x1="4" y1="6.75" x2="4" y2="4.5" width="0.1524" layer="21"/>
+<wire x1="2.75" y1="13.5" x2="2.75" y2="11.25" width="0.1524" layer="21"/>
+<wire x1="-5" y1="6.75" x2="-5" y2="4.5" width="0.1524" layer="22"/>
+<wire x1="-6.25" y1="13.5" x2="-6.25" y2="11.25" width="0.1524" layer="22"/>
+<smd name="P$1" x="-11.75" y="-4.75" dx="5.08" dy="2.54" layer="1"/>
+<smd name="P$2" x="-6.75" y="-4.75" dx="5.08" dy="2.54" layer="1"/>
+<smd name="P$3" x="-11.75" y="-11.75" dx="5.08" dy="2.54" layer="1"/>
+<smd name="P$4" x="-6.75" y="-11.75" dx="5.08" dy="2.54" layer="1"/>
+<smd name="P$5" x="1.75" y="12" dx="6.4516" dy="3.2512" layer="1"/>
+<smd name="P$6" x="-4.5" y="12" dx="6.4516" dy="3.2512" layer="1"/>
+<smd name="P$7" x="2.5" y="5" dx="6.4516" dy="3.2512" layer="1"/>
+<smd name="P$8" x="-3.75" y="5" dx="6.4516" dy="3.2512" layer="1"/>
+</package>
+<package name="DRV8255_BOARD">
+<pad name="P$1" x="-6.35" y="8.89" drill="0.6" shape="octagon"/>
+<pad name="P$2" x="-6.35" y="6.35" drill="0.6" shape="octagon"/>
+<pad name="P$3" x="-6.35" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="P$4" x="-6.35" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="P$5" x="-6.35" y="-1.27" drill="0.6" shape="octagon"/>
+<pad name="P$6" x="-6.35" y="-3.81" drill="0.6" shape="octagon"/>
+<pad name="P$7" x="-6.35" y="-6.35" drill="0.6" shape="octagon"/>
+<pad name="P$8" x="-6.35" y="-8.89" drill="0.6" shape="octagon"/>
+<pad name="P$9" x="6.35" y="8.89" drill="0.6" shape="octagon"/>
+<pad name="P$10" x="6.35" y="6.35" drill="0.6" shape="octagon"/>
+<pad name="P$11" x="6.35" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="P$12" x="6.35" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="P$13" x="6.35" y="-1.27" drill="0.6" shape="octagon"/>
+<pad name="P$14" x="6.35" y="-3.81" drill="0.6" shape="octagon"/>
+<pad name="P$15" x="6.35" y="-6.35" drill="0.6" shape="octagon"/>
+<pad name="P$16" x="6.35" y="-8.89" drill="0.6" shape="octagon"/>
+<wire x1="-7.62" y1="10.16" x2="7.62" y2="10.16" width="0.1524" layer="21"/>
+<wire x1="7.62" y1="10.16" x2="7.62" y2="-10.16" width="0.1524" layer="21"/>
+<wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
+<wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="STEPPER_GAUGE">
+<pin name="B2" x="-17.78" y="2.54" length="middle"/>
+<pin name="B1" x="-17.78" y="-2.54" length="middle"/>
+<pin name="A2" x="-2.54" y="-17.78" length="middle" rot="R90"/>
+<pin name="A1" x="2.54" y="-17.78" length="middle" rot="R90"/>
+<circle x="0" y="0" radius="12.951509375" width="0.1524" layer="94"/>
+<circle x="0" y="0" radius="1.27" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0.762" x2="6.35" y2="9.906" width="0.1524" layer="94"/>
+<wire x1="6.35" y1="9.906" x2="1.016" y2="-0.762" width="0.1524" layer="94"/>
+</symbol>
+<symbol name="DRV8825_BOARD">
+<pin name="ENABLE" x="-15.24" y="5.08" length="middle" function="dot"/>
+<pin name="M0" x="-15.24" y="2.54" length="middle" direction="in"/>
+<pin name="M1" x="-15.24" y="0" length="middle"/>
+<pin name="M2" x="-15.24" y="-2.54" length="middle"/>
+<pin name="RESET" x="-15.24" y="-5.08" length="middle" function="dot"/>
+<pin name="SLEEP" x="-15.24" y="-7.62" length="middle" function="dot"/>
+<pin name="STEP" x="-15.24" y="-10.16" length="middle"/>
+<pin name="DIR" x="-15.24" y="-12.7" length="middle"/>
+<pin name="VMOT" x="15.24" y="15.24" length="middle" rot="R180"/>
+<pin name="GNDMOT" x="15.24" y="12.7" length="middle" rot="R180"/>
+<pin name="B2" x="15.24" y="2.54" length="middle" direction="out" rot="R180"/>
+<pin name="B1" x="15.24" y="0" length="middle" direction="out" rot="R180"/>
+<pin name="A2" x="15.24" y="-2.54" length="middle" direction="out" rot="R180"/>
+<pin name="A1" x="15.24" y="-5.08" length="middle" direction="out" rot="R180"/>
+<pin name="FAIL" x="15.24" y="-12.7" length="middle" direction="out" function="dot" rot="R180"/>
+<pin name="GNDLOGIC" x="15.24" y="10.16" length="middle" rot="R180"/>
+<wire x1="-10.16" y1="-15.24" x2="10.16" y2="-15.24" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="-15.24" x2="10.16" y2="17.78" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="17.78" x2="-10.16" y2="17.78" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="17.78" x2="-10.16" y2="-15.24" width="0.1524" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="STEPPER_GAUGE">
+<gates>
+<gate name="G$1" symbol="STEPPER_GAUGE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="STEPPER_GAUGE">
+<connects>
+<connect gate="G$1" pin="A1" pad="P$3 P$4"/>
+<connect gate="G$1" pin="A2" pad="P$1 P$2"/>
+<connect gate="G$1" pin="B1" pad="P$7 P$8"/>
+<connect gate="G$1" pin="B2" pad="P$5 P$6"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DRV8825_BOARD">
+<gates>
+<gate name="G$1" symbol="DRV8825_BOARD" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DRV8255_BOARD">
+<connects>
+<connect gate="G$1" pin="A1" pad="P$14"/>
+<connect gate="G$1" pin="A2" pad="P$13"/>
+<connect gate="G$1" pin="B1" pad="P$12"/>
+<connect gate="G$1" pin="B2" pad="P$11"/>
+<connect gate="G$1" pin="DIR" pad="P$8"/>
+<connect gate="G$1" pin="ENABLE" pad="P$1"/>
+<connect gate="G$1" pin="FAIL" pad="P$15"/>
+<connect gate="G$1" pin="GNDLOGIC" pad="P$16"/>
+<connect gate="G$1" pin="GNDMOT" pad="P$10"/>
+<connect gate="G$1" pin="M0" pad="P$2"/>
+<connect gate="G$1" pin="M1" pad="P$3"/>
+<connect gate="G$1" pin="M2" pad="P$4"/>
+<connect gate="G$1" pin="RESET" pad="P$5"/>
+<connect gate="G$1" pin="SLEEP" pad="P$6"/>
+<connect gate="G$1" pin="STEP" pad="P$7"/>
+<connect gate="G$1" pin="VMOT" pad="P$9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+</drawing>
+</eagle>
