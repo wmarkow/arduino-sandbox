@@ -204,6 +204,20 @@
 <wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
 </package>
+<package name="OLED_0.9">
+<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
+<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
+<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
+<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+</package>
 </packages>
 </library>
 </libraries>
@@ -405,6 +419,7 @@ design rules under a new name.</description>
 </element>
 <element name="U$1" library="bike_computer" package="STEPPER_GAUGE" value="STEPPER_GAUGE" x="44.05" y="46.85" smashed="yes"/>
 <element name="U$2" library="bike_computer" package="DRV8255_BOARD" value="DRV8825_BOARD" x="84.29" y="67.87" smashed="yes" rot="R90"/>
+<element name="U$3" library="bike_computer" package="OLED_0.9" value="OLED_0.9" x="50.8" y="22.86" smashed="yes"/>
 </elements>
 <signals>
 <signal name="GND">

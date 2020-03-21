@@ -122,6 +122,20 @@
 <wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
 </package>
+<package name="OLED_0.9">
+<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
+<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
+<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
+<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="STEPPER_GAUGE">
@@ -155,6 +169,20 @@
 <wire x1="10.16" y1="-15.24" x2="10.16" y2="17.78" width="0.1524" layer="94"/>
 <wire x1="10.16" y1="17.78" x2="-10.16" y2="17.78" width="0.1524" layer="94"/>
 <wire x1="-10.16" y1="17.78" x2="-10.16" y2="-15.24" width="0.1524" layer="94"/>
+</symbol>
+<symbol name="OLED_0.9">
+<pin name="SCL" x="-22.86" y="2.54" length="middle"/>
+<pin name="SDA" x="-22.86" y="5.08" length="middle"/>
+<pin name="VCC" x="-22.86" y="-2.54" length="middle"/>
+<pin name="GND" x="-22.86" y="-5.08" length="middle"/>
+<wire x1="-17.78" y1="7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="-17.78" y1="-7.62" x2="12.7" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="12.7" y1="-7.62" x2="12.7" y2="7.62" width="0.1524" layer="94"/>
+<wire x1="12.7" y1="7.62" x2="-17.78" y2="7.62" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.1524" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -199,6 +227,24 @@
 <connect gate="G$1" pin="SLEEP" pad="P$6"/>
 <connect gate="G$1" pin="STEP" pad="P$7"/>
 <connect gate="G$1" pin="VMOT" pad="P$9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="OLED_0.9">
+<gates>
+<gate name="OLED_0.9" symbol="OLED_0.9" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="OLED_0.9">
+<connects>
+<connect gate="OLED_0.9" pin="GND" pad="GND"/>
+<connect gate="OLED_0.9" pin="SCL" pad="SCL"/>
+<connect gate="OLED_0.9" pin="SDA" pad="SDA"/>
+<connect gate="OLED_0.9" pin="VCC" pad="VCC"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -667,6 +713,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="SUPPLY20" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
 <part name="SUPPLY21" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
 <part name="SUPPLY22" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
+<part name="U$3" library="bike_computer" deviceset="OLED_0.9" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -745,6 +792,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="SUPPLY22" gate="0V" x="25.4" y="-40.64" smashed="yes">
 <attribute name="VALUE" x="24.257" y="-42.672" size="1.778" layer="96"/>
 </instance>
+<instance part="U$3" gate="OLED_0.9" x="137.16" y="-38.1" smashed="yes"/>
 </instances>
 <busses>
 </busses>
