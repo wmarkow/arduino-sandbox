@@ -182,6 +182,20 @@
 <smd name="P$7" x="2.5" y="5" dx="6.4516" dy="3.2512" layer="1"/>
 <smd name="P$8" x="-3.75" y="5" dx="6.4516" dy="3.2512" layer="1"/>
 </package>
+<package name="OLED_0.9">
+<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
+<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
+<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
+<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+</package>
 <package name="DRV8255_BOARD">
 <pad name="P$1" x="-6.35" y="8.89" drill="0.6" shape="octagon"/>
 <pad name="P$2" x="-6.35" y="6.35" drill="0.6" shape="octagon"/>
@@ -203,20 +217,7 @@
 <wire x1="7.62" y1="10.16" x2="7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
-</package>
-<package name="OLED_0.9">
-<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
-<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
-<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
-<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
-<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
-<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
-<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
-<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
-<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
-<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
-<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
-<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+<text x="-3.81" y="7.62" size="1.778" layer="25">&gt;NAME</text>
 </package>
 </packages>
 </library>
@@ -418,8 +419,10 @@ design rules under a new name.</description>
 <attribute name="VALUE" x="60.6" y="35.52" size="1.27" layer="22" font="vector" rot="MR0"/>
 </element>
 <element name="U$1" library="bike_computer" package="STEPPER_GAUGE" value="STEPPER_GAUGE" x="44.05" y="46.85" smashed="yes"/>
-<element name="U$2" library="bike_computer" package="DRV8255_BOARD" value="DRV8825_BOARD" x="84.29" y="67.87" smashed="yes" rot="R90"/>
 <element name="U$3" library="bike_computer" package="OLED_0.9" value="OLED_0.9" x="50.8" y="22.86" smashed="yes"/>
+<element name="DRV8825" library="bike_computer" package="DRV8255_BOARD" value="DRV8825_BOARD" x="83.82" y="66.04" smashed="yes" rot="MR90">
+<attribute name="NAME" x="91.44" y="62.23" size="1.778" layer="26" rot="MR90"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
@@ -429,61 +432,75 @@ design rules under a new name.</description>
 <contactref element="ARDUINO_NANO1" pad="15"/>
 </signal>
 <signal name="N$1">
-<contactref element="U$2" pad="P$11"/>
 <contactref element="U$1" pad="P$5"/>
 <contactref element="U$1" pad="P$6"/>
-<wire x1="45.8" y1="58.85" x2="80.48" y2="74.22" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$11"/>
+<wire x1="45.8" y1="58.85" x2="87.63" y2="72.39" width="0" layer="19" extent="1-1"/>
 <wire x1="39.55" y1="58.85" x2="45.8" y2="58.85" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$2">
-<contactref element="U$2" pad="P$12"/>
 <contactref element="U$1" pad="P$7"/>
 <contactref element="U$1" pad="P$8"/>
-<wire x1="46.55" y1="51.85" x2="83.02" y2="74.22" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$12"/>
+<wire x1="46.55" y1="51.85" x2="85.09" y2="72.39" width="0" layer="19" extent="1-1"/>
 <wire x1="40.3" y1="51.85" x2="46.55" y2="51.85" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$3">
-<contactref element="U$2" pad="P$13"/>
 <contactref element="U$1" pad="P$1"/>
 <contactref element="U$1" pad="P$2"/>
-<wire x1="37.3" y1="42.1" x2="85.56" y2="74.22" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$13"/>
+<wire x1="37.3" y1="42.1" x2="82.55" y2="72.39" width="0" layer="19" extent="1-1"/>
 <wire x1="32.3" y1="42.1" x2="37.3" y2="42.1" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$4">
-<contactref element="U$2" pad="P$14"/>
 <contactref element="U$1" pad="P$3"/>
 <contactref element="U$1" pad="P$4"/>
-<wire x1="37.3" y1="35.1" x2="88.1" y2="74.22" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$14"/>
+<wire x1="37.3" y1="35.1" x2="80.01" y2="72.39" width="0" layer="19" extent="1-1"/>
 <wire x1="32.3" y1="35.1" x2="37.3" y2="35.1" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="0V">
-<contactref element="U$2" pad="P$16"/>
-<contactref element="U$2" pad="P$10"/>
-<contactref element="U$2" pad="P$1"/>
 <contactref element="ARDUINO_NANO1" pad="14"/>
-<wire x1="75.4" y1="61.52" x2="77.94" y2="74.22" width="0" layer="19" extent="1-1"/>
-<wire x1="93.18" y1="74.22" x2="77.94" y2="74.22" width="0" layer="19" extent="1-1"/>
-<wire x1="30.12" y1="30.44" x2="75.4" y2="61.52" width="0" layer="19" extent="1-1"/>
-</signal>
-<signal name="+12V">
-<contactref element="U$2" pad="P$9"/>
+<contactref element="U$3" pad="GND"/>
+<contactref element="DRV8825" pad="P$10"/>
+<contactref element="DRV8825" pad="P$16"/>
+<contactref element="DRV8825" pad="P$1"/>
+<wire x1="92.71" y1="59.69" x2="90.17" y2="72.39" width="0" layer="19" extent="1-1"/>
+<wire x1="74.93" y1="72.39" x2="90.17" y2="72.39" width="0" layer="19" extent="1-1"/>
+<wire x1="30.12" y1="30.44" x2="74.93" y2="72.39" width="0" layer="19" extent="1-1"/>
+<wire x1="35.56" y1="19.05" x2="30.12" y2="30.44" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="+5V">
-<contactref element="U$2" pad="P$6"/>
-<contactref element="U$2" pad="P$5"/>
 <contactref element="ARDUINO_NANO1" pad="12"/>
-<wire x1="88.1" y1="61.52" x2="85.56" y2="61.52" width="0" layer="19" extent="1-1"/>
-<wire x1="35.2" y1="30.44" x2="88.1" y2="61.52" width="0" layer="19" extent="1-1"/>
+<contactref element="U$3" pad="VCC"/>
+<contactref element="DRV8825" pad="P$5"/>
+<contactref element="DRV8825" pad="P$6"/>
+<wire x1="80.01" y1="59.69" x2="82.55" y2="59.69" width="0" layer="19" extent="1-1"/>
+<wire x1="35.2" y1="30.44" x2="80.01" y2="59.69" width="0" layer="19" extent="1-1"/>
+<wire x1="35.56" y1="21.59" x2="35.2" y2="30.44" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="STEP">
-<contactref element="U$2" pad="P$7"/>
 <contactref element="ARDUINO_NANO1" pad="20"/>
-<wire x1="37.74" y1="45.68" x2="90.64" y2="61.52" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$7"/>
+<wire x1="37.74" y1="45.68" x2="77.47" y2="59.69" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="DIR">
-<contactref element="U$2" pad="P$8"/>
 <contactref element="ARDUINO_NANO1" pad="21"/>
-<wire x1="40.28" y1="45.68" x2="93.18" y2="61.52" width="0" layer="19" extent="1-1"/>
+<contactref element="DRV8825" pad="P$8"/>
+<wire x1="40.28" y1="45.68" x2="74.93" y2="59.69" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SDA">
+<contactref element="U$3" pad="SDA"/>
+<contactref element="ARDUINO_NANO1" pad="8"/>
+<wire x1="35.56" y1="26.67" x2="45.36" y2="30.44" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SCL">
+<contactref element="U$3" pad="SCL"/>
+<contactref element="ARDUINO_NANO1" pad="9"/>
+<wire x1="35.56" y1="24.13" x2="42.82" y2="30.44" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="+12V">
+<contactref element="DRV8825" pad="P$9"/>
 </signal>
 </signals>
 <mfgpreviewcolors>

@@ -100,6 +100,20 @@
 <smd name="P$7" x="2.5" y="5" dx="6.4516" dy="3.2512" layer="1"/>
 <smd name="P$8" x="-3.75" y="5" dx="6.4516" dy="3.2512" layer="1"/>
 </package>
+<package name="OLED_0.9">
+<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
+<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
+<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
+<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+</package>
 <package name="DRV8255_BOARD">
 <pad name="P$1" x="-6.35" y="8.89" drill="0.6" shape="octagon"/>
 <pad name="P$2" x="-6.35" y="6.35" drill="0.6" shape="octagon"/>
@@ -121,20 +135,7 @@
 <wire x1="7.62" y1="10.16" x2="7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
-</package>
-<package name="OLED_0.9">
-<pad name="SDA" x="-15.24" y="3.81" drill="0.6" shape="octagon"/>
-<pad name="SCL" x="-15.24" y="1.27" drill="0.6" shape="octagon"/>
-<pad name="VCC" x="-15.24" y="-1.27" drill="0.6" shape="octagon"/>
-<wire x1="-17.78" y1="6.35" x2="-17.78" y2="-6.35" width="0.1524" layer="21"/>
-<wire x1="-17.78" y1="-6.35" x2="17.78" y2="-6.35" width="0.1524" layer="21"/>
-<wire x1="17.78" y1="-6.35" x2="17.78" y2="6.35" width="0.1524" layer="21"/>
-<wire x1="17.78" y1="6.35" x2="-17.78" y2="6.35" width="0.1524" layer="21"/>
-<pad name="GND" x="-15.24" y="-3.81" drill="0.6" shape="square"/>
-<wire x1="-11.43" y1="5.08" x2="-11.43" y2="-5.08" width="0.1524" layer="21"/>
-<wire x1="-11.43" y1="-5.08" x2="15.24" y2="-5.08" width="0.1524" layer="21"/>
-<wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
-<wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
+<text x="-3.81" y="7.62" size="1.778" layer="25">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
@@ -147,6 +148,20 @@
 <circle x="0" y="0" radius="1.27" width="0.1524" layer="94"/>
 <wire x1="-1.016" y1="0.762" x2="6.35" y2="9.906" width="0.1524" layer="94"/>
 <wire x1="6.35" y1="9.906" x2="1.016" y2="-0.762" width="0.1524" layer="94"/>
+</symbol>
+<symbol name="OLED_0.9">
+<pin name="SCL" x="-22.86" y="2.54" length="middle"/>
+<pin name="SDA" x="-22.86" y="5.08" length="middle"/>
+<pin name="VCC" x="-22.86" y="-2.54" length="middle"/>
+<pin name="GND" x="-22.86" y="-5.08" length="middle"/>
+<wire x1="-17.78" y1="7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="-17.78" y1="-7.62" x2="12.7" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="12.7" y1="-7.62" x2="12.7" y2="7.62" width="0.1524" layer="94"/>
+<wire x1="12.7" y1="7.62" x2="-17.78" y2="7.62" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.1524" layer="94"/>
 </symbol>
 <symbol name="DRV8825_BOARD">
 <pin name="ENABLE" x="-15.24" y="5.08" length="middle" function="dot"/>
@@ -169,20 +184,7 @@
 <wire x1="10.16" y1="-15.24" x2="10.16" y2="17.78" width="0.1524" layer="94"/>
 <wire x1="10.16" y1="17.78" x2="-10.16" y2="17.78" width="0.1524" layer="94"/>
 <wire x1="-10.16" y1="17.78" x2="-10.16" y2="-15.24" width="0.1524" layer="94"/>
-</symbol>
-<symbol name="OLED_0.9">
-<pin name="SCL" x="-22.86" y="2.54" length="middle"/>
-<pin name="SDA" x="-22.86" y="5.08" length="middle"/>
-<pin name="VCC" x="-22.86" y="-2.54" length="middle"/>
-<pin name="GND" x="-22.86" y="-5.08" length="middle"/>
-<wire x1="-17.78" y1="7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="94"/>
-<wire x1="-17.78" y1="-7.62" x2="12.7" y2="-7.62" width="0.1524" layer="94"/>
-<wire x1="12.7" y1="-7.62" x2="12.7" y2="7.62" width="0.1524" layer="94"/>
-<wire x1="12.7" y1="7.62" x2="-17.78" y2="7.62" width="0.1524" layer="94"/>
-<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.1524" layer="94"/>
-<wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.1524" layer="94"/>
-<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.1524" layer="94"/>
-<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.1524" layer="94"/>
+<text x="-7.62" y="-17.78" size="1.778" layer="95">&gt;NAME</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -197,6 +199,24 @@
 <connect gate="G$1" pin="A2" pad="P$1 P$2"/>
 <connect gate="G$1" pin="B1" pad="P$7 P$8"/>
 <connect gate="G$1" pin="B2" pad="P$5 P$6"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="OLED_0.9">
+<gates>
+<gate name="OLED_0.9" symbol="OLED_0.9" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="OLED_0.9">
+<connects>
+<connect gate="OLED_0.9" pin="GND" pad="GND"/>
+<connect gate="OLED_0.9" pin="SCL" pad="SCL"/>
+<connect gate="OLED_0.9" pin="SDA" pad="SDA"/>
+<connect gate="OLED_0.9" pin="VCC" pad="VCC"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -227,24 +247,6 @@
 <connect gate="G$1" pin="SLEEP" pad="P$6"/>
 <connect gate="G$1" pin="STEP" pad="P$7"/>
 <connect gate="G$1" pin="VMOT" pad="P$9"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="OLED_0.9">
-<gates>
-<gate name="OLED_0.9" symbol="OLED_0.9" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="OLED_0.9">
-<connects>
-<connect gate="OLED_0.9" pin="GND" pad="GND"/>
-<connect gate="OLED_0.9" pin="SCL" pad="SCL"/>
-<connect gate="OLED_0.9" pin="SDA" pad="SDA"/>
-<connect gate="OLED_0.9" pin="VCC" pad="VCC"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -690,7 +692,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <parts>
 <part name="U$1" library="bike_computer" deviceset="STEPPER_GAUGE" device=""/>
 <part name="ARDUINO_NANO1" library="ArduinoNanoV30" deviceset="ARDUINO_NANO" device=""/>
-<part name="U$2" library="bike_computer" deviceset="DRV8825_BOARD" device=""/>
 <part name="SUPPLY1" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
 <part name="SUPPLY2" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
 <part name="SUPPLY3" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
@@ -714,6 +715,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="SUPPLY21" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
 <part name="SUPPLY22" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
 <part name="U$3" library="bike_computer" deviceset="OLED_0.9" device=""/>
+<part name="DRV8825" library="bike_computer" deviceset="DRV8825_BOARD" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -725,15 +727,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <attribute name="NAME" x="-27.94" y="-17.78" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-27.94" y="-20.32" size="1.778" layer="96"/>
 </instance>
-<instance part="U$2" gate="G$1" x="71.12" y="2.54" smashed="yes"/>
 <instance part="SUPPLY1" gate="+5V" x="-22.86" y="-35.56" smashed="yes">
 <attribute name="VALUE" x="-24.765" y="-32.385" size="1.778" layer="96"/>
 </instance>
 <instance part="SUPPLY2" gate="+5V" x="-12.7" y="-38.1" smashed="yes">
 <attribute name="VALUE" x="-14.605" y="-34.925" size="1.778" layer="96"/>
 </instance>
-<instance part="SUPPLY3" gate="+5V" x="-2.54" y="-38.1" smashed="yes">
-<attribute name="VALUE" x="-4.445" y="-34.925" size="1.778" layer="96"/>
+<instance part="SUPPLY3" gate="+5V" x="91.44" y="-40.64" smashed="yes">
+<attribute name="VALUE" x="89.535" y="-37.465" size="1.778" layer="96"/>
 </instance>
 <instance part="SUPPLY4" gate="+5V" x="43.18" y="2.54" smashed="yes">
 <attribute name="VALUE" x="41.275" y="5.715" size="1.778" layer="96"/>
@@ -789,65 +790,68 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="SUPPLY21" gate="0V" x="30.48" y="-35.56" smashed="yes">
 <attribute name="VALUE" x="29.337" y="-37.592" size="1.778" layer="96"/>
 </instance>
-<instance part="SUPPLY22" gate="0V" x="25.4" y="-40.64" smashed="yes">
-<attribute name="VALUE" x="24.257" y="-42.672" size="1.778" layer="96"/>
+<instance part="SUPPLY22" gate="0V" x="91.44" y="-50.8" smashed="yes">
+<attribute name="VALUE" x="90.297" y="-52.832" size="1.778" layer="96"/>
 </instance>
-<instance part="U$3" gate="OLED_0.9" x="137.16" y="-38.1" smashed="yes"/>
+<instance part="U$3" gate="OLED_0.9" x="134.62" y="-40.64" smashed="yes"/>
+<instance part="DRV8825" gate="G$1" x="71.12" y="2.54" smashed="yes">
+<attribute name="NAME" x="63.5" y="-15.24" size="1.778" layer="95"/>
+</instance>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="N$1" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="B2"/>
 <pinref part="U$1" gate="G$1" pin="B2"/>
 <wire x1="86.36" y1="5.08" x2="116.84" y2="5.08" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="B2"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="B1"/>
 <wire x1="86.36" y1="2.54" x2="109.22" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="109.22" y1="2.54" x2="109.22" y2="0" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="B1"/>
 <wire x1="109.22" y1="0" x2="116.84" y2="0" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="B1"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="A2"/>
 <wire x1="86.36" y1="0" x2="106.68" y2="0" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="0" x2="106.68" y2="-17.78" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="A2"/>
 <wire x1="106.68" y1="-17.78" x2="132.08" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="-17.78" x2="132.08" y2="-15.24" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="A2"/>
 </segment>
 </net>
 <net name="N$4" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="A1"/>
 <wire x1="86.36" y1="-2.54" x2="104.14" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="-2.54" x2="104.14" y2="-20.32" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="A1"/>
 <wire x1="104.14" y1="-20.32" x2="137.16" y2="-20.32" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="-20.32" x2="137.16" y2="-15.24" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="A1"/>
 </segment>
 </net>
 <net name="0V" class="0">
 <segment>
 <pinref part="SUPPLY19" gate="0V" pin="0V"/>
-<pinref part="U$2" gate="G$1" pin="GNDLOGIC"/>
 <wire x1="93.98" y1="12.7" x2="88.9" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="GNDMOT"/>
 <wire x1="88.9" y1="12.7" x2="86.36" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="15.24" x2="88.9" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="15.24" x2="88.9" y2="12.7" width="0.1524" layer="91"/>
 <junction x="88.9" y="12.7"/>
+<pinref part="DRV8825" gate="G$1" pin="GNDMOT"/>
+<pinref part="DRV8825" gate="G$1" pin="GNDLOGIC"/>
 </segment>
 <segment>
 <pinref part="SUPPLY18" gate="0V" pin="0V"/>
-<pinref part="U$2" gate="G$1" pin="ENABLE"/>
 <wire x1="48.26" y1="7.62" x2="55.88" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="ENABLE"/>
 </segment>
 <segment>
 <pinref part="ARDUINO_NANO1" gate="G$1" pin="GND@2"/>
@@ -857,26 +861,32 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="SUPPLY15" gate="0V" pin="0V"/>
 <wire x1="12.7" y1="35.56" x2="12.7" y2="33.02" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U$3" gate="OLED_0.9" pin="GND"/>
+<pinref part="SUPPLY22" gate="0V" pin="0V"/>
+<wire x1="111.76" y1="-45.72" x2="91.44" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="-45.72" x2="91.44" y2="-48.26" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="+12V" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="VMOT"/>
 <pinref part="SUPPLY9" gate="+12V" pin="+12V"/>
 <wire x1="86.36" y1="17.78" x2="91.44" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="17.78" x2="91.44" y2="22.86" width="0.1524" layer="91"/>
+<pinref part="DRV8825" gate="G$1" pin="VMOT"/>
 </segment>
 </net>
 <net name="+5V" class="0">
 <segment>
 <pinref part="SUPPLY4" gate="+5V" pin="+5V"/>
 <wire x1="43.18" y1="0" x2="43.18" y2="-5.08" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="SLEEP"/>
 <wire x1="43.18" y1="-5.08" x2="53.34" y2="-5.08" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="RESET"/>
 <wire x1="53.34" y1="-5.08" x2="55.88" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="-2.54" x2="53.34" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="-2.54" x2="53.34" y2="-5.08" width="0.1524" layer="91"/>
 <junction x="53.34" y="-5.08"/>
+<pinref part="DRV8825" gate="G$1" pin="RESET"/>
+<pinref part="DRV8825" gate="G$1" pin="SLEEP"/>
 </segment>
 <segment>
 <pinref part="ARDUINO_NANO1" gate="G$1" pin="5V"/>
@@ -884,12 +894,17 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="7.62" y1="17.78" x2="17.78" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="17.78" x2="17.78" y2="20.32" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U$3" gate="OLED_0.9" pin="VCC"/>
+<pinref part="SUPPLY3" gate="+5V" pin="+5V"/>
+<wire x1="111.76" y1="-43.18" x2="91.44" y2="-43.18" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="STEP" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="STEP"/>
 <wire x1="55.88" y1="-7.62" x2="43.18" y2="-7.62" width="0.1524" layer="91"/>
 <label x="35.56" y="-7.62" size="1.778" layer="95"/>
+<pinref part="DRV8825" gate="G$1" pin="STEP"/>
 </segment>
 <segment>
 <pinref part="ARDUINO_NANO1" gate="G$1" pin="D2"/>
@@ -899,14 +914,38 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="DIR" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="DIR"/>
 <wire x1="55.88" y1="-10.16" x2="43.18" y2="-10.16" width="0.1524" layer="91"/>
 <label x="35.56" y="-10.16" size="1.778" layer="95"/>
+<pinref part="DRV8825" gate="G$1" pin="DIR"/>
 </segment>
 <segment>
 <pinref part="ARDUINO_NANO1" gate="G$1" pin="D3"/>
 <wire x1="-33.02" y1="12.7" x2="-40.64" y2="12.7" width="0.1524" layer="91"/>
 <label x="-48.26" y="12.7" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SDA" class="0">
+<segment>
+<pinref part="U$3" gate="OLED_0.9" pin="SDA"/>
+<wire x1="111.76" y1="-35.56" x2="106.68" y2="-35.56" width="0.1524" layer="91"/>
+<label x="99.06" y="-35.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="ARDUINO_NANO1" gate="G$1" pin="A4"/>
+<wire x1="7.62" y1="7.62" x2="12.7" y2="7.62" width="0.1524" layer="91"/>
+<label x="15.24" y="7.62" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SCL" class="0">
+<segment>
+<pinref part="U$3" gate="OLED_0.9" pin="SCL"/>
+<wire x1="111.76" y1="-38.1" x2="106.68" y2="-38.1" width="0.1524" layer="91"/>
+<label x="99.06" y="-38.1" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="ARDUINO_NANO1" gate="G$1" pin="A5"/>
+<wire x1="7.62" y1="10.16" x2="12.7" y2="10.16" width="0.1524" layer="91"/>
+<label x="15.24" y="10.16" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
