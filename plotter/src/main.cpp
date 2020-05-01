@@ -5,14 +5,4 @@
  *      Author: wmarkowski
  */
 
-#include <Arduino.h>
-
-void setup()
-{
-
-}
-
-void loop()
-{
-
-}
+#include <grbl/grbl.h>
