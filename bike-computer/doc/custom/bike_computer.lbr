@@ -135,6 +135,28 @@
 <wire x1="15.24" y1="-5.08" x2="15.24" y2="5.08" width="0.1524" layer="21"/>
 <wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
 </package>
+<package name="STEP_UP_REG">
+<wire x1="19.05" y1="-8.89" x2="19.05" y2="8.89" width="0.1524" layer="21"/>
+<wire x1="19.05" y1="8.89" x2="-19.05" y2="8.89" width="0.1524" layer="21"/>
+<wire x1="-19.05" y1="8.89" x2="-19.05" y2="-8.89" width="0.1524" layer="21"/>
+<wire x1="-19.05" y1="-8.89" x2="19.05" y2="-8.89" width="0.1524" layer="21"/>
+<pad name="VOUT+" x="-15.24" y="3.175" drill="0.6" shape="square"/>
+<pad name="VOUT-" x="-15.24" y="-3.175" drill="0.6" shape="square"/>
+<pad name="VIN+" x="15.24" y="3.175" drill="0.6" shape="square"/>
+<pad name="VIN-" x="15.24" y="-3.175" drill="0.6" shape="square"/>
+<wire x1="-11.43" y1="-7.62" x2="-2.54" y2="-7.62" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="-7.62" x2="-2.54" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="1.27" x2="-11.43" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="-11.43" y1="1.27" x2="-11.43" y2="-7.62" width="0.1524" layer="21"/>
+<wire x1="1.27" y1="7.62" x2="10.16" y2="7.62" width="0.1524" layer="21"/>
+<wire x1="10.16" y1="7.62" x2="10.16" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="10.16" y1="-1.27" x2="1.27" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="1.27" y1="-1.27" x2="1.27" y2="7.62" width="0.1524" layer="21"/>
+<text x="11.43" y="5.08" size="1.778" layer="21">VIN+</text>
+<text x="11.43" y="-6.35" size="1.778" layer="21">VIN-</text>
+<text x="-16.51" y="5.08" size="1.778" layer="21">VOUT+</text>
+<text x="-16.51" y="-7.62" size="1.778" layer="21">VOUT-</text>
+</package>
 </packages>
 <symbols>
 <symbol name="STEPPER_GAUGE">
@@ -183,6 +205,16 @@
 <wire x1="10.16" y1="5.08" x2="10.16" y2="-5.08" width="0.1524" layer="94"/>
 <wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.1524" layer="94"/>
 <wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.1524" layer="94"/>
+</symbol>
+<symbol name="STEP_UP_REG">
+<pin name="VIN" x="-15.24" y="2.54" length="middle"/>
+<pin name="VOUT" x="15.24" y="2.54" length="middle" rot="R180"/>
+<pin name="GND" x="0" y="-12.7" length="middle" rot="R90"/>
+<wire x1="-10.16" y1="-7.62" x2="10.16" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="10.16" y2="12.7" width="0.1524" layer="94"/>
+<wire x1="10.16" y1="12.7" x2="-10.16" y2="12.7" width="0.1524" layer="94"/>
+<wire x1="-10.16" y1="12.7" x2="-10.16" y2="-7.62" width="0.1524" layer="94"/>
+<text x="-10.16" y="12.7" size="1.778" layer="95">&gt;NAME</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -245,6 +277,23 @@
 <connect gate="OLED_0.9" pin="SCL" pad="SCL"/>
 <connect gate="OLED_0.9" pin="SDA" pad="SDA"/>
 <connect gate="OLED_0.9" pin="VCC" pad="VCC"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="STEP_UP_REG">
+<gates>
+<gate name="G$1" symbol="STEP_UP_REG" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="STEP_UP_REG">
+<connects>
+<connect gate="G$1" pin="GND" pad="VIN- VOUT-"/>
+<connect gate="G$1" pin="VIN" pad="VIN+"/>
+<connect gate="G$1" pin="VOUT" pad="VOUT+"/>
 </connects>
 <technologies>
 <technology name=""/>
