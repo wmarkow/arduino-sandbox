@@ -5266,7 +5266,7 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <part name="R6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/10" package3d_urn="urn:adsk.eagle:package:23491/2"/>
 <part name="SUPPLY23" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
 <part name="SUPPLY7" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
-<part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/5" package3d_urn="urn:adsk.eagle:package:23488/1"/>
+<part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/12" package3d_urn="urn:adsk.eagle:package:23489/1"/>
 <part name="R4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/5" package3d_urn="urn:adsk.eagle:package:23488/1"/>
 <part name="R5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/5" package3d_urn="urn:adsk.eagle:package:23488/1"/>
 <part name="SUPPLY11" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
@@ -5478,17 +5478,17 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <segment>
 <pinref part="SUPPLY7" gate="0V" pin="0V"/>
 <wire x1="63.5" y1="-180.34" x2="63.5" y2="-175.26" width="0.1524" layer="91"/>
-<junction x="63.5" y="-175.26"/>
-<wire x1="53.34" y1="-175.26" x2="63.5" y2="-175.26" width="0.1524" layer="91"/>
-<pinref part="U$8" gate="G$1" pin="4"/>
 <wire x1="63.5" y1="-175.26" x2="78.74" y2="-175.26" width="0.1524" layer="91"/>
 <pinref part="U$9" gate="G$1" pin="3"/>
-<pinref part="U$8" gate="G$1" pin="3"/>
-<wire x1="53.34" y1="-175.26" x2="50.8" y2="-175.26" width="0.1524" layer="91"/>
-<junction x="53.34" y="-175.26"/>
 <pinref part="U$9" gate="G$1" pin="4"/>
 <wire x1="81.28" y1="-175.26" x2="78.74" y2="-175.26" width="0.1524" layer="91"/>
 <junction x="78.74" y="-175.26"/>
+<wire x1="63.5" y1="-175.26" x2="55.88" y2="-175.26" width="0.1524" layer="91"/>
+<junction x="63.5" y="-175.26"/>
+<wire x1="55.88" y1="-175.26" x2="55.88" y2="-177.8" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="-177.8" x2="50.8" y2="-177.8" width="0.1524" layer="91"/>
+<pinref part="U$8" gate="G$1" pin="3"/>
+<wire x1="50.8" y1="-177.8" x2="50.8" y2="-175.26" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X1" gate="-5" pin="S"/>
@@ -5571,9 +5571,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="DRV8825" gate="G$1" pin="STEP"/>
 </segment>
 <segment>
-<wire x1="7.62" y1="-2.54" x2="12.7" y2="-2.54" width="0.1524" layer="91"/>
-<label x="15.24" y="-2.54" size="1.778" layer="95"/>
-<pinref part="U$7" gate="G$1" pin="A0"/>
+<pinref part="U$7" gate="G$1" pin="D13"/>
+<wire x1="7.62" y1="-10.16" x2="12.7" y2="-10.16" width="0.1524" layer="91"/>
+<label x="15.24" y="-10.16" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DIR" class="0">
@@ -5583,9 +5583,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="DRV8825" gate="G$1" pin="DIR"/>
 </segment>
 <segment>
-<wire x1="7.62" y1="-10.16" x2="12.7" y2="-10.16" width="0.1524" layer="91"/>
-<label x="15.24" y="-10.16" size="1.778" layer="95"/>
-<pinref part="U$7" gate="G$1" pin="D13"/>
+<pinref part="U$7" gate="G$1" pin="A0"/>
+<wire x1="7.62" y1="-2.54" x2="12.7" y2="-2.54" width="0.1524" layer="91"/>
+<label x="15.24" y="-2.54" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -5689,25 +5689,20 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="R3" gate="G$1" pin="1"/>
 <wire x1="50.8" y1="-165.1" x2="50.8" y2="-162.56" width="0.1524" layer="91"/>
 <pinref part="U$8" gate="G$1" pin="1"/>
-<junction x="50.8" y="-165.1"/>
-<pinref part="U$8" gate="G$1" pin="2"/>
-<wire x1="50.8" y1="-165.1" x2="53.34" y2="-165.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$11" class="0">
 <segment>
-<pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="-165.1" x2="78.74" y2="-162.56" width="0.1524" layer="91"/>
 <pinref part="U$9" gate="G$1" pin="1"/>
-<junction x="78.74" y="-165.1"/>
 <pinref part="U$9" gate="G$1" pin="2"/>
 <wire x1="81.28" y1="-165.1" x2="78.74" y2="-165.1" width="0.1524" layer="91"/>
+<pinref part="R4" gate="G$1" pin="1"/>
+<wire x1="78.74" y1="-162.56" x2="78.74" y2="-165.1" width="0.1524" layer="91"/>
+<junction x="78.74" y="-165.1"/>
 </segment>
 </net>
 <net name="KEYS_INPUT" class="0">
 <segment>
-<pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="78.74" y1="-152.4" x2="78.74" y2="-149.86" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="-149.86" x2="50.8" y2="-149.86" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="2"/>
 <wire x1="50.8" y1="-149.86" x2="50.8" y2="-152.4" width="0.1524" layer="91"/>
@@ -5716,6 +5711,8 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <junction x="50.8" y="-149.86"/>
 <wire x1="50.8" y1="-149.86" x2="40.64" y2="-149.86" width="0.1524" layer="91"/>
 <label x="22.86" y="-149.86" size="1.778" layer="95"/>
+<pinref part="R4" gate="G$1" pin="2"/>
+<wire x1="78.74" y1="-149.86" x2="78.74" y2="-152.4" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="7.62" y1="0" x2="12.7" y2="0" width="0.1524" layer="91"/>
