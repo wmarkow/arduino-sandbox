@@ -115,27 +115,34 @@
 <wire x1="15.24" y1="5.08" x2="-11.43" y2="5.08" width="0.1524" layer="21"/>
 </package>
 <package name="DRV8255_BOARD">
-<pad name="P$1" x="-6.35" y="8.89" drill="0.6" shape="octagon"/>
-<pad name="P$2" x="-6.35" y="6.35" drill="0.6" shape="octagon"/>
-<pad name="P$3" x="-6.35" y="3.81" drill="0.6" shape="octagon"/>
-<pad name="P$4" x="-6.35" y="1.27" drill="0.6" shape="octagon"/>
-<pad name="P$5" x="-6.35" y="-1.27" drill="0.6" shape="octagon"/>
-<pad name="P$6" x="-6.35" y="-3.81" drill="0.6" shape="octagon"/>
-<pad name="P$7" x="-6.35" y="-6.35" drill="0.6" shape="octagon"/>
-<pad name="P$8" x="-6.35" y="-8.89" drill="0.6" shape="octagon"/>
-<pad name="P$9" x="6.35" y="8.89" drill="0.6" shape="octagon"/>
-<pad name="P$10" x="6.35" y="6.35" drill="0.6" shape="octagon"/>
-<pad name="P$11" x="6.35" y="3.81" drill="0.6" shape="octagon"/>
-<pad name="P$12" x="6.35" y="1.27" drill="0.6" shape="octagon"/>
-<pad name="P$13" x="6.35" y="-1.27" drill="0.6" shape="octagon"/>
-<pad name="P$14" x="6.35" y="-3.81" drill="0.6" shape="octagon"/>
-<pad name="P$15" x="6.35" y="-6.35" drill="0.6" shape="octagon"/>
-<pad name="P$16" x="6.35" y="-8.89" drill="0.6" shape="octagon"/>
+<pad name="ENABLE" x="-6.35" y="8.89" drill="0.6" shape="octagon"/>
+<pad name="M0" x="-6.35" y="6.35" drill="0.6" shape="octagon"/>
+<pad name="M1" x="-6.35" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="M2" x="-6.35" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="RESET" x="-6.35" y="-1.27" drill="0.6" shape="octagon"/>
+<pad name="SLEEP" x="-6.35" y="-3.81" drill="0.6" shape="octagon"/>
+<pad name="STEP" x="-6.35" y="-6.35" drill="0.6" shape="octagon"/>
+<pad name="DIR" x="-6.35" y="-8.89" drill="0.6" shape="octagon"/>
+<pad name="VMOT" x="6.35" y="8.89" drill="0.6" shape="octagon"/>
+<pad name="GNDMOT" x="6.35" y="6.35" drill="0.6" shape="octagon"/>
+<pad name="B2" x="6.35" y="3.81" drill="0.6" shape="octagon"/>
+<pad name="B1" x="6.35" y="1.27" drill="0.6" shape="octagon"/>
+<pad name="A1" x="6.35" y="-1.27" drill="0.6" shape="octagon"/>
+<pad name="A2" x="6.35" y="-3.81" drill="0.6" shape="octagon"/>
+<pad name="FAULT" x="6.35" y="-6.35" drill="0.6" shape="octagon"/>
+<pad name="GNDLOGIC" x="6.35" y="-8.89" drill="0.6" shape="octagon"/>
 <wire x1="-7.62" y1="10.16" x2="7.62" y2="10.16" width="0.1524" layer="21"/>
 <wire x1="7.62" y1="10.16" x2="7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.1524" layer="21"/>
 <wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.1524" layer="21"/>
-<text x="-3.81" y="7.62" size="1.778" layer="25">&gt;NAME</text>
+<text x="-3.81" y="10.16" size="1.778" layer="25">&gt;NAME</text>
+<circle x="-3.175" y="7.62" radius="1.419903125" width="0.1524" layer="21"/>
+<wire x1="-3.81" y1="7.62" x2="-2.54" y2="7.62" width="0.1524" layer="21"/>
+<wire x1="-3.175" y1="8.255" x2="-3.175" y2="6.985" width="0.1524" layer="21"/>
+<wire x1="-4.445" y1="-6.35" x2="4.445" y2="-6.35" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="-6.35" x2="4.445" y2="-1.905" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="-1.905" x2="-4.445" y2="-1.905" width="0.1524" layer="21"/>
+<wire x1="-4.445" y1="-1.905" x2="-4.445" y2="-6.35" width="0.1524" layer="21"/>
 </package>
 <package name="STEP_UP_REG">
 <wire x1="19.05" y1="-8.89" x2="19.05" y2="8.89" width="0.1524" layer="21"/>
@@ -411,22 +418,22 @@
 <devices>
 <device name="" package="DRV8255_BOARD">
 <connects>
-<connect gate="G$1" pin="A1" pad="P$14"/>
-<connect gate="G$1" pin="A2" pad="P$13"/>
-<connect gate="G$1" pin="B1" pad="P$12"/>
-<connect gate="G$1" pin="B2" pad="P$11"/>
-<connect gate="G$1" pin="DIR" pad="P$8"/>
-<connect gate="G$1" pin="ENABLE" pad="P$1"/>
-<connect gate="G$1" pin="FAIL" pad="P$15"/>
-<connect gate="G$1" pin="GNDLOGIC" pad="P$16"/>
-<connect gate="G$1" pin="GNDMOT" pad="P$10"/>
-<connect gate="G$1" pin="M0" pad="P$2"/>
-<connect gate="G$1" pin="M1" pad="P$3"/>
-<connect gate="G$1" pin="M2" pad="P$4"/>
-<connect gate="G$1" pin="RESET" pad="P$5"/>
-<connect gate="G$1" pin="SLEEP" pad="P$6"/>
-<connect gate="G$1" pin="STEP" pad="P$7"/>
-<connect gate="G$1" pin="VMOT" pad="P$9"/>
+<connect gate="G$1" pin="A1" pad="A2"/>
+<connect gate="G$1" pin="A2" pad="A1"/>
+<connect gate="G$1" pin="B1" pad="B1"/>
+<connect gate="G$1" pin="B2" pad="B2"/>
+<connect gate="G$1" pin="DIR" pad="DIR"/>
+<connect gate="G$1" pin="ENABLE" pad="ENABLE"/>
+<connect gate="G$1" pin="FAIL" pad="FAULT"/>
+<connect gate="G$1" pin="GNDLOGIC" pad="GNDLOGIC"/>
+<connect gate="G$1" pin="GNDMOT" pad="GNDMOT"/>
+<connect gate="G$1" pin="M0" pad="M0"/>
+<connect gate="G$1" pin="M1" pad="M1"/>
+<connect gate="G$1" pin="M2" pad="M2"/>
+<connect gate="G$1" pin="RESET" pad="RESET"/>
+<connect gate="G$1" pin="SLEEP" pad="SLEEP"/>
+<connect gate="G$1" pin="STEP" pad="STEP"/>
+<connect gate="G$1" pin="VMOT" pad="VMOT"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -5263,7 +5270,7 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <part name="X1" library="con-molex" library_urn="urn:adsk.eagle:library:165" deviceset="5566-8" device="" package3d_urn="urn:adsk.eagle:package:8078580/1"/>
 <part name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0617/17" package3d_urn="urn:adsk.eagle:package:23575/2"/>
 <part name="R2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/15" package3d_urn="urn:adsk.eagle:package:23492/1"/>
-<part name="R6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/10" package3d_urn="urn:adsk.eagle:package:23491/2"/>
+<part name="R6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/15" package3d_urn="urn:adsk.eagle:package:23492/1"/>
 <part name="SUPPLY23" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="+5V" device=""/>
 <part name="SUPPLY7" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="0V" device=""/>
 <part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0207/12" package3d_urn="urn:adsk.eagle:package:23489/1"/>
