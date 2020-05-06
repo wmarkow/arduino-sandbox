@@ -8,8 +8,8 @@
 #include <Arduino.h>
 #include "StepperGauge.h"
 
-#define STEPS_PIN 2
-#define DIR_PIN 3
+#define STEPS_PIN 13
+#define DIR_PIN A0
 #define STEPPER_DELAY_IN_MICROS 100
 #define STEPS_PER_MAX_ANGLE 185
 
