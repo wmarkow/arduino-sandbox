@@ -5,8 +5,8 @@
  *      Author: wmarkowski
  */
 
-#include "AirCoreGauge.h"
-#include "Backlight.h"
+#include "com/github/wmarkow/bike/drivers/gauge/AirCoreGauge.h"
+#include "com/github/wmarkow/bike/drivers/backlight/Backlight.h"
 #include "Demo.h"
 
 extern AirCoreGauge speedGauge;

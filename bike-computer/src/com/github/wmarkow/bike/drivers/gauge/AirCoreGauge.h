@@ -1,7 +1,7 @@
 /*
  * AirCoreGauge.h
  *
- *  Created on: 3 paŸ 2019
+ *  Created on: 3 paï¿½ 2019
  *      Author: wmarkowski
  */
 
@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 #include "AbstractGauge.h"
-#include "MLX10407.h"
+#include "../mlx/MLX10407.h"
 
 class AirCoreGauge : public AbstractGauge
 {

@@ -1,7 +1,7 @@
 /*
  * GaugeCommand.cpp
  *
- *  Created on: 1 paŸ 2019
+ *  Created on: 1 paï¿½ 2019
  *      Author: wmarkowski
  */
 
@@ -13,8 +13,8 @@
 #include <stdbool.h>
 #include <WString.h>
 
-#include "AirCoreGauge.h"
-#include "StepperGauge.h"
+#include "com/github/wmarkow/bike/drivers/gauge/AirCoreGauge.h"
+#include "com/github/wmarkow/bike/drivers/gauge/StepperGauge.h"
 
 extern AirCoreGauge tempGauge;
 extern AirCoreGauge speedGauge;

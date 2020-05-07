@@ -1,7 +1,7 @@
 /*
  * DashCommand.cpp
  *
- *  Created on: 5 paŸ 2019
+ *  Created on: 5 paï¿½ 2019
  *      Author: wmarkowski
  */
 
@@ -14,8 +14,8 @@
 #include <stdbool.h>
 #include <WString.h>
 
-#include "AirCoreGauge.h"
-#include "Backlight.h"
+#include "com/github/wmarkow/bike/drivers/gauge/AirCoreGauge.h"
+#include "com/github/wmarkow/bike/drivers/backlight/Backlight.h"
 #include "Demo.h"
 
 extern AirCoreGauge speedGauge;

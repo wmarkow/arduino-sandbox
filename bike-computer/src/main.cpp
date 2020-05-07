@@ -12,13 +12,13 @@
 #include <HardwareSerial.h>
 #include <PinChangeInterrupt.h>
 
-#include "MLX10407.h"
-#include "AirCoreGauge.h"
-#include "StepperGauge.h"
+#include "com/github/wmarkow/bike/drivers/mlx/MLX10407.h"
+#include "com/github/wmarkow/bike/drivers/gauge/AirCoreGauge.h"
+#include "com/github/wmarkow/bike/drivers/gauge/StepperGauge.h"
 #include "GaugeCommand.h"
 #include "DashCommand.h"
-#include "SpeedSensor.h"
-#include "Backlight.h"
+#include "com/github/wmarkow/bike/drivers/speed/SpeedSensor.h"
+#include "com/github/wmarkow/bike/drivers/backlight/Backlight.h"
 #include "Demo.h"
 
 #define FIRST_MLS10407_CS 7

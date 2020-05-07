@@ -54,7 +54,7 @@ uint8_t SpeedSensor::getSpeed()
 /***
  * Gets current acceleration.
  *
- * @return acceleration in m/s
+ * @return acceleration in m/s2
  *         negative - vehicle slows down
  *         positive - vehicle speeds up
  */
