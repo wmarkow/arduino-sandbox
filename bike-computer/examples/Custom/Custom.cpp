@@ -15,7 +15,7 @@
 #include <com/github/wmarkow/bike/drivers/gauge/StepperGauge.h>
 #include <com/github/wmarkow/bike/drivers/speed/SpeedSensor.h>
 #include <com/github/wmarkow/bike/dashboards/custom/CustomDashboard.h>
-#include <com/github/wmarkow/bike/dashboards/pantheon/PantheonDashCommand.h>
+#include <com/github/wmarkow/bike/dashboards/custom/CustomDashCommand.h>
 
 #define WHEEL_SENSOR_PIN 2
 
@@ -24,7 +24,7 @@ CustomDashboard customDashboard;
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 Terminal terminal(&Serial, commandsArray);
-PantheonDashCommand dashCommand;
+CustomDashCommand dashCommand;
 
 void onSpeedSensorEvent();
 
