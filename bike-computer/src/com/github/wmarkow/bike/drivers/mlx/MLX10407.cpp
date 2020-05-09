@@ -17,13 +17,21 @@ const byte gauge_lookup[6] =
 { 0x00, 0x10, 0x30, 0x40, 0x60, 0x50 };
 
 /***
+ * A default constructor.
+ */
+MLX10407::MLX10407()
+{
+
+}
+
+/***
  * Constructor.
  *
  * @param csPin the number of chip select pin
  */
 MLX10407::MLX10407(uint8_t csPin)
 {
-    this->csPin = csPin;
+   this->csPin = csPin;
 }
 
 /***
@@ -37,17 +45,17 @@ MLX10407::MLX10407(uint8_t csPin)
  */
 void MLX10407::init()
 {
-    // Don't forget to do this, one some boards the gauges will not respond if you leave it out
-    pinMode(csPin, OUTPUT);
-    pinMode(_MLX_RST_PIN, OUTPUT);
+   // Don't forget to do this, one some boards the gauges will not respond if you leave it out
+   pinMode(csPin, OUTPUT);
+   pinMode(_MLX_RST_PIN, OUTPUT);
 
-    // Setup SPI
-    SPI.begin();
-    SPI.setBitOrder(MSBFIRST);
-    SPI.setDataMode(SPI_MODE0);
-    SPI.setClockDivider(SPI_CLOCK_DIV32); // wire SPI clock pin to MLX pin SCLK (1MHz is adequate, 4MHz is fine too)
-    digitalWrite(csPin, LOW); // MLX expects CS to go high on transfer then low to latch them the bytes in
-    digitalWrite(_MLX_RST_PIN, HIGH); // Reset has inverted logic and is active low
+   // Setup SPI
+   SPI.begin();
+   SPI.setBitOrder(MSBFIRST);
+   SPI.setDataMode(SPI_MODE0);
+   SPI.setClockDivider(SPI_CLOCK_DIV32); // wire SPI clock pin to MLX pin SCLK (1MHz is adequate, 4MHz is fine too)
+   digitalWrite(csPin, LOW); // MLX expects CS to go high on transfer then low to latch them the bytes in
+   digitalWrite(_MLX_RST_PIN, HIGH); // Reset has inverted logic and is active low
 }
 
 /***
@@ -76,36 +84,36 @@ void MLX10407::init()
  */
 void MLX10407::writeLogo(uint8_t logoNumber, int16_t angle)
 {
-    angle = angle % 360;
-    if (angle < 0)
-    {
-        angle += 360;
-    }
-    uint8_t angleQ = angle % 90; // max 7 bits
+   angle = angle % 360;
+   if (angle < 0)
+   {
+      angle += 360;
+   }
+   uint8_t angleQ = angle % 90; // max 7 bits
 
-    uint8_t quadrant;
-    if (angle < 90)
-    {
-        quadrant = 0;
-    }
-    else if (angle < 180)
-    {
-        quadrant = 1;
-    }
-    else if (angle < 270)
-    {
-        quadrant = 2;
-    }
-    else if (angle < 360)
-    {
-        quadrant = 3;
-    }
+   uint8_t quadrant;
+   if (angle < 90)
+   {
+      quadrant = 0;
+   }
+   else if (angle < 180)
+   {
+      quadrant = 1;
+   }
+   else if (angle < 270)
+   {
+      quadrant = 2;
+   }
+   else if (angle < 360)
+   {
+      quadrant = 3;
+   }
 
-    uint16_t angleValue = map(angleQ, 0, 89, 0, 1023);
+   uint16_t angleValue = map(angleQ, 0, 89, 0, 1023);
 
-    digitalWrite(csPin, HIGH);
-    SPI.transfer(
-    _MLX_START_BIT | gauge_lookup[logoNumber] | (angleValue >> 6));
-    SPI.transfer(((angleValue & 0b00111111) << 2) | quadrant);
-    digitalWrite(csPin, LOW);
+   digitalWrite(csPin, HIGH);
+   SPI.transfer(
+   _MLX_START_BIT | gauge_lookup[logoNumber] | (angleValue >> 6));
+   SPI.transfer(((angleValue & 0b00111111) << 2) | quadrant);
+   digitalWrite(csPin, LOW);
 }

@@ -5,10 +5,9 @@
  *      Author: wmarkowski
  */
 
-#include "DashCommand.h"
-
 #include <avr/pgmspace.h>
 #include <Arduino.h>
+#include <com/github/wmarkow/bike/dashboards/pantheon/PantheonDashCommand.h>
 #include <CommandParams.h>
 #include <HardwareSerial.h>
 #include <stdbool.h>
@@ -18,17 +17,17 @@
 #include "com/github/wmarkow/bike/drivers/backlight/Backlight.h"
 #include "Demo.h"
 
-extern AirCoreGauge speedGauge;
-extern AirCoreGauge tempGauge;
-extern AirCoreGauge fuelGauge;
-extern Backlight backlight;
+//extern AirCoreGauge speedGauge;
+//extern AirCoreGauge tempGauge;
+//extern AirCoreGauge fuelGauge;
+//extern Backlight backlight;
 
-const __FlashStringHelper* DashCommand::getName()
+const __FlashStringHelper* PantheonDashCommand::getName()
 {
     return F("dash");
 }
 
-void DashCommand::process(CommandParams *params, HardwareSerial *serial)
+void PantheonDashCommand::process(CommandParams *params, HardwareSerial *serial)
 {
     if (params->getNumberOfParameters() == 2)
     {
@@ -42,7 +41,7 @@ void DashCommand::process(CommandParams *params, HardwareSerial *serial)
         }
         if (subcommand.equals("demo"))
         {
-            demo();
+//            demo();
 
             return;
         }
@@ -57,28 +56,28 @@ void DashCommand::process(CommandParams *params, HardwareSerial *serial)
 
         if (subcommand.equals("speed"))
         {
-            speedGauge.setValue(value);
+//            speedGauge.setValue(value);
         }
         else if (subcommand.equals("temp"))
         {
-            tempGauge.setValue(value);
+//            tempGauge.setValue(value);
         }
         else if (subcommand.equals("fuel"))
         {
-            fuelGauge.setValue(value);
+//            fuelGauge.setValue(value);
         }
         else if (subcommand.equals("backlight"))
         {
-            backlight.setValuePercent(value);
+//            backlight.setValuePercent(value);
         }
     }
 }
 
-void DashCommand::processBackground(HardwareSerial *serial)
+void PantheonDashCommand::processBackground(HardwareSerial *serial)
 {
 }
 
-void DashCommand::printUsage(HardwareSerial *serial)
+void PantheonDashCommand::printUsage(HardwareSerial *serial)
 {
     serial->println(F("Usage: dash  speed     <0-100>"));
     serial->println(F("Usage: dash  temp      <0-100>"));

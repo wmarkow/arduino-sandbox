@@ -33,6 +33,7 @@ class MLX10407
 private:
     uint8_t csPin;
 public:
+    MLX10407();
     MLX10407(uint8_t csPin);
     void init();
     void writeLogo(uint8_t logoNumber, int16_t angle);

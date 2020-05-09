@@ -8,7 +8,7 @@
 #ifndef DEMO_H_
 #define DEMO_H_
 
-void demo();
-void demoLoop();
+//void demo();
+//void demoLoop();
 
 #endif /* DEMO_H_ */

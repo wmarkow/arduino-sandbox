@@ -8,6 +8,8 @@
 #ifndef BACKLIGHT_H_
 #define BACKLIGHT_H_
 
+#include <stdint.h>
+
 class Backlight
 {
 public:

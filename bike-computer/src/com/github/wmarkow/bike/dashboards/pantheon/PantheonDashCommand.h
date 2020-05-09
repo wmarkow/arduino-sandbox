@@ -1,7 +1,7 @@
 /*
  * DashCommand.h
  *
- *  Created on: 5 paŸ 2019
+ *  Created on: 5 paï¿½ 2019
  *      Author: wmarkowski
  */
 
@@ -10,7 +10,7 @@
 
 #include <AbstractCommand.h>
 
-class DashCommand: public AbstractCommand
+class PantheonDashCommand: public AbstractCommand
 {
 private:
     void printUsage(HardwareSerial *serial);
