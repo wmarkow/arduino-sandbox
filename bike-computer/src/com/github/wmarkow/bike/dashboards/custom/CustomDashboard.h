@@ -20,6 +20,7 @@ private:
 public:
    void init();
    void loop();
+   void reset();
    void tickSpeedSensor(unsigned long millis);
 };
 

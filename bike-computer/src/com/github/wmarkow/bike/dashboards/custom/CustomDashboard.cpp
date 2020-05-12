@@ -25,6 +25,11 @@ void CustomDashboard::loop()
    speedGauge.setValue(speed);
 }
 
+void CustomDashboard::reset()
+{
+   speedGauge.reset();
+}
+
 void CustomDashboard::tickSpeedSensor(unsigned long millis)
 {
    speedSensor.tick(millis);

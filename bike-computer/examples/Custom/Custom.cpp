@@ -24,7 +24,7 @@ CustomDashboard customDashboard;
 FixedSizeArray<AbstractCommand*, 5> commands;
 Array<AbstractCommand*> *commandsArray = &commands;
 Terminal terminal(&Serial, commandsArray);
-CustomDashCommand dashCommand;
+CustomDashCommand dashCommand(&customDashboard);
 
 void onSpeedSensorEvent();
 
