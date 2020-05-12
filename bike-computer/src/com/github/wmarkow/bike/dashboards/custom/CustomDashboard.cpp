@@ -11,18 +11,22 @@
 void CustomDashboard::init()
 {
    speedGauge.init();
-   speedGauge.setValueRange(0, 100);
+   speedGauge.setValueRange(0, 60);
    speedGauge.reset();
 
-   speedSensor.setWheelDiamieter(24);
+   speedSensor.setWheelDiameter(24);
+   speedSensorEnabled = true;
 }
 
 void CustomDashboard::loop()
 {
    speedGauge.loop();
 
-   uint8_t speed = speedSensor.getSpeed();
-   speedGauge.setValue(speed);
+   if (speedSensorEnabled == true)
+   {
+      uint8_t speed = speedSensor.getSpeed();
+      speedGauge.setValue(speed);
+   }
 }
 
 void CustomDashboard::reset()
@@ -33,4 +37,10 @@ void CustomDashboard::reset()
 void CustomDashboard::tickSpeedSensor(unsigned long millis)
 {
    speedSensor.tick(millis);
+}
+
+void CustomDashboard::setSpeed(uint8_t speed)
+{
+   speedSensorEnabled = false;
+   speedGauge.setValue(speed);
 }

@@ -20,7 +20,7 @@ private:
 public:
     SpeedSensor();
     void tick(unsigned long currentMillis);
-    void setWheelDiamieter(uint8_t diameterInInches);
+    void setWheelDiameter(uint8_t diameterInInches);
     uint8_t getSpeed();
     float getAcceleration();
 };

@@ -16,12 +16,14 @@ class CustomDashboard
 private:
    StepperGauge speedGauge;
    SpeedSensor speedSensor;
+   bool speedSensorEnabled;
 
 public:
    void init();
    void loop();
    void reset();
    void tickSpeedSensor(unsigned long millis);
+   void setSpeed(uint8_t speed);
 };
 
 #endif /* COM_GITHUB_WMARKOW_BIKE_DASHBOARDS_CUSTOM_CUSTOMDASHBOARD_H_ */

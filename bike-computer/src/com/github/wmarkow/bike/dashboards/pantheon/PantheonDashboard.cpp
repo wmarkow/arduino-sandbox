@@ -39,7 +39,7 @@ void PantheonDashboard::init()
 
    backlight.init();
 
-   speedSensor.setWheelDiamieter(24);
+   speedSensor.setWheelDiameter(24);
 }
 
 void PantheonDashboard::loop()

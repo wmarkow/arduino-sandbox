@@ -50,7 +50,7 @@ void CustomDashCommand::process(CommandParams *params, HardwareSerial *serial)
 
       if (subcommand.equals("speed"))
       {
-//            speedGauge.setValue(value);
+         dashboard->setSpeed(value);
       }
       else if (subcommand.equals("temp"))
       {
@@ -74,4 +74,5 @@ void CustomDashCommand::processBackground(HardwareSerial *serial)
 void CustomDashCommand::printUsage(HardwareSerial *serial)
 {
    serial->println(F("dash reset"));
+   serial->println(F("dash speed <0-60>"));
 }

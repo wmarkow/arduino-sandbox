@@ -31,7 +31,7 @@ void SpeedSensor::tick(unsigned long currentMillis)
     t0 = currentMillis;
 }
 
-void SpeedSensor::setWheelDiamieter(uint8_t diameterInInches)
+void SpeedSensor::setWheelDiameter(uint8_t diameterInInches)
 {
     this->wheelDiameterInInches = diameterInInches;
 }
