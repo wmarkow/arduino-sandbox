@@ -13,15 +13,15 @@
 
 AbstractGauge::AbstractGauge()
 {
-	this->userDesiredAngle = 0;
-    this->currentAngle = 0;
-    this->desiredAngle = 0;
-    this->lastUpdateTimeMillis = 0;
-    this->minAngle = 0;
-    this->maxAngle = 359;
-    this->minValue = 0;
-    this->maxValue = 0;
-    this->inReset = false;
+   this->userDesiredAngle = 0;
+   this->currentAngle = 0;
+   this->desiredAngle = 0;
+   this->lastUpdateTimeMillis = 0;
+   this->minAngle = 0;
+   this->maxAngle = 359;
+   this->minValue = 0;
+   this->maxValue = 0;
+   this->inReset = false;
 }
 
 void AbstractGauge::init()
@@ -41,66 +41,67 @@ void AbstractGauge::init()
  */
 void AbstractGauge::loop()
 {
-	if(inReset == false)
-	{
-		desiredAngle = userDesiredAngle;
-	}
-	else
-	{
-		if(currentAngle == desiredAngle && currentAngle == maxAngle)
-		{
-			// needle is at max position
-			// now need to go back to min position
-			desiredAngle = minAngle;
-		} else if(currentAngle == desiredAngle && currentAngle == minAngle)
-		{
-			// needle is at min position
-			// end of reset
-			inReset = false;
-		}
-	}
+   if (inReset == false)
+   {
+      desiredAngle = userDesiredAngle;
+   }
+   else
+   {
+      if (currentAngle == desiredAngle && currentAngle == maxAngle)
+      {
+         // needle is at max position
+         // now need to go back to min position
+         desiredAngle = minAngle;
+      }
+      else if (currentAngle == desiredAngle && currentAngle == minAngle)
+      {
+         // needle is at min position
+         // end of reset
+         inReset = false;
+      }
+   }
 
-    if (currentAngle == desiredAngle)
-    {
-        return;
-    }
+   if (currentAngle == desiredAngle)
+   {
+      return;
+   }
 
-    if (millis() - lastUpdateTimeMillis <= DELTA_T_IN_MILLIS)
-    {
-        return;
-    }
+   if (millis() - lastUpdateTimeMillis <= DELTA_T_IN_MILLIS)
+   {
+      return;
+   }
 
-    if (currentAngle < desiredAngle)
-    {
-        currentAngle += DELTA_ANGLE;
-        if (currentAngle >= desiredAngle)
-        {
-            currentAngle = desiredAngle;
-        }
+   if (currentAngle < desiredAngle)
+   {
+      currentAngle += DELTA_ANGLE;
+      if (currentAngle >= desiredAngle)
+      {
+         currentAngle = desiredAngle;
+      }
 
-        updateDriverDelta(DELTA_ANGLE);
-    }
-    else if (currentAngle > desiredAngle)
-    {
-        currentAngle -= DELTA_ANGLE;
-        if (currentAngle <= desiredAngle)
-        {
-            currentAngle = desiredAngle;
-        }
+      updateDriverDelta(DELTA_ANGLE);
+   }
+   else if (currentAngle > desiredAngle)
+   {
+      currentAngle -= DELTA_ANGLE;
+      if (currentAngle <= desiredAngle)
+      {
+         currentAngle = desiredAngle;
+      }
 
-        updateDriverDelta(-DELTA_ANGLE);
-    }
+      updateDriverDelta(-DELTA_ANGLE);
+   }
 
-    updateDriverAbsolute(currentAngle);
+   updateDriverAbsolute(currentAngle);
 
-    lastUpdateTimeMillis = millis();
+   lastUpdateTimeMillis = millis();
 }
 
 void AbstractGauge::reset()
 {
-    inReset = true;
-    desiredAngle = maxAngle;
-    currentAngle = 0;
+   inReset = true;
+   desiredAngle = maxAngle;
+   currentAngle = 0;
 }
 
 /***
@@ -111,8 +112,8 @@ void AbstractGauge::reset()
  */
 void AbstractGauge::setAngleRange(int16_t min, int16_t max)
 {
-    this->minAngle = min;
-    this->maxAngle = max;
+   this->minAngle = min;
+   this->maxAngle = max;
 }
 
 /***
@@ -123,20 +124,20 @@ void AbstractGauge::setAngleRange(int16_t min, int16_t max)
  */
 void AbstractGauge::setAngle(int16_t angle)
 {
-    if (angle > maxAngle)
-    {
-        this->userDesiredAngle = maxAngle;
+   if (angle > maxAngle)
+   {
+      this->userDesiredAngle = maxAngle;
 
-        return;
-    }
-    if (angle < minAngle)
-    {
-        this->userDesiredAngle = minAngle;
+      return;
+   }
+   if (angle < minAngle)
+   {
+      this->userDesiredAngle = minAngle;
 
-        return;
-    }
+      return;
+   }
 
-    this->userDesiredAngle = angle;
+   this->userDesiredAngle = angle;
 }
 
 /***
@@ -147,8 +148,8 @@ void AbstractGauge::setAngle(int16_t angle)
  */
 void AbstractGauge::setAnglePercents(uint8_t percents)
 {
-    uint16_t angle = map(percents, 0, 100, minAngle, maxAngle);
-    setAngle(angle);
+   uint16_t angle = map(percents, 0, 100, minAngle, maxAngle);
+   setAngle(angle);
 }
 
 /***
@@ -160,8 +161,8 @@ void AbstractGauge::setAnglePercents(uint8_t percents)
  */
 void AbstractGauge::setValueRange(int16_t min, int16_t max)
 {
-    this->minValue = min;
-    this->maxValue = max;
+   this->minValue = min;
+   this->maxValue = max;
 }
 
 /***
@@ -172,8 +173,8 @@ void AbstractGauge::setValueRange(int16_t min, int16_t max)
  */
 void AbstractGauge::setValue(int16_t value)
 {
-    uint16_t angle = map(value, minValue, maxValue, minAngle, maxAngle);
-    setAngle(angle);
+   uint16_t angle = map(value, minValue, maxValue, minAngle, maxAngle);
+   setAngle(angle);
 }
 
 /***
@@ -184,10 +185,20 @@ void AbstractGauge::setValue(int16_t value)
  */
 bool AbstractGauge::isAdjusting()
 {
-    if (currentAngle != desiredAngle)
-    {
-        return true;
-    }
+   if (currentAngle != desiredAngle)
+   {
+      return true;
+   }
 
-    return false;
+   return false;
+}
+
+/***
+ * Checks if the gauge is currently in reset procedure.
+ * @return true if gauge is in reset procedure
+ *         false if the gauge is not currently in reset procedure
+ */
+bool AbstractGauge::isInReset()
+{
+   return this->inReset;
 }

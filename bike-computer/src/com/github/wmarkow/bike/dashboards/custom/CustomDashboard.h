@@ -22,7 +22,9 @@ private:
 
    void testdrawline();
    void testdrawchar();
-
+   void displayShowLogo();
+   void displayShowDash();
+   bool isInReset();
 public:
    CustomDashboard();
    void init();

@@ -32,42 +32,16 @@ void CustomDashboard::init()
    {
       Serial.println(F("SSD1306 allocation failed"));
    }
-   // Show initial display buffer contents on the screen --
-   // the library initializes this with an Adafruit splash screen.
-   display.display();
-   delay(2000); // Pause for 2 seconds
-
-   // Clear the buffer
-   display.clearDisplay();
-
-   // Draw a single pixel in white
-   display.drawPixel(10, 10, SSD1306_WHITE);
-
-   // Show the display buffer on the screen. You MUST call display() after
-   // drawing commands to make them visible on screen!
-   display.display();
-   delay(2000);
-   // display.display() is NOT necessary after every single drawing command,
-   // unless that's what you want...rather, you can batch up a bunch of
-   // drawing operations and then update the screen all at once by calling
-   // display.display(). These examples demonstrate both approaches...
-
-   testdrawline();      // Draw many lines
-   testdrawchar();      // Draw characters of the default font
-
-   // Invert and restore display, pausing in-between
-   display.invertDisplay(true);
-   delay(1000);
-   display.invertDisplay(false);
-   delay(1000);
-
-   display.clearDisplay();
-   display.setTextSize(2);
+   // Normal 1:1 pixel scale
+   display.setTextSize(1);
+   // Draw white text
+   display.setTextColor(SSD1306_WHITE);
+   // Start at top-left corner
    display.setCursor(0, 0);
-   display.write("Licznik");
-   display.setCursor(16, 16);
-   display.write("Kuby");
-   display.display();
+   // Use full 256 char 'Code Page 437' font
+   display.cp437(true);
+
+   displayShowLogo();
 }
 
 void CustomDashboard::loop()
@@ -78,6 +52,15 @@ void CustomDashboard::loop()
    {
       uint8_t speed = speedSensor.getSpeed();
       speedGauge.setValue(speed);
+   }
+
+   if (isInReset())
+   {
+      this->displayShowLogo();
+   }
+   else
+   {
+      this->displayShowDash();
    }
 }
 
@@ -194,3 +177,27 @@ void CustomDashboard::testdrawchar(void)
    delay(2000);
 }
 
+bool CustomDashboard::isInReset()
+{
+   return speedGauge.isInReset();
+}
+
+void CustomDashboard::displayShowLogo()
+{
+   display.clearDisplay();
+   display.setTextSize(2);
+   display.setCursor(0, 0);
+   display.write("Licznik");
+   display.setCursor(16, 16);
+   display.write("Kuby");
+   display.display();
+}
+
+void CustomDashboard::displayShowDash()
+{
+   display.clearDisplay();
+   display.setTextSize(2);
+   display.setCursor(0, 0);
+   display.write("Dash here");
+   display.display();
+}

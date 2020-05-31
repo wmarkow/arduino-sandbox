@@ -32,6 +32,7 @@ public:
     void init();
     void loop();
     void reset();
+    bool isInReset();
     void setAngleRange(int16_t min, int16_t max);
     void setAngle(int16_t angle);
     void setAnglePercents(uint8_t percents);
