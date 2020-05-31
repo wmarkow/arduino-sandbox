@@ -60,6 +60,14 @@ void CustomDashboard::init()
    delay(1000);
    display.invertDisplay(false);
    delay(1000);
+
+   display.clearDisplay();
+   display.setTextSize(2);
+   display.setCursor(0, 0);
+   display.write("Licznik");
+   display.setCursor(16, 16);
+   display.write("Kuby");
+   display.display();
 }
 
 void CustomDashboard::loop()
