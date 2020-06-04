@@ -8,22 +8,18 @@
 #ifndef COM_GITHUB_WMARKOW_BIKE_DASHBOARDS_CUSTOM_CUSTOMDASHBOARD_H_
 #define COM_GITHUB_WMARKOW_BIKE_DASHBOARDS_CUSTOM_CUSTOMDASHBOARD_H_
 
-#include <Adafruit_SSD1306.h>
+#include <com/github/wmarkow/bike/dashboards/custom/Display.h>
 #include <com/github/wmarkow/bike/drivers/gauge/StepperGauge.h>
 #include <com/github/wmarkow/bike/drivers/speed/SpeedSensor.h>
 
 class CustomDashboard
 {
 private:
-   Adafruit_SSD1306 display;
+   Display display;
    StepperGauge speedGauge;
    SpeedSensor speedSensor;
    bool speedSensorEnabled;
 
-   void testdrawline();
-   void testdrawchar();
-   void displayShowLogo();
-   void displayShowDash();
    bool isInReset();
 public:
    CustomDashboard();
