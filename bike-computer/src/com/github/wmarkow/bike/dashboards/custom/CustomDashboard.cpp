@@ -53,6 +53,13 @@ void CustomDashboard::reset()
 void CustomDashboard::tickSpeedSensor(unsigned long millis)
 {
    speedSensor.tick(millis);
+
+   uint8_t speed = speedSensor.getSpeed();
+   float acceleration = speedSensor.getAcceleration();
+
+   Serial.print(speed);
+   Serial.print("   ");
+   Serial.println(acceleration);
 }
 
 void CustomDashboard::setSpeed(uint8_t speed)

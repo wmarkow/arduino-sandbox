@@ -52,13 +52,6 @@ void loop(void)
 void onSpeedSensorEvent()
 {
    customDashboard.tickSpeedSensor(millis());
-
-//   uint8_t speed = speedSensor.getSpeed();
-//   float acceleration = speedSensor.getAcceleration();
-//
-//   Serial.print(speed);
-//   Serial.print("   ");
-//   Serial.println(acceleration);
 }
 
 void scanI2C()
