@@ -41,14 +41,14 @@ void SpeedSensor::setWheelDiameter(uint8_t diameterInInches)
  *
  * @return speed in km/h
  */
-uint8_t SpeedSensor::getSpeed()
+float SpeedSensor::getSpeed()
 {
     unsigned long delta = t0 - t1;
     unsigned long deltaToLastTick = millis() - t0;
 
     delta = max(delta, deltaToLastTick);
 
-    return (uint8_t) (wheelDiameterInInches * 287.0 / delta);
+    return (float) (wheelDiameterInInches * 287.0 / delta);
 }
 
 /***
