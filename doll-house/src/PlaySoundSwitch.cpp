@@ -36,7 +36,7 @@ void PlaySoundSwitch::onSwitchOnInternal()
 
 void PlaySoundSwitch::onSwitchOffInternal()
 {
-    if (onSwitchOnSoundId != 0)
+    if (onSwitchOffSoundId != 0)
     {
         myDFPlayer.playMp3Folder(onSwitchOffSoundId);
     }
