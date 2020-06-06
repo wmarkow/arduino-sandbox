@@ -5,6 +5,10 @@
 #include "LightSwitch.h"
 #include "PlaySoundSwitch.h"
 
+#define SOUND_OWL_ID 6
+#define SOUND_DING_ID 13
+#define SOUND_DONG_ID 12
+
 SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
@@ -20,11 +24,11 @@ LightSwitch livingRoomLightSwitch(A2, 7);
 void setup()
 {
     doorSwitch.init();
-    doorSwitch.setOnSwitchOnSoundId(13);
-    doorSwitch.setOnSwitchOffSoundId(12);
+    doorSwitch.setOnSwitchOnSoundId(SOUND_DING_ID);
+    doorSwitch.setOnSwitchOffSoundId(SOUND_DONG_ID);
 
     owlSwitch.init();
-    owlSwitch.setOnSwitchOnSoundId(6);
+    owlSwitch.setOnSwitchOnSoundId(SOUND_OWL_ID);
 
     atticLightSwitch.init();
     atticLightSwitch.switchOn();
