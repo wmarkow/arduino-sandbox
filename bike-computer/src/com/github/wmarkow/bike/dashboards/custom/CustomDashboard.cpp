@@ -38,7 +38,20 @@ void CustomDashboard::loop()
    if (speedSensorEnabled == true)
    {
       float speed = speedSensor.getSpeed();
+      float acceleration = speedSensor.getAcceleration();
       speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
+
+      display.setSpeed(speed);
+      display.setAcceleration(acceleration);
+      if (acceleration < -0.2)
+      {
+         display.setBreaksOn(true);
+      }
+      else
+      {
+         display.setBreaksOn(false);
+      }
+
    }
 
    if (isInReset())
@@ -72,6 +85,8 @@ void CustomDashboard::setSpeed(uint8_t speed)
 {
    speedSensorEnabled = false;
    speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
+
+   display.setSpeed(speed);
 }
 
 bool CustomDashboard::isInReset()

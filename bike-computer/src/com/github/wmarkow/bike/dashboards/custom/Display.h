@@ -14,6 +14,9 @@ class Display
 {
 private:
    Adafruit_SSD1306 display;
+   float speed = 0;
+   float acceleration = 0;
+   bool breaksOn = false;
 
    void testdrawline();
    void testdrawchar();
@@ -24,6 +27,9 @@ public:
    void init();
    void showLogo();
    void showDash();
+   void setSpeed(float speed);
+   void setAcceleration(float acceleration);
+   void setBreaksOn(bool breaksOn);
 };
 
 #endif /* COM_GITHUB_WMARKOW_BIKE_DASHBOARDS_CUSTOM_DISPLAY_H_ */

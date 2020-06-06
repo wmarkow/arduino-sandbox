@@ -15,7 +15,6 @@
 Display::Display() :
       display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire)
 {
-
 }
 
 void Display::init()
@@ -34,6 +33,21 @@ void Display::init()
    display.cp437(true);
 
    showLogo();
+}
+
+void Display::setSpeed(float speed)
+{
+   this->speed = speed;
+}
+
+void Display::setAcceleration(float acceleration)
+{
+   this->acceleration = acceleration;
+}
+
+void Display::setBreaksOn(bool breaksOn)
+{
+   this->breaksOn = breaksOn;
 }
 
 void Display::testdrawline()
@@ -148,7 +162,22 @@ void Display::showDash()
 {
    display.clearDisplay();
    display.setTextSize(2);
+
+   char buffer[10];
+
+   dtostrf(speed, 2, 2, buffer);
    display.setCursor(0, 0);
-   display.write("Dash here");
+   display.write(buffer);
+
+   dtostrf(acceleration, 2, 2, buffer);
+   display.setCursor(0, 16);
+   display.write(buffer);
+
+   if(this->breaksOn)
+   {
+      display.setCursor(80, 0);
+      display.write("B");
+   }
+
    display.display();
 }
