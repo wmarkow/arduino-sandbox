@@ -10,30 +10,35 @@
 
 #define DEBOUNCE_MILLIS 100L
 
+/***
+ * Defines minimum sensible speed in km/h
+ */
+#define MINIMUM_SENSIBLE_SPEED 1
+
 SpeedSensor::SpeedSensor()
 {
-    t0 = 0;
-    t1 = 0;
-    t2 = 0;
-    wheelDiameterInInches = 27;
+   t0 = 0;
+   t1 = 0;
+   t2 = 0;
+   wheelDiameterInInches = 27;
 }
 
 void SpeedSensor::tick(unsigned long currentMillis)
 {
-    unsigned long delta = currentMillis - t0;
-    if (delta < DEBOUNCE_MILLIS)
-    {
-        return;
-    }
+   unsigned long delta = currentMillis - t0;
+   if (delta < DEBOUNCE_MILLIS)
+   {
+      return;
+   }
 
-    t2 = t1;
-    t1 = t0;
-    t0 = currentMillis;
+   t2 = t1;
+   t1 = t0;
+   t0 = currentMillis;
 }
 
 void SpeedSensor::setWheelDiameter(uint8_t diameterInInches)
 {
-    this->wheelDiameterInInches = diameterInInches;
+   this->wheelDiameterInInches = diameterInInches;
 }
 
 /***
@@ -43,12 +48,18 @@ void SpeedSensor::setWheelDiameter(uint8_t diameterInInches)
  */
 float SpeedSensor::getSpeed()
 {
-    unsigned long delta = t0 - t1;
-    unsigned long deltaToLastTick = millis() - t0;
+   unsigned long delta = t0 - t1;
+   unsigned long deltaToLastTick = millis() - t0;
 
-    delta = max(delta, deltaToLastTick);
+   delta = max(delta, deltaToLastTick);
 
-    return (float) (wheelDiameterInInches * 287.0 / delta);
+   float speed = (float) (wheelDiameterInInches * 287.0 / delta);
+   if (speed <= MINIMUM_SENSIBLE_SPEED)
+   {
+      return 0;
+   }
+
+   return speed;
 }
 
 /***
@@ -60,13 +71,18 @@ float SpeedSensor::getSpeed()
  */
 float SpeedSensor::getAcceleration()
 {
-    unsigned long deltaT0 = max(t0 - t1, millis() - t0); // in ms
-    unsigned long deltaT1 = t1 - t2; // in ms
+   unsigned long deltaT0 = max(t0 - t1, millis() - t0); // in ms
+   unsigned long deltaT1 = t1 - t2; // in ms
 
-    float v0 = wheelDiameterInInches * 287.0 / deltaT0; // in km/h
-    float v1 = wheelDiameterInInches * 287.0 / deltaT1; // in km/h
+   float v0 = wheelDiameterInInches * 287.0 / deltaT0; // in km/h
+   if (v0 <= MINIMUM_SENSIBLE_SPEED)
+   {
+      return 0;
+   }
 
-    float a = 278.0 * (v0 - v1) / deltaT0; // in m/s2
+   float v1 = wheelDiameterInInches * 287.0 / deltaT1; // in km/h
 
-    return a;
+   float a = 278.0 * (v0 - v1) / deltaT0; // in m/s2
+
+   return a;
 }
