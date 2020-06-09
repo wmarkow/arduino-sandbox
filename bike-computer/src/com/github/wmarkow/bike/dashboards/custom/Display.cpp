@@ -161,16 +161,18 @@ void Display::showLogo()
 void Display::showDash()
 {
    display.clearDisplay();
-   display.setTextSize(2);
+   display.setTextSize(2); //12x16
 
    char buffer[10];
 
-   dtostrf(speed, 2, 2, buffer);
-   display.setCursor(0, 0);
+   dtostrf(speed, 2, 1, buffer);
+   uint8_t length = strlen(buffer);
+   display.setCursor(SCREEN_WIDTH - length * 12, 0);
    display.write(buffer);
 
-   dtostrf(acceleration, 2, 2, buffer);
-   display.setCursor(0, 16);
+   dtostrf(acceleration, 4, 1, buffer);
+   display.setTextSize(2);
+   display.setCursor(0, 0);
    display.write(buffer);
 
    if(this->breaksOn)
