@@ -17,6 +17,7 @@ private:
    float speed = 0;
    float acceleration = 0;
    bool breaksOn = false;
+   float tripDistance = 0;
 
    void testdrawline();
    void testdrawchar();
@@ -29,6 +30,7 @@ public:
    void showDash();
    void setSpeed(float speed);
    void setAcceleration(float acceleration);
+   void setTripDistance(float distance);
    void setBreaksOn(bool breaksOn);
 };
 

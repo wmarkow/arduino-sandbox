@@ -17,12 +17,15 @@ private:
     unsigned long t1;
     unsigned long t2;
     uint8_t wheelDiameterInInches;
+    uint16_t tickCount;
+
 public:
     SpeedSensor();
     void tick(unsigned long currentMillis);
     void setWheelDiameter(uint8_t diameterInInches);
     float getSpeed();
     float getAcceleration();
+    float getTripDistance();
 };
 
 

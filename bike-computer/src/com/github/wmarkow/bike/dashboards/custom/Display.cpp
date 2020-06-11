@@ -50,6 +50,11 @@ void Display::setBreaksOn(bool breaksOn)
    this->breaksOn = breaksOn;
 }
 
+void Display::setTripDistance(float distance)
+{
+   this->tripDistance = distance;
+}
+
 void Display::testdrawline()
 {
    int16_t i;
@@ -165,14 +170,22 @@ void Display::showDash()
 
    char buffer[10];
 
+   // speed
    dtostrf(speed, 2, 1, buffer);
    uint8_t length = strlen(buffer);
    display.setCursor(SCREEN_WIDTH - length * 12, 0);
    display.write(buffer);
 
+   // acceleration
    dtostrf(acceleration, 4, 1, buffer);
-   display.setTextSize(2);
    display.setCursor(0, 0);
+   display.write(buffer);
+
+   // trip distance
+   dtostrf(tripDistance, 6, 3, buffer);
+   strlcat(buffer, "km", sizeof(buffer));
+   length = strlen(buffer);
+   display.setCursor(SCREEN_WIDTH - length * 12, 16);
    display.write(buffer);
 
    if(this->breaksOn)

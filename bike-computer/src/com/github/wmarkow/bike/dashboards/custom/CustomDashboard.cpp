@@ -43,6 +43,7 @@ void CustomDashboard::loop()
 
       display.setSpeed(speed);
       display.setAcceleration(acceleration);
+      display.setTripDistance(speedSensor.getTripDistance());
       if (acceleration < -0.3)
       {
          display.setBreaksOn(true);

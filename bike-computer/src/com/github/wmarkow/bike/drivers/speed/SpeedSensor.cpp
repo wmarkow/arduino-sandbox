@@ -21,6 +21,7 @@ SpeedSensor::SpeedSensor()
    t1 = 0;
    t2 = 0;
    wheelDiameterInInches = 27;
+   tickCount = 0;
 }
 
 void SpeedSensor::tick(unsigned long currentMillis)
@@ -34,6 +35,7 @@ void SpeedSensor::tick(unsigned long currentMillis)
    t2 = t1;
    t1 = t0;
    t0 = currentMillis;
+   tickCount ++;
 }
 
 void SpeedSensor::setWheelDiameter(uint8_t diameterInInches)
@@ -85,4 +87,14 @@ float SpeedSensor::getAcceleration()
    float a = 278.0 * (v0 - v1) / deltaT0; // in m/s2
 
    return a;
+}
+
+/***
+ * Gets the trip distance. The trip is reset at every device reset.
+ *
+ * @return trip distance in km.
+ */
+float SpeedSensor::getTripDistance()
+{
+   return (float)((float)tickCount * (float)wheelDiameterInInches / 12547.0);
 }
