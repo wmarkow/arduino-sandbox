@@ -43,7 +43,7 @@ void CustomDashboard::loop()
 
       display.setSpeed(speed);
       display.setAcceleration(acceleration);
-      if (acceleration < -0.2)
+      if (acceleration < -0.3)
       {
          display.setBreaksOn(true);
       }

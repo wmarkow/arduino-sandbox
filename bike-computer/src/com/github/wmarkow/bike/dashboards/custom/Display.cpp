@@ -177,8 +177,8 @@ void Display::showDash()
 
    if(this->breaksOn)
    {
-      display.setCursor(80, 0);
-      display.write("B");
+      display.setCursor(SCREEN_WIDTH / 2, 0);
+      display.write("H");
    }
 
    display.display();
