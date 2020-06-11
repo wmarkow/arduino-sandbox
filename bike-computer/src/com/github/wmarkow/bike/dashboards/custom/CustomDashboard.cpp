@@ -25,7 +25,7 @@ void CustomDashboard::init()
    speedGauge.setValueRange(0, 60 * SPEED_GAUGE_MULTIPLIER);
    speedGauge.reset();
 
-   speedSensor.setWheelDiameter(24);
+   speedSensor.setWheelDiameter(28);
    speedSensorEnabled = true;
 
    display.init();

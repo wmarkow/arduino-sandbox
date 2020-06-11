@@ -20,7 +20,7 @@ SpeedSensor::SpeedSensor()
    t0 = 0;
    t1 = 0;
    t2 = 0;
-   wheelDiameterInInches = 27;
+   wheelDiameterInInches = 24;
    tickCount = 0;
 }
 
