@@ -6,6 +6,7 @@
 #include "PlaySoundSwitch.h"
 
 #define SOUND_OWL_ID 6
+#define SOUND_ROOSTER_ID 7
 #define SOUND_DING_ID 13
 #define SOUND_DONG_ID 12
 
@@ -15,6 +16,7 @@ void printDetail(uint8_t type, int value);
 
 PlaySoundSwitch doorSwitch(A0, 0, 24);   // 0 Ohm
 PlaySoundSwitch owlSwitch(A0, 124, 137); // 10 kOhm
+PlaySoundSwitch roosterSwitch(A0, 884, 977); // 680 kOhm
 
 LightSwitch atticLightSwitch(A5, 6);
 LightSwitch bathroomLightSwitch(A1, 2);
@@ -29,6 +31,9 @@ void setup()
 
     owlSwitch.init();
     owlSwitch.setOnSwitchOnSoundId(SOUND_OWL_ID);
+
+    roosterSwitch.init();
+    roosterSwitch.setOnSwitchOnSoundId(SOUND_ROOSTER_ID);
 
     atticLightSwitch.init();
     atticLightSwitch.switchOn();
@@ -66,6 +71,7 @@ void loop()
 {
     doorSwitch.loop();
     owlSwitch.loop();
+    roosterSwitch.loop();
 
     bathroomLightSwitch.loop();
     bedroomLightSwitch.loop();
