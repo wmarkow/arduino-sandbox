@@ -91,6 +91,7 @@ void setup() {
     NimBLEDevice::setSecurityAuth(/*BLE_SM_PAIR_AUTHREQ_BOND | BLE_SM_PAIR_AUTHREQ_MITM |*/ BLE_SM_PAIR_AUTHREQ_SC);
 
     pServer = NimBLEDevice::createServer();
+    // Important: when the ServerCallbacks are not set then the "BLE Scanner" Android app doesn't want to connect to this server
     pServer->setCallbacks(new ServerCallbacks());
 
 
