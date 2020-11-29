@@ -33,6 +33,7 @@ class ServerCallbacks: public NimBLEServerCallbacks {
          *  Latency: number of intervals allowed to skip.
          *  Timeout: 10 millisecond increments, try for 5x interval time for best results.  
          */
+         // wmarkow: without the line below the "BLE Scanner" Android app doesn't want to connect to this server
         pServer->updateConnParams(desc->conn_handle, 24, 48, 0, 60);
     };
     void onDisconnect(NimBLEServer* pServer) {
@@ -40,31 +41,6 @@ class ServerCallbacks: public NimBLEServerCallbacks {
         NimBLEDevice::startAdvertising();
     };
     
-/********************* Security handled here **********************
-****** Note: these are the same return values as defaults ********/
-    uint32_t onPassKeyRequest(){
-        Serial.println("Server Passkey Request");
-        /** This should return a random 6 digit number for security 
-         *  or make your own static passkey as done here.
-         */
-        return 123456; 
-    };
-
-    bool onConfirmPIN(uint32_t pass_key){
-        Serial.print("The passkey YES/NO number: ");Serial.println(pass_key);
-        /** Return false if passkeys don't match. */
-        return true; 
-    };
-
-    void onAuthenticationComplete(ble_gap_conn_desc* desc){
-        /** Check that encryption was successful, if not we disconnect the client */  
-        if(!desc->sec_state.encrypted) {
-            NimBLEDevice::getServer()->disconnect(desc->conn_handle);
-            Serial.println("Encrypt connection failed - disconnecting client");
-            return;
-        }
-        Serial.println("Starting BLE work!");
-    };
 };
 
 void setup() {
@@ -91,7 +67,7 @@ void setup() {
     NimBLEDevice::setSecurityAuth(/*BLE_SM_PAIR_AUTHREQ_BOND | BLE_SM_PAIR_AUTHREQ_MITM |*/ BLE_SM_PAIR_AUTHREQ_SC);
 
     pServer = NimBLEDevice::createServer();
-    // Important: when the ServerCallbacks are not set then the "BLE Scanner" Android app doesn't want to connect to this server
+    // wmarkow: when the ServerCallbacks are not set then the "BLE Scanner" Android app doesn't want to connect to this server
     pServer->setCallbacks(new ServerCallbacks());
 
 
