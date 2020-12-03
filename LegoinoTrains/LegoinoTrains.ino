@@ -17,6 +17,8 @@
  * 
  */
 
+#include <Arduino.h>
+#include <analogWrite.h>
 #include "Lpf2HubEmulation.h"
 #include "PowerFunctions.h"
 #include "LegoinoCommon.h"
@@ -25,8 +27,10 @@
 Lpf2HubEmulation myEmulatedHub("Hub", HubType::POWERED_UP_HUB);
 
 // create a power functions instance (IR LED on Pin 12, IR Channel 0)
-PowerFunctions pf(12, 0);
+// PowerFunctions pf(12, 0);
 
+#define MOTOR_A_PWM 14 // Motor A PWM Speed connect to IA of L9110
+#define MOTOR_A_DIR 12 // Motor A Direction connect to IB of L9110
 
 void writeValueCallback(byte port, byte value)
 {
@@ -36,8 +40,36 @@ void writeValueCallback(byte port, byte value)
 
   if (port == 0x00)
   {
-   // pf.single_pwm(PowerFunctionsPort::RED, pf.speedToPwm(value));
-   Serial.print("Hub Port A speed command received. ");    
+    // pf.single_pwm(PowerFunctionsPort::RED, pf.speedToPwm(value));
+    Serial.print("Hub Port A speed command received. "); 
+
+    if(value == 0x00 || value == 0x7F)
+    {
+       // stop
+       digitalWrite( MOTOR_A_DIR, LOW );
+       analogWrite( MOTOR_A_PWM, 0 );
+
+       return;
+    }
+    if(value < 0x7F)
+    {
+       // forward
+       digitalWrite( MOTOR_A_DIR, LOW ); // direction = forward
+       // the more duty cycle the faster speed
+       analogWrite( MOTOR_A_PWM, 255 ); // PWM speed = fast
+
+       return;
+    }
+
+    if(value > 0x7F)
+    {
+       // reverse
+       digitalWrite( MOTOR_A_DIR, HIGH ); // direction = reverse
+       // the low duty cycle the faster speed
+       analogWrite( MOTOR_A_PWM, 0 ); // PWM speed = fast
+
+       return;
+    }
   }
 
   if (port == 0x01)
@@ -55,6 +87,11 @@ void writeValueCallback(byte port, byte value)
 
 void setup()
 {
+  pinMode( MOTOR_A_DIR, OUTPUT );
+  pinMode( MOTOR_A_PWM, OUTPUT );
+  digitalWrite( MOTOR_A_DIR, LOW );
+  digitalWrite( MOTOR_A_PWM, LOW );
+  
   Serial.begin(115200);
   // define the callback function if a write message event on the characteristic occurs
   myEmulatedHub.setWritePortCallback(&writeValueCallback); 
