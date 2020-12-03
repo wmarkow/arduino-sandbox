@@ -56,7 +56,8 @@ void writeValueCallback(byte port, byte value)
        // forward
        digitalWrite( MOTOR_A_DIR, LOW ); // direction = forward
        // the more duty cycle the faster speed
-       analogWrite( MOTOR_A_PWM, 255 ); // PWM speed = fast
+       int pwm = map(value, 0, 127, 0, 255);
+       analogWrite( MOTOR_A_PWM, pwm ); // PWM speed = fast
 
        return;
     }
