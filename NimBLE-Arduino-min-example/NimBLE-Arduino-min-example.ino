@@ -36,6 +36,7 @@ class ServerCallbacks: public NimBLEServerCallbacks {
          // wmarkow: without the line below the "BLE Scanner" Android app doesn't want to connect to this server
         pServer->updateConnParams(desc->conn_handle, 24, 48, 0, 60);
     };
+    
     void onDisconnect(NimBLEServer* pServer) {
         Serial.println("Client disconnected - start advertising");
         NimBLEDevice::startAdvertising();
@@ -84,16 +85,5 @@ void setup() {
 
 
 void loop() {
-  /** Do your thing here, this just spams notifications to all connected clients */
-    if(pServer->getConnectedCount()) {
-        NimBLEService* pSvc = pServer->getServiceByUUID("BAAD");
-        if(pSvc) {
-            NimBLECharacteristic* pChr = pSvc->getCharacteristic("F00D");
-            if(pChr) {
-                pChr->notify(true);
-            }
-        }
-    }
-    
-  delay(2000);
+
 }
