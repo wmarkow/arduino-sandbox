@@ -66,8 +66,18 @@ void writeValueCallback(byte port, byte value)
     {
        // reverse
        digitalWrite( MOTOR_A_DIR, HIGH ); // direction = reverse
+       // map as a value 0...127 0 - low speed
+       int newValue = 255 - value;
+
+       // remap 0...127 to 0...255 - 0 low speed
+       int pwm = map(newValue, 0, 127, 0, 255);
+
+       // make it opposite: 0 high speed
+       pwm = 255 - pwm;
+       Serial.println(newValue);
+       
        // the low duty cycle the faster speed
-       analogWrite( MOTOR_A_PWM, 0 ); // PWM speed = fast
+       analogWrite( MOTOR_A_PWM, pwm ); // PWM speed = fast
 
        return;
     }
