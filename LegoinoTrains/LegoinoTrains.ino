@@ -38,10 +38,10 @@ void writeValueCallback(byte port, byte value)
   Serial.println(port, HEX);
   Serial.println(value, HEX);
 
-  if (port == 0x00)
+  if (port == 0x00 || port == 0x01)
   {
     // pf.single_pwm(PowerFunctionsPort::RED, pf.speedToPwm(value));
-    Serial.print("Hub Port A speed command received. "); 
+    Serial.print("Hub Port A or B speed command received. "); 
 
     if(value == 0x00 || value == 0x7F)
     {
