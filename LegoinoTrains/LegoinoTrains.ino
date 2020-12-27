@@ -55,8 +55,9 @@ void writeValueCallback(byte port, byte value)
     {
        // forward
        digitalWrite( MOTOR_A_DIR, LOW ); // direction = forward
-       // the more duty cycle the faster speed
-       int pwm = map(value, 0, 127, 0, 255);
+       // Remap speed to PWM
+       // The train (just the loco with no wagoon, powered with two 18650 batteries in series) from Lidl starts to go when PWM is at least 65% (166 from 255). 
+       int pwm = map(value, 0, 127, 166, 255);
        analogWrite( MOTOR_A_PWM, pwm ); // PWM speed = fast
 
        return;
@@ -69,8 +70,9 @@ void writeValueCallback(byte port, byte value)
        // map as a value 0...127 0 - low speed
        int newValue = 255 - value;
 
-       // remap 0...127 to 0...255 - 0 low speed
-       int pwm = map(newValue, 0, 127, 0, 255);
+       // Remap speed to PWM
+       // The train (just the loco with no wagoon, powered with two 18650 batteries in series) from Lidl starts to go when PWM is at least 65% (166 from 255). 
+       int pwm = map(newValue, 0, 127, 166, 255);
 
        // make it opposite: 0 high speed
        pwm = 255 - pwm;
