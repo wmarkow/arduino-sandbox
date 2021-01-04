@@ -22,6 +22,7 @@ BasicStepperDriver stepper(MOTOR_STEPS, PIN_DIR, PIN_STEP, PIN_ENABLE);
 
 int lastButtonState = HIGH;
 int loopGetButtonState();
+void loopForContinuousWelding();
 
 void setup()
 {
@@ -54,7 +55,12 @@ void loop()
       stepper.stop();
    }
 
-   if (buttonState == LOW)
+   loopForContinuousWelding();
+}
+
+void loopForContinuousWelding()
+{
+   if (lastButtonState == LOW)
    {
       // switch motor on
       // make one rotation in one second
@@ -69,14 +75,6 @@ void loop()
    }
    else
    {
-      stepper.stop();
-      stepper.disable();
-   }
-
-   if (stepper.getCurrentState() == BasicStepperDriver::STOPPED)
-   {
-      // when the stepper action is finished (but the button may be still pressed)
-      // then disable motor
       stepper.stop();
       stepper.disable();
    }
