@@ -43,14 +43,6 @@ void loop()
       Serial.println("Button pressed...");
 
       lastButtonState = buttonState;
-
-      // switch motor on
-      // make one rotation in one second
-      int stepsPerSecond = RPM / 60 * MOTOR_STEPS;
-      double shotDurationSecond = 1;
-      int steps = stepsPerSecond * shotDurationSecond;
-      stepper.enable();
-      stepper.startMove(steps);
    }
 
    if (lastButtonState == LOW && buttonState == HIGH)
@@ -64,6 +56,14 @@ void loop()
 
    if (buttonState == LOW)
    {
+      // switch motor on
+      // make one rotation in one second
+      int stepsPerSecond = RPM / 60 * MOTOR_STEPS;
+      double shotDurationSecond = 1;
+      int steps = stepsPerSecond * shotDurationSecond;
+      stepper.enable();
+      stepper.startMove(steps);
+
       // when button is pressed execute stepper action
       stepper.nextAction();
    }
