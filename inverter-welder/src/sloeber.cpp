@@ -6,5 +6,5 @@
  */
 
 
-#include "../examples/MIGWireFeeder/MIGWireFeeder.ino"
+#include "../examples/SpoolGun/SpoolGun.ino"
 
