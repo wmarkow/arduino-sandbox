@@ -47,7 +47,7 @@ void loop()
       lastButtonState = buttonState;
 
       // uncomment for spot welding
-      loopForSpotWelding(HIGH, LOW);
+      //loopForSpotWelding(HIGH, LOW);
    }
 
    if (lastButtonState == LOW && buttonState == HIGH)
@@ -57,14 +57,14 @@ void loop()
       lastButtonState = buttonState;
 
       // comment out for spot welding
-      //stepper.stop();
+      stepper.stop();
    }
 
    // comment out for spot welding
-//   loopForContinuousWelding();
+   loopForContinuousWelding();
 
    // uncomment for spot welding
-   loopForSpotWelding(lastButtonState, buttonState);
+   //loopForSpotWelding(lastButtonState, buttonState);
 }
 
 void loopForContinuousWelding()
