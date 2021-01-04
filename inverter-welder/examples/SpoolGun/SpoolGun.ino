@@ -23,6 +23,7 @@ BasicStepperDriver stepper(MOTOR_STEPS, PIN_DIR, PIN_STEP, PIN_ENABLE);
 int lastButtonState = HIGH;
 int loopGetButtonState();
 void loopForContinuousWelding();
+void loopForSpotWelding(int lastButtonState, int currentButtonState);
 
 void setup()
 {
@@ -44,6 +45,9 @@ void loop()
       Serial.println("Button pressed...");
 
       lastButtonState = buttonState;
+
+      // uncomment for spot welding
+      loopForSpotWelding(HIGH, LOW);
    }
 
    if (lastButtonState == LOW && buttonState == HIGH)
@@ -52,10 +56,15 @@ void loop()
 
       lastButtonState = buttonState;
 
-      stepper.stop();
+      // comment out for spot welding
+      //stepper.stop();
    }
 
-   loopForContinuousWelding();
+   // comment out for spot welding
+//   loopForContinuousWelding();
+
+   // uncomment for spot welding
+   loopForSpotWelding(lastButtonState, buttonState);
 }
 
 void loopForContinuousWelding()
@@ -77,6 +86,31 @@ void loopForContinuousWelding()
    {
       stepper.stop();
       stepper.disable();
+   }
+}
+
+void loopForSpotWelding(int lastButtonState, int currentButtonState)
+{
+   if (lastButtonState == HIGH && currentButtonState == LOW)
+   {
+      // switch motor on for specific amount of time
+      // make one rotation in one second
+      int stepsPerSecond = RPM / 60 * MOTOR_STEPS;
+      double shotDurationSecond = 0.25;
+      int steps = stepsPerSecond * shotDurationSecond;
+      stepper.enable();
+      stepper.startMove(steps);
+   }
+
+   stepper.nextAction();
+
+   if (stepper.getCurrentState() == BasicStepperDriver::STOPPED)
+   {
+      // when the stepper action is finished (but the button may be still pressed)
+      // then disable motor
+      stepper.stop();
+      stepper.disable();
+
    }
 }
 
