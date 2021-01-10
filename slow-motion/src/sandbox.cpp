@@ -30,8 +30,8 @@
 
 #include <Arduino.h>
 
-#define MIN_PHASE_SHIFT -2.0 // minimale Phasenverschiebung (Bewegung rückwärts)
-#define MAX_PHASE_SHIFT 2.0  // maximale Phasenverschiebung (Bewegung vorwärts)
+#define MIN_PHASE_SHIFT -2.0 // minimale Phasenverschiebung (Bewegung rückwärts) in Hz
+#define MAX_PHASE_SHIFT 2.0  // maximale Phasenverschiebung (Bewegung vorwärts) in Hz
 #define MIN_FREQ 65.0        // minimale Frequenz des Elektromagneten
 #define MAX_FREQ 100.0       // maximale Frequenz des Elektromagneten
 #define MIN_STRENGTH 5.0     // Mimimalstärke des Elektromagneten
@@ -74,7 +74,7 @@ void loop() {
   float frequency_led = frequenz_mag + phase_shift;
 
   long time_mag = round(16000000 / 1024 / frequenz_mag);
-  long time_led = round(16000000 / 8 / frequency_led);
+  long time_led = round(16000000 / 64 / frequency_led);
 
   OCR2A = round(time_mag);                   // Setzen des Output Compare Register vom Timer2
   OCR2B = round(duty_mag * time_mag / 100); // Setzen des duty cycle vom Timer2
@@ -115,10 +115,10 @@ void Set_Register() {
   //   WGM = 0b1111 Fast PWM (TOP=OCR1A)
   // COM1A = 0b01
   // COM1B = 0b10
-  //   CS1 = 0b010 Clock prescaler 8
-  // With this config the smallest frequency is 16000000/8/(1 + 65535) = 30
+  //   CS1 = 0b011 Clock prescaler 64
+  // With this config the smallest frequency is 16000000/64/(1 + 65535) = 4 Hz
   TCCR1A = _BV(COM1A0) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
-  TCCR1B =  _BV(WGM13) | _BV(WGM12)  |  _BV(CS11);
+  TCCR1B =  _BV(WGM13) | _BV(WGM12)  |  _BV(CS11) |  _BV(CS10);
 }
 
 
