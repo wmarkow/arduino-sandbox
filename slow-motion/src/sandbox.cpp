@@ -104,8 +104,19 @@ void Set_Register() {
   // Dazu werden schnelles PWM, der Wellenformerzeugungsmodus und die Prescaler gesetzt.
   // Näheres dazu: https://www.arduino.cc/en/Tutorial/SecretsOfArduinoPWM
 
+  //   WGM = 0b111 Fast PWM (TOP=OCRA)
+  // COM2A = 0b01 Toggle OC2A on compare match
+  // COM2B = 0b01 Toggle OC2B on compare match
+  //   CS2 = 0b111 Clock prescaler 1024
+  // With this config the smallest frequency is 16000000/1024/(1 + 255) = 61 Hz
   TCCR2A = _BV(COM2A0) | _BV(COM2B1) | _BV(WGM21) | _BV(WGM20);
   TCCR2B = _BV(WGM22) | _BV(CS22)| _BV(CS21)| _BV(CS20);
+
+  //   WGM = 0b1111 Fast PWM (TOP=OCR1A)
+  // COM1A = 0b01
+  // COM1B = 0b10
+  //   CS1 = 0b010 Clock prescaler 8
+  // With this config the smallest frequency is 16000000/8/(1 + 65535) = 30
   TCCR1A = _BV(COM1A0) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
   TCCR1B =  _BV(WGM13) | _BV(WGM12)  |  _BV(CS11);
 }
