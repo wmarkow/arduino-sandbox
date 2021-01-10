@@ -33,3 +33,4 @@ core/**
 libraries/**
 
 /Release/
+spec.d
