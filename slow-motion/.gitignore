@@ -34,3 +34,7 @@ libraries/**
 
 /Release/
 spec.d
+
+/sloeber.ino.cpp
+.cproject
+.project
