@@ -6,11 +6,12 @@
  */
 
 #include <Arduino.h>
+#include "drivers/WaterFlowSensor.h"
 
 #define WATER_FLOW_SENSOR_PIN 2
 
-volatile uint16_t waterSensorCounter = 0;
-unsigned long waterSensorMeasureBeginMillis;
+WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
+unsigned long lastCheckTime;
 
 void water_sensor_event();
 
@@ -18,37 +19,33 @@ void setup()
 {
    Serial.begin(115200);
 
-   waterSensorCounter = 0;
-   waterSensorMeasureBeginMillis = millis();
+   waterFlowSensor.init();
 
-   pinMode(WATER_FLOW_SENSOR_PIN, INPUT);
-   digitalWrite(WATER_FLOW_SENSOR_PIN, HIGH);
    attachInterrupt(digitalPinToInterrupt(WATER_FLOW_SENSOR_PIN),
          water_sensor_event, RISING);
+
+   lastCheckTime = millis();
 }
 
 void loop()
 {
-   unsigned long measureSpanMillis = millis() - waterSensorMeasureBeginMillis;
+   waterFlowSensor.loop();
+
+   unsigned long measureSpanMillis = millis() - lastCheckTime;
 
    if (measureSpanMillis >= 1000L)
    {
-      // calculate RPM
-      uint16_t count = waterSensorCounter;
-      double rpm = 60000L * count / measureSpanMillis;
+      // display water flow
+      Serial.print(waterFlowSensor.getRpm());
+      Serial.print(" ; ");
 
-      Serial.print("RPM: ");
-      Serial.println(rpm);
-      Serial.print("Pulses:");
-      Serial.println(count);
-
-      waterSensorCounter = 0;
-      waterSensorMeasureBeginMillis = millis();
+      // display time span
+      Serial.println(measureSpanMillis);
+      lastCheckTime = millis();
    }
-
 }
 
 void water_sensor_event()
 {
-   waterSensorCounter++;
+   waterFlowSensor.tick();
 }
