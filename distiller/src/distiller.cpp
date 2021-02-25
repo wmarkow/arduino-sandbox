@@ -6,12 +6,15 @@
  */
 
 #include <Arduino.h>
+#include <DS18B20.h>
 #include "drivers/WaterFlowSensor.h"
 
 #define WATER_FLOW_SENSOR_PIN 2
 
 WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
+DS18B20 ds(3);
 unsigned long lastCheckTime;
+uint8_t dsSelected = 0;
 
 void water_sensor_event();
 
@@ -25,6 +28,9 @@ void setup()
          water_sensor_event, RISING);
 
    lastCheckTime = millis();
+
+   dsSelected = ds.selectNext();
+   ds.setResolution(9);
 }
 
 void loop()
@@ -37,6 +43,10 @@ void loop()
    {
       // display water flow
       Serial.print(waterFlowSensor.getRpm());
+      Serial.print(" ; ");
+
+      // display temperature
+      Serial.print(ds.getTempC());
       Serial.print(" ; ");
 
       // display time span
