@@ -6,15 +6,19 @@
  */
 
 #include <Arduino.h>
-#include <DS18B20.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 #include "drivers/WaterFlowSensor.h"
 
 #define WATER_FLOW_SENSOR_PIN 2
+#define TERMOMETER_PIN 3
 
 WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
-DS18B20 ds(3);
+
+OneWire oneWireBus(TERMOMETER_PIN);
+DallasTemperature thermometerBus(&oneWireBus);
+
 unsigned long lastCheckTime;
-uint8_t dsSelected = 0;
 
 void water_sensor_event();
 
@@ -29,8 +33,19 @@ void setup()
 
    lastCheckTime = millis();
 
-   dsSelected = ds.selectNext();
-   ds.setResolution(9);
+   thermometerBus.begin();
+   thermometerBus.setWaitForConversion(true);
+
+   if (thermometerBus.getDeviceCount() == 1)
+   {
+      Serial.println("DS18B20 thermometer found");
+
+      thermometerBus.setResolution(9);
+   }
+   else
+   {
+      Serial.println("DS18B20 thermometer NOT found!");
+   }
 }
 
 void loop()
@@ -46,7 +61,16 @@ void loop()
       Serial.print(" ; ");
 
       // display temperature
-      Serial.print(ds.getTempC());
+      thermometerBus.requestTemperatures();
+      float temp = thermometerBus.getTempCByIndex(0);
+      if (temp == DEVICE_DISCONNECTED_C)
+      {
+         Serial.print("ERR");
+      }
+      else
+      {
+         Serial.print(temp);
+      }
       Serial.print(" ; ");
 
       // display time span
