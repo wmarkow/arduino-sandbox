@@ -22,6 +22,7 @@ public:
    void begin();
    uint8_t readTempC(float *value);
 private:
+   DeviceAddress deviceAddress;
    OneWire oneWireBus;
    DallasTemperature thermometerBus;
 };

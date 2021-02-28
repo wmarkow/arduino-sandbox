@@ -19,6 +19,8 @@ void DS18B20::begin()
 
    if (thermometerBus.getDeviceCount() == 1)
    {
+      thermometerBus.getAddress(this->deviceAddress, 0);
+
       Serial.println("DS18B20 thermometer found");
 
       thermometerBus.setResolution(9);
@@ -31,6 +33,19 @@ void DS18B20::begin()
 
 uint8_t DS18B20::readTempC(float *value)
 {
+   if (thermometerBus.getDeviceCount() == 0)
+   {
+      return DS18B20_RESULT_ERR;
+   }
+
+   if (thermometerBus.readPowerSupply(deviceAddress) == true)
+   {
+      // Parasite mode (when Vdd is connected to the ground) is considered by the project to be not supported.
+      // It has been noticed that parasite mode is mostly also detected (not in 100% cases) when Vdd pin is left
+      // unconnected; this helps to improve the hardware failure handling.
+      return DS18B20_RESULT_ERR;
+   }
+
    thermometerBus.requestTemperatures();
    float temp = thermometerBus.getTempCByIndex(0);
 
