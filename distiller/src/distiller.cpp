@@ -11,10 +11,12 @@
 #include "drivers/DS18B20.h"
 
 #define WATER_FLOW_SENSOR_PIN 2
-#define TERMOMETER_COLD_WATER_PIN 22
+#define THERMOMETER_COLD_WATER_PIN 22
+#define THERMOMETER_HOT_WATER_PIN 23
 
 WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
-DS18B20 thermometer(TERMOMETER_COLD_WATER_PIN);
+DS18B20 thermometerColdWater(THERMOMETER_COLD_WATER_PIN);
+DS18B20 thermometerHotWater(THERMOMETER_HOT_WATER_PIN);
 
 unsigned long lastCheckTime;
 
@@ -31,7 +33,8 @@ void setup()
 
     lastCheckTime = millis();
 
-    thermometer.begin();
+    thermometerColdWater.begin();
+    thermometerHotWater.begin();
 }
 
 void loop()
@@ -46,11 +49,23 @@ void loop()
         Serial.print(waterFlowSensor.getRpm());
         Serial.print(" ; ");
 
-        // display temperature
-        float temp;
-        if (thermometer.readTempC(&temp) == DS18B20_RESULT_OK)
+        // display cold water temperature
+        float coldWaterTemp;
+        if (thermometerColdWater.readTempC(&coldWaterTemp) == DS18B20_RESULT_OK)
         {
-            Serial.print(temp);
+            Serial.print(coldWaterTemp);
+        }
+        else
+        {
+            Serial.print("ERR");
+        }
+        Serial.print(" ; ");
+
+        // display hot water temperature
+        float hotWaterTemp;
+        if (thermometerHotWater.readTempC(&hotWaterTemp) == DS18B20_RESULT_OK)
+        {
+            Serial.print(hotWaterTemp);
         }
         else
         {
