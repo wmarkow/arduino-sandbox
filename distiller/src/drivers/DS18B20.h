@@ -1,10 +1,3 @@
-/*
- * DS18B20.h
- *
- *  Created on: 26 lut 2021
- *      Author: wmarkowski
- */
-
 #ifndef SRC_DRIVERS_DS18B20_H_
 #define SRC_DRIVERS_DS18B20_H_
 

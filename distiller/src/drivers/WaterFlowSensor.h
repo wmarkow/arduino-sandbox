@@ -1,10 +1,3 @@
-/*
- * WaterFlowSensor.h
- *
- *  Created on: 14 lut 2021
- *      Author: wmarkowski
- */
-
 #ifndef SRC_DRIVERS_WATERFLOWSENSOR_H_
 #define SRC_DRIVERS_WATERFLOWSENSOR_H_
 

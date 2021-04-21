@@ -1,14 +1,12 @@
-/*
- * distiller.cpp
- *
- *  Created on: 7 lut 2021
- *      Author: wmarkowski
- */
-
 #include <Arduino.h>
 
+#include "DistillerLogger.h"
+#include "DistillerLogHandler.h"
 #include "drivers/WaterFlowSensor.h"
 #include "drivers/DS18B20.h"
+
+/*** Configure logger ***/
+DistillerLogHandler logHandler(&Serial);
 
 #define WATER_FLOW_SENSOR_PIN 2
 #define THERMOMETER_COLD_WATER_PIN 22
@@ -25,6 +23,12 @@ void water_sensor_event();
 void setup()
 {
     Serial.begin(115200);
+    rf24Logger.setHandler(&logHandler);
+
+    RF24LOGGER_info(vendorId, "Distiller startup procedure...");
+
+    RF24LOGGER_info(vendorId, "Distiller waiting 1000ms for power supply to settle down...");
+    delay(1000);
 
     waterFlowSensor.init();
 
@@ -35,6 +39,8 @@ void setup()
 
     thermometerColdWater.begin();
     thermometerHotWater.begin();
+
+    RF24LOGGER_info(vendorId, "Distiller startup procedure end");
 }
 
 void loop()
@@ -45,37 +51,41 @@ void loop()
 
     if (measureSpanMillis >= 1000L)
     {
+        String info = "";
+
         // display water flow
-        Serial.print(waterFlowSensor.getRpm());
-        Serial.print(" ; ");
+        info.concat(waterFlowSensor.getRpm());
+        info.concat(" ; ");
 
         // display cold water temperature
         float coldWaterTemp;
         if (thermometerColdWater.readTempC(&coldWaterTemp) == DS18B20_RESULT_OK)
         {
-            Serial.print(coldWaterTemp);
+            info.concat(coldWaterTemp);
         }
         else
         {
-            Serial.print("ERR");
+            info.concat("ERR");
         }
-        Serial.print(" ; ");
+        info.concat(" ; ");
 
         // display hot water temperature
         float hotWaterTemp;
         if (thermometerHotWater.readTempC(&hotWaterTemp) == DS18B20_RESULT_OK)
         {
-            Serial.print(hotWaterTemp);
+            info.concat(hotWaterTemp);
         }
         else
         {
-            Serial.print("ERR");
+            info.concat("ERR");
         }
-        Serial.print(" ; ");
+        info.concat(" ; ");
 
         // display time span
-        Serial.println(measureSpanMillis);
+        info.concat(measureSpanMillis);
         lastCheckTime = millis();
+
+        RF24LOGGER_info(vendorId, info.c_str());
     }
 }
 

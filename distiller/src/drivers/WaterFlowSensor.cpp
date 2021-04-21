@@ -1,9 +1,3 @@
-/*
- * WaterFlowSensor.cpp
- *
- *  Created on: 14 lut 2021
- *      Author: wmarkowski
- */
 #include <Arduino.h>
 #include "WaterFlowSensor.h"
 
