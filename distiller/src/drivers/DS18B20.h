@@ -17,6 +17,7 @@ public:
 private:
    OneWire oneWireBus;
    DallasTemperature thermometerBus;
+   bool reinit;
 };
 
 
