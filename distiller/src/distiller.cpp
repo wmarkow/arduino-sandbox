@@ -5,12 +5,13 @@
 #include "drivers/WaterFlowSensor.h"
 #include "drivers/DS18B20.h"
 
-/*** Configure logger ***/
-DistillerLogHandler logHandler(&Serial);
-
-#define WATER_FLOW_SENSOR_PIN 2
+// Hardware pin configuration
+#define WATER_FLOW_SENSOR_PIN 21
 #define THERMOMETER_COLD_WATER_PIN 22
 #define THERMOMETER_HOT_WATER_PIN 23
+
+// Logger configuration
+DistillerLogHandler logHandler(&Serial);
 
 WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
 DS18B20 thermometerColdWater(THERMOMETER_COLD_WATER_PIN);
