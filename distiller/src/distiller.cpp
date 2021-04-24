@@ -79,6 +79,9 @@ void setup()
 
     pService->start();
     BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+    BLEAdvertisementData advertisementData;
+    advertisementData.setManufacturerData("wmarkow");
+    pAdvertising->setAdvertisementData(advertisementData);
     pAdvertising->addServiceUUID(SERVICE_UUID);
     pAdvertising->setScanResponse(true);
     pAdvertising->setMinPreferred(0x06); // functions that help with iPhone connections issue
