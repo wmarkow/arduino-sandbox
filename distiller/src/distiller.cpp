@@ -7,6 +7,7 @@
 #include "DistillerLogHandler.h"
 #include "drivers/WaterFlowSensor.h"
 #include "drivers/DS18B20.h"
+#include "DistillerData.h"
 
 // Hardware pin configuration
 #define WATER_FLOW_SENSOR_PIN 21
@@ -15,23 +16,11 @@
 
 // BLE server configuration
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define KEG_TEMP_CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-#define HEAD_TEMP_CHARACTERISTIC_UUID "5f5fae58-da57-4b24-8a5c-260272e2e066"
-#define WATER_INPUT_TEMP_CHARACTERISTIC_UUID "71c6e9dc-3ddb-4d7e-ab3e-83678d439e97"
-#define WATER_OUTPUT_TEMP_CHARACTERISTIC_UUID "8129dfa3-8f14-45c3-851c-b17c15086e6d"
-#define WATER_FLOW_CHARACTERISTIC_UUID "8c0cb23c-3d34-43b0-92cf-e7eba4220616"
+#define DISTILLER_CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-BLECharacteristic *kegTempCharacteristic = NULL;
-BLECharacteristic *headTempCharacteristic = NULL;
-BLECharacteristic *waterInputTempCharacteristic = NULL;
-BLECharacteristic *waterOutputTempCharacteristic = NULL;
-BLECharacteristic *waterFlowCharacteristic = NULL;
+BLECharacteristic *distillerCharacteristic = NULL;
 
-void createKegTempCharacteristic(BLEService *pService);
-void createHeadTempCharacteristic(BLEService *pService);
-void createWaterInputTempCharacteristic(BLEService *pService);
-void createWaterOutputTempCharacteristic(BLEService *pService);
-void createWaterFlowCharacteristic(BLEService *pService);
+void createDistillerCharacteristic(BLEService *pService);
 
 // Logger configuration
 DistillerLogHandler logHandler(&Serial);
@@ -71,11 +60,7 @@ void setup()
     BLEServer *pServer = BLEDevice::createServer();
     BLEService *pService = pServer->createService(SERVICE_UUID);
 
-    createKegTempCharacteristic(pService);
-    createHeadTempCharacteristic(pService);
-    createWaterInputTempCharacteristic(pService);
-    createWaterOutputTempCharacteristic(pService);
-    createWaterFlowCharacteristic(pService);
+    createDistillerCharacteristic(pService);
 
     pService->start();
     BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
@@ -101,25 +86,26 @@ void loop()
 
     if (measureSpanMillis >= 1000L)
     {
+        DistillerData distillerData;
         String info = "";
 
         // display water flow
         float waterRpm = waterFlowSensor.getRpm();
         info.concat(waterRpm);
         info.concat(" ; ");
-        waterFlowCharacteristic->setValue(waterRpm);
+        distillerData.waterRpm = waterRpm;
 
         // display cold water temperature
         float coldWaterTemp;
         if (thermometerColdWater.readTempC(&coldWaterTemp) == DS18B20_RESULT_OK)
         {
             info.concat(coldWaterTemp);
-
-            waterInputTempCharacteristic->setValue(coldWaterTemp);
+            distillerData.coldWaterTemp = coldWaterTemp;
         }
         else
         {
             info.concat("ERR");
+            distillerData.coldWaterTemp = DISTILLER_INVALID_TEMP;
         }
         info.concat(" ; ");
 
@@ -128,12 +114,12 @@ void loop()
         if (thermometerHotWater.readTempC(&hotWaterTemp) == DS18B20_RESULT_OK)
         {
             info.concat(hotWaterTemp);
-
-            waterOutputTempCharacteristic->setValue(hotWaterTemp);
+            distillerData.hotWaterTemp = hotWaterTemp;
         }
         else
         {
             info.concat("ERR");
+            distillerData.hotWaterTemp = DISTILLER_INVALID_TEMP;
         }
         info.concat(" ; ");
 
@@ -142,6 +128,8 @@ void loop()
         lastCheckTime = millis();
 
         RF24LOGGER_info(vendorId, info.c_str());
+
+        distillerCharacteristic->setValue(distillerData.getArray(), distillerData.getArraySize());
     }
 }
 
@@ -150,47 +138,11 @@ void water_sensor_event()
     waterFlowSensor.tick();
 }
 
-void createKegTempCharacteristic(BLEService *pService)
+void createDistillerCharacteristic(BLEService *pService)
 {
-    kegTempCharacteristic = pService->createCharacteristic(
-    KEG_TEMP_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
+    distillerCharacteristic = pService->createCharacteristic(
+            DISTILLER_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
 
     float value = 0;
-    kegTempCharacteristic->setValue(value);
-}
-
-void createHeadTempCharacteristic(BLEService *pService)
-{
-    headTempCharacteristic = pService->createCharacteristic(
-    HEAD_TEMP_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
-
-    float value = 0;
-    kegTempCharacteristic->setValue(value);
-}
-
-void createWaterInputTempCharacteristic(BLEService *pService)
-{
-    waterInputTempCharacteristic = pService->createCharacteristic(
-    WATER_INPUT_TEMP_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
-
-    float value = 0;
-    kegTempCharacteristic->setValue(value);
-}
-
-void createWaterOutputTempCharacteristic(BLEService *pService)
-{
-    waterOutputTempCharacteristic = pService->createCharacteristic(
-    WATER_OUTPUT_TEMP_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
-
-    float value = 0;
-    kegTempCharacteristic->setValue(value);
-}
-
-void createWaterFlowCharacteristic(BLEService *pService)
-{
-    waterFlowCharacteristic = pService->createCharacteristic(
-    WATER_FLOW_CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ);
-
-    float value = 0;
-    kegTempCharacteristic->setValue(value);
+    distillerCharacteristic->setValue(value);
 }
