@@ -36,14 +36,14 @@ void water_sensor_event();
 void setup()
 {
     Serial.begin(115200);
-    rf24Logger.setHandler(&logHandler);
+    rf24Logging.setHandler(&logHandler);
 
-    RF24LOGGER_info(vendorId, "Distiller startup procedure...");
+    RF24Log_info(vendorId, "Distiller startup procedure...");
 
-    RF24LOGGER_info(vendorId,
+    RF24Log_info(vendorId,
             "Distiller waiting 1000ms for power supply to settle down...");
     delay(1000);
-    RF24LOGGER_info(vendorId, "Setup hardware...");
+    RF24Log_info(vendorId, "Setup hardware...");
 
     waterFlowSensor.init();
 
@@ -55,7 +55,7 @@ void setup()
     thermometerColdWater.begin();
     thermometerHotWater.begin();
 
-    RF24LOGGER_info(vendorId, "Setup BLE server...");
+    RF24Log_info(vendorId, "Setup BLE server...");
     BLEDevice::init("Environment measurements"); // can not use polish specific characters
     BLEServer *pServer = BLEDevice::createServer();
     BLEService *pService = pServer->createService(SERVICE_UUID);
@@ -72,10 +72,10 @@ void setup()
     pAdvertising->setMinPreferred(0x06); // functions that help with iPhone connections issue
     pAdvertising->setMinPreferred(0x12);
     BLEDevice::startAdvertising();
-    RF24LOGGER_info(vendorId,
+    RF24Log_info(vendorId,
             "BLE server created! Now you can read it in your phone!");
-
-    RF24LOGGER_info(vendorId, "Distiller startup procedure end");
+    Serial.println(sizeof(unsigned long));
+    RF24Log_info(vendorId, "Distiller startup procedure end");
 }
 
 void loop()
@@ -89,6 +89,8 @@ void loop()
         DistillerData distillerData;
         String info = "";
 
+        // add current timestamp
+        distillerData.systemUpTime = millis();
         // display water flow
         float waterRpm = waterFlowSensor.getRpm();
         info.concat(waterRpm);
@@ -127,7 +129,7 @@ void loop()
         info.concat(measureSpanMillis);
         lastCheckTime = millis();
 
-        RF24LOGGER_info(vendorId, info.c_str());
+        RF24Log_info(vendorId, info.c_str());
 
         distillerCharacteristic->setValue(distillerData.getArray(), distillerData.getArraySize());
     }

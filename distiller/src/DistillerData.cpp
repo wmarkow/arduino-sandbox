@@ -3,10 +3,10 @@
 
 uint8_t* DistillerData::getArray()
 {
-    return (uint8_t*) (&coldWaterTemp);
+    return (uint8_t*) (&systemUpTime);
 }
 
 uint8_t DistillerData::getArraySize()
 {
-    return 20;
+    return 24;
 }

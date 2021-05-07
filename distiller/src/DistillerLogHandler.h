@@ -1,13 +1,13 @@
 #ifndef SRC_DISTILLERLOGHANDLER_H_
 #define SRC_DISTILLERLOGHANDLER_H_
 
-#include <handlers/RF24AbstractLogHandler.h>
+#include <RF24LogParts/AbstractHandler.h>
 #include <Print.h>
 
 /**
  * A log handler implementation which outputs log messages to a stream.
  */
-class DistillerLogHandler : public RF24AbstractLogHandler
+class DistillerLogHandler : public RF24LogAbstractHandler
 {
 protected:
 

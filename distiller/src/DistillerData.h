@@ -9,6 +9,7 @@ const float DISTILLER_INVALID_TEMP = -273.0;
 class DistillerData
 {
 public:
+    unsigned long systemUpTime;
     float coldWaterTemp = DISTILLER_INVALID_TEMP;
     float hotWaterTemp = DISTILLER_INVALID_TEMP;
     float waterRpm = 0;

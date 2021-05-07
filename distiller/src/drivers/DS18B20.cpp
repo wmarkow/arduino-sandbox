@@ -14,13 +14,13 @@ void DS18B20::begin()
 
     if (thermometerBus.getDeviceCount() == 1)
     {
-        RF24LOGGER_info(vendorId, "DS18B20 thermometer found");
+        RF24Log_info(vendorId, "DS18B20 thermometer found");
 
         thermometerBus.setResolution(9);
     }
     else
     {
-        RF24LOGGER_info(vendorId, "DS18B20 thermometer NOT found!");
+        RF24Log_info(vendorId, "DS18B20 thermometer NOT found!");
     }
 
     reinit = false;
