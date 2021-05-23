@@ -55,9 +55,9 @@ void Display::setTripDistance(uint32_t distanceInM)
     this->tripDistanceInM = distanceInM;
 }
 
-void  Display::setTotalDistance(uint32_t distanceInM)
+void Display::setTotalDistance(uint32_t distanceInM)
 {
-    this->totalDistanceInM  = distanceInM;
+    this->totalDistanceInM = distanceInM;
 }
 
 void Display::testdrawline()
@@ -190,20 +190,30 @@ void Display::showDash()
     if (seconds < 3000)
     {
         // show total distance for 3 seconds
-        dtostrf(((double)totalDistanceInM / 1000.0), 6, 3, buffer);
+        dtostrf(((double) totalDistanceInM / 1000.0), 5, 1, buffer);
         strlcat(buffer, "km", sizeof(buffer));
         length = strlen(buffer);
         display.setCursor(SCREEN_WIDTH - length * 12, 16);
         display.write(buffer);
+
+        display.setTextSize(1);
+        display.setCursor(0, 24);
+        display.write("Total");
+        display.setTextSize(2); // set it back to default size
     }
     else
     {
         // show trip distance for 8 seconds
-        dtostrf(((double)tripDistanceInM / 1000.0), 6, 3, buffer);
+        dtostrf(((double) tripDistanceInM / 1000.0), 6, 3, buffer);
         strlcat(buffer, "km", sizeof(buffer));
         length = strlen(buffer);
         display.setCursor(SCREEN_WIDTH - length * 12, 16);
         display.write(buffer);
+
+        display.setTextSize(1);
+        display.setCursor(0, 24);
+        display.write("Trip");
+        display.setTextSize(2); // set it back to default size
     }
 
     if (this->breaksOn)
