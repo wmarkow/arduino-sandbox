@@ -29,14 +29,12 @@ struct __attribute__((packed)) EEPROMHeaderData
 struct __attribute__((packed)) EEPROMData_V1 : public EEPROMHeaderData
 {
     uint32_t totalDistanceInM;
-    uint32_t tripDistanceInM;
 
     EEPROMData_V1() : EEPROMHeaderData()
     {
         version = 1;
-        lengthWithoutCrc = 14;
-        totalDistanceInM = 777777;
-        tripDistanceInM = 0;
+        lengthWithoutCrc = 10;
+        totalDistanceInM = 0;
     }
 };
 

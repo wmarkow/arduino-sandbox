@@ -18,7 +18,8 @@ public:
     void write(EEPROMData* eepromData);
 
 private:
-    uint16_t calculateCRC(EEPROMHeaderData* eepromData);
+    uint16_t calculateCRCInEEPROM(EEPROMHeaderData* header);
+    uint16_t calculateCRC(EEPROMData* eepromData);
     void readData(EEPROMHeaderData* eepromData, EEPROMData* dst);
 };
 
