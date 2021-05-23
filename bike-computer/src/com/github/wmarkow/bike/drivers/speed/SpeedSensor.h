@@ -16,6 +16,7 @@ private:
     unsigned long t0;
     unsigned long t1;
     unsigned long t2;
+    uint32_t initialTotalDistanceInM;
     uint8_t wheelDiameterInInches;
     uint16_t tickCount;
 
@@ -25,7 +26,9 @@ public:
     void setWheelDiameter(uint8_t diameterInInches);
     float getSpeed();
     float getAcceleration();
-    float getTripDistance();
+    uint32_t getTripDistance();
+    void resetTripDistance(uint32_t initialTotalDistanceInM);
+    uint32_t getTotalDistance();
 };
 
 
