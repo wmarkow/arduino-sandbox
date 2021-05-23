@@ -25,7 +25,9 @@ void CustomDashboard::init()
    speedGauge.setValueRange(0, 60 * SPEED_GAUGE_MULTIPLIER);
    speedGauge.reset();
 
+   eepromStorage.read(&eepromData);
    speedSensor.setWheelDiameter(24);
+   speedSensor.resetTripDistance(eepromData.totalDistanceInM);
    speedSensorEnabled = true;
 
    display.init();
@@ -44,6 +46,7 @@ void CustomDashboard::loop()
       display.setSpeed(speed);
       display.setAcceleration(acceleration);
       display.setTripDistance(speedSensor.getTripDistance());
+      display.setTotalDistance(speedSensor.getTotalDistance());
       if (acceleration < -0.3)
       {
          display.setBreaksOn(true);
