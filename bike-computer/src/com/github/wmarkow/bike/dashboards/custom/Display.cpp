@@ -190,10 +190,13 @@ void Display::showDash()
     if (seconds < 3000)
     {
         // show total distance for 3 seconds
+        display.setTextSize(1);
+        display.setCursor(SCREEN_WIDTH - 2 * 6, 24);
+        display.write("km");
         dtostrf(((double) totalDistanceInM / 1000.0), 5, 1, buffer);
-        strlcat(buffer, "km", sizeof(buffer));
         length = strlen(buffer);
-        display.setCursor(SCREEN_WIDTH - length * 12, 16);
+        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 6, 16);
+        display.setTextSize(2);
         display.write(buffer);
 
         display.setTextSize(1);
@@ -204,10 +207,13 @@ void Display::showDash()
     else
     {
         // show trip distance for 8 seconds
+        display.setTextSize(1);
+        display.setCursor(SCREEN_WIDTH - 2 * 6, 24);
+        display.write("km");
         dtostrf(((double) tripDistanceInM / 1000.0), 6, 3, buffer);
-        strlcat(buffer, "km", sizeof(buffer));
         length = strlen(buffer);
-        display.setCursor(SCREEN_WIDTH - length * 12, 16);
+        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 6, 16);
+        display.setTextSize(2);
         display.write(buffer);
 
         display.setTextSize(1);
