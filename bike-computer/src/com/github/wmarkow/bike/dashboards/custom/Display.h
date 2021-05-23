@@ -17,7 +17,8 @@ private:
    float speed = 0;
    float acceleration = 0;
    bool breaksOn = false;
-   float tripDistance = 0;
+   uint32_t tripDistanceInM = 0;
+   uint32_t totalDistanceInM = 0;
 
    void testdrawline();
    void testdrawchar();
@@ -30,7 +31,8 @@ public:
    void showDash();
    void setSpeed(float speed);
    void setAcceleration(float acceleration);
-   void setTripDistance(float distance);
+   void setTripDistance(uint32_t distanceInM);
+   void setTotalDistance(uint32_t distanceInM);
    void setBreaksOn(bool breaksOn);
 };
 
