@@ -34,6 +34,7 @@ public:
    void setTripDistance(uint32_t distanceInM);
    void setTotalDistance(uint32_t distanceInM);
    void setBreaksOn(bool breaksOn);
+   void showFloatTextSizeDemo();
 };
 
 #endif /* COM_GITHUB_WMARKOW_BIKE_DASHBOARDS_CUSTOM_DISPLAY_H_ */

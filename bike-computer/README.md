@@ -8,7 +8,7 @@ The following libraries are used in this project:
 | Name | Version | Link |
 | ---- | ---- | ----|
 |Arduino Pro Mini 5V 328P|1.8.3|https://github.com/arduino/ArduinoCore-avr/|
-|Adafruit GFX Library|1.7.5|https://github.com/adafruit/Adafruit-GFX-Library|
+|wmarkow modified Adafruit GFX Library|1.7.6|https://github.com/wmarkow/Adafruit-GFX-Library/tree/1.7.6-text-size|
 |Adafruit SSD1306|2.4.5|https://github.com/adafruit/Adafruit_SSD1306|
 |Array|1.0|https://github.com/wmarkow/arduino-array|
 |Terminal|1.0|https://github.com/wmarkow/arduino-terminal|

@@ -171,7 +171,7 @@ void Display::showLogo()
 void Display::showDash()
 {
     display.clearDisplay();
-    display.setTextSize(2); //12x16
+    display.setTextSize(2); // 12x16
 
     char buffer[10];
 
@@ -190,16 +190,16 @@ void Display::showDash()
     if (seconds < 3000)
     {
         // show total distance for 3 seconds
-        display.setTextSize(1);
-        display.setCursor(SCREEN_WIDTH - 2 * 6, 24);
+        display.setTextSize(1.5); // 9x12
+        display.setCursor(SCREEN_WIDTH - 2 * 9, 19);
         display.write("km");
         dtostrf(((double) totalDistanceInM / 1000.0), 5, 1, buffer);
         length = strlen(buffer);
-        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 6, 16);
+        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 9, 16);
         display.setTextSize(2);
         display.write(buffer);
 
-        display.setTextSize(1);
+        display.setTextSize(1); // 6x8
         display.setCursor(0, 24);
         display.write("Total");
         display.setTextSize(2); // set it back to default size
@@ -207,12 +207,12 @@ void Display::showDash()
     else
     {
         // show trip distance for 8 seconds
-        display.setTextSize(1);
-        display.setCursor(SCREEN_WIDTH - 2 * 6, 24);
+        display.setTextSize(1.5);
+        display.setCursor(SCREEN_WIDTH - 2 * 9, 19);
         display.write("km");
         dtostrf(((double) tripDistanceInM / 1000.0), 6, 3, buffer);
         length = strlen(buffer);
-        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 6, 16);
+        display.setCursor(SCREEN_WIDTH - length * 12 - 2 * 9, 16);
         display.setTextSize(2);
         display.write(buffer);
 
@@ -227,6 +227,25 @@ void Display::showDash()
         display.setCursor(SCREEN_WIDTH / 2, 0);
         display.write("H");
     }
+
+    display.display();
+}
+
+void Display::showFloatTextSizeDemo()
+{
+    display.clearDisplay();
+
+    display.setTextSize(1); // 6x8
+    display.setCursor(0, 0);
+    display.write("Trip");
+
+    display.setTextSize(1.5); // 9x12
+    display.setCursor(30, 0);
+    display.write("Trip");
+
+    display.setTextSize(2); // 12x16
+    display.setCursor(75, 0);
+    display.write("Trip");
 
     display.display();
 }
