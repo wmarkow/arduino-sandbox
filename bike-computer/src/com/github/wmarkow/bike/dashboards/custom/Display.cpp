@@ -235,17 +235,23 @@ void Display::showFloatTextSizeDemo()
 {
     display.clearDisplay();
 
-    display.setTextSize(1); // 6x8
+    display.setTextSize(1.0); // 6x8
     display.setCursor(0, 0);
     display.write("Trip");
+    display.setCursor(5, 16);
+    display.write("1.0");
 
     display.setTextSize(1.5); // 9x12
     display.setCursor(30, 0);
     display.write("Trip");
+    display.setCursor(35, 16);
+    display.write("1.5");
 
-    display.setTextSize(2); // 12x16
+    display.setTextSize(2.0); // 12x16
     display.setCursor(75, 0);
     display.write("Trip");
+    display.setCursor(80, 16);
+    display.write("2.0");
 
     display.display();
 }
