@@ -22,6 +22,7 @@ private:
    bool speedSensorEnabled;
    EEPROMData eepromData;
    EEPROMStorage eepromStorage;
+   bool eepromSaveHintFlag;
 
    bool isInReset();
 public:

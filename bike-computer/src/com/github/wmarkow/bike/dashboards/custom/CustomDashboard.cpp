@@ -16,84 +16,99 @@
 
 CustomDashboard::CustomDashboard()
 {
-
+    eepromSaveHintFlag = false;
+    speedSensorEnabled = false;
 }
 
 void CustomDashboard::init()
 {
-   speedGauge.init();
-   speedGauge.setValueRange(0, 60 * SPEED_GAUGE_MULTIPLIER);
-   speedGauge.reset();
+    speedGauge.init();
+    speedGauge.setValueRange(0, 60 * SPEED_GAUGE_MULTIPLIER);
+    speedGauge.reset();
 
-   eepromStorage.read(&eepromData);
-   speedSensor.setWheelDiameter(24);
-   speedSensor.resetTripDistance(eepromData.totalDistanceInM);
-   speedSensorEnabled = true;
+    eepromStorage.read(&eepromData);
+    speedSensor.setWheelDiameter(24);
+    speedSensor.resetTripDistance(eepromData.totalDistanceInM);
+    speedSensorEnabled = true;
 
-   display.init();
+    display.init();
 }
 
 void CustomDashboard::loop()
 {
-   speedGauge.loop();
+    speedGauge.loop();
 
-   if (speedSensorEnabled == true)
-   {
-      float speed = speedSensor.getSpeed();
-      float acceleration = speedSensor.getAcceleration();
-      speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
+    if (speedSensorEnabled == true)
+    {
+        eepromData.totalDistanceInM = speedSensor.getTotalDistance();
 
-      display.setSpeed(speed);
-      display.setAcceleration(acceleration);
-      display.setTripDistance(speedSensor.getTripDistance());
-      display.setTotalDistance(speedSensor.getTotalDistance());
-      if (acceleration < -0.3)
-      {
-         display.setBreaksOn(true);
-      }
-      else
-      {
-         display.setBreaksOn(false);
-      }
+        float speed = speedSensor.getSpeed();
+        float acceleration = speedSensor.getAcceleration();
 
-   }
+        if (eepromSaveHintFlag && speed == 0.0)
+        {
+            // need to write data to EEPROM
+            this->eepromStorage.write(&eepromData);
+            eepromSaveHintFlag = false;
+        }
 
-   if (isInReset())
-   {
-      display.showLogo();
-   }
-   else
-   {
-      display.showDash();
-   }
+        speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
+
+        display.setSpeed(speed);
+        display.setAcceleration(acceleration);
+        display.setTripDistance(speedSensor.getTripDistance());
+        display.setTotalDistance(speedSensor.getTotalDistance());
+        if (acceleration < -0.3)
+        {
+            display.setBreaksOn(true);
+        }
+        else
+        {
+            display.setBreaksOn(false);
+        }
+    }
+
+    if (isInReset())
+    {
+        display.showLogo();
+    }
+    else
+    {
+        display.showDash();
+    }
 }
 
 void CustomDashboard::reset()
 {
-   speedGauge.reset();
+    speedGauge.reset();
 }
 
 void CustomDashboard::tickSpeedSensor(unsigned long millis)
 {
-   speedSensor.tick(millis);
+    speedSensor.tick(millis);
 
-   float speed = speedSensor.getSpeed();
-   float acceleration = speedSensor.getAcceleration();
+    float speed = speedSensor.getSpeed();
+    float acceleration = speedSensor.getAcceleration();
 
-   Serial.print(speed);
-   Serial.print("   ");
-   Serial.println(acceleration);
+    if(speed > 0.0)
+    {
+        eepromSaveHintFlag = true;
+    }
+
+    Serial.print(speed);
+    Serial.print("   ");
+    Serial.println(acceleration);
 }
 
 void CustomDashboard::setSpeed(uint8_t speed)
 {
-   speedSensorEnabled = false;
-   speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
+    speedSensorEnabled = false;
+    speedGauge.setValue(speed * SPEED_GAUGE_MULTIPLIER);
 
-   display.setSpeed(speed);
+    display.setSpeed(speed);
 }
 
 bool CustomDashboard::isInReset()
 {
-   return speedGauge.isInReset();
+    return speedGauge.isInReset();
 }
