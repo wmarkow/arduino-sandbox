@@ -10,15 +10,15 @@
 
 #include <com/github/wmarkow/bike/dashboards/custom/Display.h>
 #include <com/github/wmarkow/bike/drivers/gauge/StepperGauge.h>
-#include <com/github/wmarkow/bike/drivers/speed/SpeedSensor.h>
 #include <com/github/wmarkow/bike/drivers/eeprom/EEPROMStorage.h>
+#include <com/github/wmarkow/bike/drivers/wheel/WheelSensor.h>
 
 class CustomDashboard
 {
 private:
    Display display;
    StepperGauge speedGauge;
-   SpeedSensor speedSensor;
+   WheelSensor speedSensor;
    bool speedSensorEnabled;
    EEPROMData eepromData;
    EEPROMStorage eepromStorage;

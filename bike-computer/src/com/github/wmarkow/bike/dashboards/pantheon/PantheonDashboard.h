@@ -11,7 +11,7 @@
 #include <com/github/wmarkow/bike/drivers/backlight/Backlight.h>
 #include <com/github/wmarkow/bike/drivers/gauge/AirCoreGauge.h>
 #include <com/github/wmarkow/bike/drivers/mlx/MLX10407.h>
-#include <com/github/wmarkow/bike/drivers/speed/SpeedSensor.h>
+#include <com/github/wmarkow/bike/drivers/wheel/WheelSensor.h>
 
 class PantheonDashboard
 {
@@ -23,7 +23,7 @@ private:
    AirCoreGauge speedGauge;
    AirCoreGauge fuelGauge;
    Backlight backlight;
-   SpeedSensor speedSensor;
+   WheelSensor speedSensor;
 
 public:
    PantheonDashboard();

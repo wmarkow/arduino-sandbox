@@ -1,16 +1,16 @@
 /*
- * SpeedSensor.h
+ * WheelSensor.h
  *
  *  Created on: 16 Oct 2019
  *      Author: wmarkowski
  */
 
-#ifndef SPEEDSENSOR_H_
-#define SPEEDSENSOR_H_
+#ifndef WHEELSENSOR_H_
+#define WHEELSENSOR_H_
 
 #include <stdint.h>
 
-class SpeedSensor
+class WheelSensor
 {
 private:
     unsigned long t0;
@@ -21,7 +21,7 @@ private:
     uint16_t tickCount;
 
 public:
-    SpeedSensor();
+    WheelSensor();
     void tick(unsigned long currentMillis);
     void setWheelDiameter(uint8_t diameterInInches);
     float getSpeed();
@@ -33,4 +33,4 @@ public:
 
 
 
-#endif /* SPEEDSENSOR_H_ */
+#endif /* WHEELSENSOR_H_ */
