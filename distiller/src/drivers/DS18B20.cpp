@@ -16,7 +16,7 @@ void DS18B20::begin()
     {
         RF24Log_info(vendorId, "DS18B20 thermometer found");
 
-        thermometerBus.setResolution(9);
+        thermometerBus.setResolution(11);
     }
     else
     {

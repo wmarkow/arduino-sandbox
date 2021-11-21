@@ -10,9 +10,17 @@
 #include "DistillerData.h"
 
 // Hardware pin configuration
-#define WATER_FLOW_SENSOR_PIN 21
+// Case side view:
+//
+// CW   USB   BOIL
+//  HW       HEAD
+//
 #define THERMOMETER_COLD_WATER_PIN 22
 #define THERMOMETER_HOT_WATER_PIN 23
+#define THERMOMETER_BOILER_PIN 21
+#define THERMOMETER_HEADER_PIN 19
+#define WATER_FLOW_SENSOR_PIN 18
+
 
 // BLE server configuration
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
@@ -28,6 +36,8 @@ DistillerLogHandler logHandler(&Serial);
 WaterFlowSensor waterFlowSensor(WATER_FLOW_SENSOR_PIN);
 DS18B20 thermometerColdWater(THERMOMETER_COLD_WATER_PIN);
 DS18B20 thermometerHotWater(THERMOMETER_HOT_WATER_PIN);
+DS18B20 thermometerBoiler(THERMOMETER_BOILER_PIN);
+DS18B20 thermometerHeader(THERMOMETER_HEADER_PIN);
 
 unsigned long lastCheckTime;
 
@@ -54,6 +64,8 @@ void setup()
 
     thermometerColdWater.begin();
     thermometerHotWater.begin();
+    thermometerBoiler.begin();
+    thermometerHeader.begin();
 
     RF24Log_info(vendorId, "Setup BLE server...");
     BLEDevice::init("Environment measurements"); // can not use polish specific characters
@@ -122,6 +134,34 @@ void loop()
         {
             info.concat("ERR");
             distillerData.hotWaterTemp = DISTILLER_INVALID_TEMP;
+        }
+        info.concat(" ; ");
+
+        // display boiler temperature
+        float boilerTemp;
+        if (thermometerBoiler.readTempC(&boilerTemp) == DS18B20_RESULT_OK)
+        {
+            info.concat(hotWaterTemp);
+            distillerData.kegTemp = boilerTemp;
+        }
+        else
+        {
+            info.concat("ERR");
+            distillerData.kegTemp = DISTILLER_INVALID_TEMP;
+        }
+        info.concat(" ; ");
+
+        // display header temperature
+        float headerTemp;
+        if (thermometerHeader.readTempC(&headerTemp) == DS18B20_RESULT_OK)
+        {
+            info.concat(headerTemp);
+            distillerData.headerTemp = headerTemp;
+        }
+        else
+        {
+            info.concat("ERR");
+            distillerData.headerTemp = DISTILLER_INVALID_TEMP;
         }
         info.concat(" ; ");
 
