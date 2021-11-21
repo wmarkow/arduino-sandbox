@@ -65,6 +65,7 @@ void setup()
     thermometerColdWater.begin();
     thermometerHotWater.begin();
     thermometerBoiler.begin();
+    thermometerHeader.setResolution(11);
     thermometerHeader.begin();
 
     RF24Log_info(vendorId, "Setup BLE server...");

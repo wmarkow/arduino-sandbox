@@ -14,10 +14,17 @@ public:
    DS18B20(uint8_t pin);
    void begin();
    uint8_t readTempC(float *value);
+
+   /***
+    *  Set resolution to 9, 10, 11, or 12 bits. Default resolution is 9 bits.
+    */
+   void setResolution(uint8_t resolution);
+
 private:
    OneWire oneWireBus;
    DallasTemperature thermometerBus;
    bool reinit;
+   uint8_t resolution;
 };
 
 

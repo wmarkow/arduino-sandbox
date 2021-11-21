@@ -5,6 +5,7 @@ DS18B20::DS18B20(uint8_t pin) :
         oneWireBus(pin), thermometerBus(&oneWireBus)
 {
     this->reinit = false;
+    this->resolution = 9;
 }
 
 void DS18B20::begin()
@@ -16,7 +17,7 @@ void DS18B20::begin()
     {
         RF24Log_info(vendorId, "DS18B20 thermometer found");
 
-        thermometerBus.setResolution(11);
+        thermometerBus.setResolution(resolution);
     }
     else
     {
@@ -63,4 +64,9 @@ uint8_t DS18B20::readTempC(float *value)
     *value = temp;
 
     return DS18B20_RESULT_OK;
+}
+
+void DS18B20::setResolution(uint8_t resolution)
+{
+    this->resolution = resolution;
 }
