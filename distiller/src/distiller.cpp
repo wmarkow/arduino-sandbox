@@ -62,10 +62,16 @@ void setup()
 
     lastCheckTime = millis();
 
+    thermometerColdWater.setResolution(10);
     thermometerColdWater.begin();
+
+    thermometerHotWater.setResolution(10);
     thermometerHotWater.begin();
+
+    thermometerBoiler.setResolution(11);
     thermometerBoiler.begin();
-    thermometerHeader.setResolution(11);
+
+    thermometerHeader.setResolution(12);
     thermometerHeader.begin();
 
     RF24Log_info(vendorId, "Setup BLE server...");
