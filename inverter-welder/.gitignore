@@ -36,3 +36,5 @@ libraries/**
 .project
 .cproject
 spec.d
+.pio
+.vscode
