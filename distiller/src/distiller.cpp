@@ -148,7 +148,7 @@ void loop()
         float boilerTemp;
         if (thermometerBoiler.readTempC(&boilerTemp) == DS18B20_RESULT_OK)
         {
-            info.concat(hotWaterTemp);
+            info.concat(boilerTemp);
             distillerData.kegTemp = boilerTemp;
         }
         else
