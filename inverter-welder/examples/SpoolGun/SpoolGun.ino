@@ -35,7 +35,7 @@ void loopForSpotWelding(int lastButtonState, int currentButtonState);
 
 void setup()
 {
-   Serial.begin(57600);
+   Serial.begin(115200);
 
    pinMode(PIN_BUTTON, INPUT);
    digitalWrite(PIN_BUTTON, HIGH);
