@@ -7,7 +7,7 @@
 
 // Define min and max possible wire speeds in [m/min]
 #define MIN_WIRE_SPEED 0.5
-#define MAX_WIRE_SPEED 2.0
+#define MAX_WIRE_SPEED 5.0
 // Define wire feeder gear diameter in m
 #define WIRE_FEEDER_GEAR_DIAMETER 0.011
 
@@ -83,7 +83,6 @@ void loopForContinuousWelding()
    {
       // check wire speed potentiometer
       float analogVal = analogRead(PIN_WIRE_SPEED);
-      analogVal = 0;
       float wireSpeed = (analogVal / 1024.0) * (MAX_WIRE_SPEED - MIN_WIRE_SPEED) + MIN_WIRE_SPEED;
       float rpm = wireSpeed / (PI * WIRE_FEEDER_GEAR_DIAMETER);
 
