@@ -1,3 +1,6 @@
+/sloeber.ino.cpp
+/Release/
+
 # Compiled Object files
 *.slo
 *.lo
@@ -27,13 +30,11 @@
 *.out
 *.app
 
-Release/**
 .settings/**
 core/**
 libraries/**
-
-/Release/
-spec.d
-
 .project
 .cproject
+spec.d
+.pio
+.vscode
