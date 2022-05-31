@@ -27,7 +27,7 @@ void CustomDashboard::init()
     speedGauge.reset();
 
     eepromStorage.read(&eepromData);
-    speedSensor.setWheelDiameter(24);
+    speedSensor.setWheelDiameter(26);
     speedSensor.resetTripDistance(eepromData.totalDistanceInM);
     speedSensorEnabled = true;
 
