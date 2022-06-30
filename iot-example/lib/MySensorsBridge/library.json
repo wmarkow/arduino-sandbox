@@ -1,0 +1,6 @@
+{
+	"name": "MySensorsBridge",
+	"frameworks": "arduino",
+	"platforms": "*",
+	"version": "1.0.0"
+}
