@@ -33,7 +33,7 @@ uint8_t transportGetAddress(void)
 
 bool transportDataAvailable(void)
 {
-    Serial.println(F("BRIDGE:TRAN:DATAAVAILABLE"));
+    //Serial.println(F("BRIDGE:TRAN:DATAAVAILABLE"));
 
     return false;
 }
