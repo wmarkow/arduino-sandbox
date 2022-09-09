@@ -28,7 +28,8 @@
  */
 
 // Enable debug prints
-// #define MY_DEBUG
+#define MY_DEBUG
+#define MY_DEBUG_VERBOSE_CORE
 
 // Enable and select radio type attached
 //#define MY_RADIO_RF24
@@ -38,10 +39,9 @@
 #define MY_RADIO_CUSTOM
 
 #include <MySensorsBridge.h>
-
 #include <MySensors.h>
 
-uint32_t SLEEP_TIME = 120000; // Sleep time between reports (in milliseconds)
+uint32_t SLEEP_TIME = 2000; // Sleep time between reports (in milliseconds)
 #define DIGITAL_INPUT_SENSOR 3   // The digital input you attached your motion sensor.  (Only 2 and 3 generates interrupt!)
 #define CHILD_ID 1   // Id of the sensor child
 
@@ -50,11 +50,13 @@ MyMessage msg(CHILD_ID, V_TRIPPED);
 
 void setup()
 {
+	Serial.println("setup() called");
 	pinMode(DIGITAL_INPUT_SENSOR, INPUT);      // sets the motion sensor digital pin as input
 }
 
 void presentation()
 {
+	Serial.println("presentation() called");
 	// Send the sketch version information to the gateway and Controller
 	sendSketchInfo("Motion Sensor", "1.0");
 
@@ -64,13 +66,14 @@ void presentation()
 
 void loop()
 {
+	Serial.println("loop() called");
 	// Read digital motion value
 	bool tripped = digitalRead(DIGITAL_INPUT_SENSOR) == HIGH;
 
 	Serial.println(tripped);
 	send(msg.set(tripped?"1":"0"));  // Send tripped value to gw
 
-	// Sleep until interrupt comes in on motion sensor. Send update every two minute.
+	// Sleep until interrupt comes in on motion sensor or sleep time passes out.
 	sleep(digitalPinToInterrupt(DIGITAL_INPUT_SENSOR), CHANGE, SLEEP_TIME);
 }
 
