@@ -28,7 +28,8 @@
  */
 
 // Enable debug prints
-// #define MY_DEBUG
+#define MY_DEBUG
+#define MY_DEBUG_VERBOSE_CORE
 
 // Enable and select radio type attached
 //#define MY_RADIO_RF24
@@ -38,32 +39,9 @@
 #define MY_RADIO_CUSTOM
 
 #include <MySensorsBridge.h>
-
-bool transportInit(void);
-void transportSetAddress(const uint8_t address);
-uint8_t transportGetAddress(void);
-bool transportDataAvailable(void);
-bool transportSanityCheck(void);
-uint8_t transportReceive(void *data);
-bool transportSend(const uint8_t to, const void *data, const uint8_t len, const bool noACK);
-void transportPowerDown(void);
-void transportPowerUp(void);
-void transportSleep(void);
-void transportStandBy(void);
-int16_t transportGetSendingRSSI(void);
-int16_t transportGetReceivingRSSI(void);
-int16_t transportGetSendingSNR(void);
-int16_t transportGetReceivingSNR(void);
-int16_t transportGetTxPowerPercent(void);
-bool transportSetTxPowerPercent(const uint8_t powerPercent);
-int16_t transportGetTxPowerLevel(void);
-
-
-
-
 #include <MySensors.h>
 
-uint32_t SLEEP_TIME = 120000; // Sleep time between reports (in milliseconds)
+uint32_t SLEEP_TIME = 2000; // Sleep time between reports (in milliseconds)
 #define DIGITAL_INPUT_SENSOR 3   // The digital input you attached your motion sensor.  (Only 2 and 3 generates interrupt!)
 #define CHILD_ID 1   // Id of the sensor child
 
