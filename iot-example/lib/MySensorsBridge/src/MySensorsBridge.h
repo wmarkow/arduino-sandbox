@@ -27,5 +27,4 @@ int16_t transportGetTxPowerPercent(void);
 bool transportSetTxPowerPercent(const uint8_t powerPercent);
 int16_t transportGetTxPowerLevel(void);
 
-
 #endif //MySensorsBridge_h
