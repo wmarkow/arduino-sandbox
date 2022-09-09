@@ -12,8 +12,9 @@ bool transportInit(void)
     Serial.println(F("BRIDGE:TRAN:INIT"));
 
     localMeshNode.setInterface(0, &radioInterface);
+    radioInterface.getDevice()->up();
 
-    return false;
+	return radioInterface.getDevice()->isChipConnected();
 }
 
 void transportSetAddress(const uint8_t address)
