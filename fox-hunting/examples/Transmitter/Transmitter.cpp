@@ -1,7 +1,8 @@
 #include <Arduino.h>
 #include <HC12.h>
 
-const uint16_t DOT_DURATION_MILLIS = 200;
+const uint16_t DOT_DURATION_MILLIS = 150;
+const uint16_t DASH_DURATION_MILLIS = 3 * DOT_DURATION_MILLIS;
 
 HC12 hc12;
 
@@ -58,7 +59,7 @@ void sendDash()
     Serial.print(millis());
     Serial.println(" DASH begin");
     uint32_t startTime = millis();
-    while(millis() < startTime + 3 * DOT_DURATION_MILLIS)
+    while(millis() < startTime + DASH_DURATION_MILLIS)
     {
         hc12.write(255);
         delay(25);
