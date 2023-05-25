@@ -40,7 +40,7 @@ void loop()
             Serial.print(millis());
             Serial.println(" BUZZ");
             buzzerState = 1;
-            tone(BUZZER_PIN, 1000);
+            analogWrite(BUZZER_PIN, 127);
         }
     }
 
@@ -48,7 +48,7 @@ void loop()
     {
         Serial.print(millis());
         Serial.println(" OFF");
-        noTone(BUZZER_PIN);
+        analogWrite(BUZZER_PIN, 0);
         buzzerState = 0;
     }
 
