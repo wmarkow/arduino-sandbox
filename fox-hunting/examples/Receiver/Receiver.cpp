@@ -7,6 +7,8 @@ uint32_t lastBeepMillis = 0;
 
 uint8_t buzzerState = 0; 
 
+unsigned int countSetBits(unsigned int n);
+
 void setup()
 {
     Serial.begin(115200);
@@ -14,6 +16,16 @@ void setup()
     hc12.begin();
 
     pinMode(BUZZER_PIN, OUTPUT);
+
+    for (unsigned int count=0;count<=255;count++)
+    {
+        Serial.print(count);
+        Serial.print(" ");
+        Serial.print(count, BIN);
+        Serial.print(" ");
+        unsigned int countOfSetBits = countSetBits(count);
+        Serial.println(countOfSetBits);
+    }
 }
 
 void loop()
@@ -25,9 +37,18 @@ void loop()
         // read one byte
         if(hc12.read(&byte, 1) == 1)
         {
-            if(byte == 255)
+            // Transmitter sends one byte with the value of 255.
+            // Allow for some bit error rate during transmission.
+            if(countSetBits(byte) > 4)
             {
-                // read what has been sent
+                // The fact: accepting some bit rate error doesn't help much to extend
+                // the range of the transmission. HC-12 uses Si4463 under the hood
+                // to transmitt the data and the data are organised there already
+                // in packets. In case of transmisison errors the packet is flushed
+                // (probably because of CRC mismatch).
+                // In other words: HC-12 receives only correctly received packets, so
+                // basically we receive always what the transmitter has sent. In case
+                // of transmission errors we receive nothing.
                 Serial.print(millis());
                 Serial.println(" REBY");
                 newBuzzerState = 1;
@@ -52,4 +73,14 @@ void loop()
         buzzerState = 0;
     }
 
+}
+
+unsigned int countSetBits(unsigned int n)
+{
+    unsigned int count = 0;
+    while (n) {
+        count += n & 1;
+        n >>= 1;
+    }
+    return count;
 }
