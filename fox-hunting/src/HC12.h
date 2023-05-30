@@ -15,6 +15,7 @@
 #define HC12_SET_PIN 6
 
 #define HC12_DEFAULT_BAUDRATE 9600
+#define HC12_BAUDRATE 2400
 
 class HC12
 {
@@ -26,9 +27,10 @@ private:
 public:
    HC12();
    void begin();
-   bool icChipConnected();
+   bool isChipConnected();
    int8_t getTransmitterPowerInDbm();
-   uint16_t getDataRateInKbs();
+   uint16_t getAirDataRateInKbs();
+   uint8_t switchSerialPortTo2400bps();
    uint8_t getRFChannel();
    bool write(uint8_t *data, uint8_t size);
    int read(uint8_t *buffer, size_t length);

@@ -5,6 +5,7 @@ const uint16_t DOT_DURATION_MILLIS = 150;
 const uint16_t DASH_DURATION_MILLIS = 3 * DOT_DURATION_MILLIS;
 
 HC12 hc12;
+char text[100];
 
 void sendDot();
 void sendDash();
@@ -14,6 +15,12 @@ void setup()
     Serial.begin(115200);
 
     hc12.begin();
+
+    hc12.switchSerialPortTo2400bps();
+
+    uint16_t dataRate =  hc12.getAirDataRateInKbs();
+    sprintf(text, "dataRate = %d kbps", dataRate);
+    Serial.println(text);
 }
 
 void loop()

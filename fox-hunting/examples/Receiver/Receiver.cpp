@@ -7,6 +7,8 @@ uint32_t lastBeepMillis = 0;
 
 uint8_t buzzerState = 0; 
 
+char text[100];
+
 unsigned int countSetBits(unsigned int n);
 
 void setup()
@@ -17,15 +19,11 @@ void setup()
 
     pinMode(BUZZER_PIN, OUTPUT);
 
-    for (unsigned int count=0;count<=255;count++)
-    {
-        Serial.print(count);
-        Serial.print(" ");
-        Serial.print(count, BIN);
-        Serial.print(" ");
-        unsigned int countOfSetBits = countSetBits(count);
-        Serial.println(countOfSetBits);
-    }
+    hc12.switchSerialPortTo2400bps();
+
+    uint16_t dataRate =  hc12.getAirDataRateInKbs();
+    sprintf(text, "dataRate = %d kbps", dataRate);
+    Serial.println(text);
 }
 
 void loop()

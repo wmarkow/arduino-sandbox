@@ -11,17 +11,29 @@
 HC12::HC12() :
       softwareSerial(HC12_TXD_UNO_RX_PIN, HC12_RXD_UNO_TX_PIN)
 {
-
 }
 
 void HC12::begin()
 {
+   // Because Arduino may be restarted while HC-12 being still powered up,
+   // it may happen that HC-12 is already configured to communicate with
+   // Arduino with a different (than default 9600bps) speed. It is here
+   // important to set software serial to the correct speed.
+   
+   // Try first with default speed...
    softwareSerial.begin(HC12_DEFAULT_BAUDRATE);
+   if(isChipConnected())
+   {
+      return;
+   }
 
+   // ... then try with lowered speed
+   softwareSerial.begin(HC12_BAUDRATE);
+   
    enterTransparentMode();
 }
 
-bool HC12::icChipConnected()
+bool HC12::isChipConnected()
 {
    enterCommandMode();
    softwareSerial.print(F("AT"));
@@ -53,7 +65,7 @@ int8_t HC12::getTransmitterPowerInDbm()
    return valueAsString.toInt();
 }
 
-uint16_t HC12::getDataRateInKbs()
+uint16_t HC12::getAirDataRateInKbs()
 {
    enterCommandMode();
    softwareSerial.print(F("AT+RB"));
@@ -81,6 +93,23 @@ uint16_t HC12::getDataRateInKbs()
    }
 
    return 236;
+}
+
+uint8_t HC12::switchSerialPortTo2400bps()
+{
+   enterCommandMode();
+   softwareSerial.print(F("AT+B2400"));
+   String response = getCommandResponse();
+   enterTransparentMode();
+
+   if (!response.startsWith(F("OK+B")))
+   {
+      return 1;
+   }
+
+   softwareSerial.begin(HC12_BAUDRATE);
+
+   return 0;
 }
 
 uint8_t HC12::getRFChannel()
