@@ -63,7 +63,7 @@ void loop()
         }
     }
 
-    if((lastBeepMillis + 100 < millis()) && buzzerState == 1)
+    if((lastBeepMillis + 60 < millis()) && buzzerState == 1)
     {
         Serial.print(millis());
         Serial.println(" OFF");
