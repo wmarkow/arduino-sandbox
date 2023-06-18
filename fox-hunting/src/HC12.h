@@ -31,6 +31,7 @@ public:
    int8_t getTransmitterPowerInDbm();
    uint16_t getAirDataRateInKbs();
    uint8_t switchSerialPortTo2400bps();
+   uint8_t setTxPowerValue(uint8_t value);
    uint8_t getRFChannel();
    bool write(uint8_t *data, uint8_t size);
    int read(uint8_t *buffer, size_t length);

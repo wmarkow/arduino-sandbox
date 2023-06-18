@@ -19,7 +19,7 @@ void setup()
 
     pinMode(BUZZER_PIN, OUTPUT);
 
-    hc12.switchSerialPortTo2400bps();
+    //hc12.switchSerialPortTo2400bps();
 
     uint16_t dataRate =  hc12.getAirDataRateInKbs();
     sprintf(text, "dataRate = %d kbps", dataRate);

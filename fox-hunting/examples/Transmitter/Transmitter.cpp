@@ -16,7 +16,16 @@ void setup()
 
     hc12.begin();
 
-    hc12.switchSerialPortTo2400bps();
+   //hc12.switchSerialPortTo2400bps();
+
+    if(hc12.setTxPowerValue(1) == 0)
+    {
+        Serial.println("Setting Tx power to -1dBm");
+    }
+    else
+    {
+        Serial.println("Setting Tx power failed");
+    }
 
     uint16_t dataRate =  hc12.getAirDataRateInKbs();
     sprintf(text, "dataRate = %d kbps", dataRate);

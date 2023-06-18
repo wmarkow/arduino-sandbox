@@ -112,6 +112,21 @@ uint8_t HC12::switchSerialPortTo2400bps()
    return 0;
 }
 
+uint8_t HC12::setTxPowerValue(uint8_t value)
+{
+   enterCommandMode();
+   softwareSerial.print(F("AT+P1"));
+   String response = getCommandResponse();
+   enterTransparentMode();
+
+   if (!response.startsWith(F("OK+P")))
+   {
+      return 1;
+   }
+
+   return 0;
+}
+
 uint8_t HC12::getRFChannel()
 {
    enterCommandMode();
