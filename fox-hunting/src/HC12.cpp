@@ -13,24 +13,48 @@ HC12::HC12() :
 {
 }
 
-void HC12::begin()
+bool HC12::begin()
 {
-   // Because Arduino may be restarted while HC-12 being still powered up,
-   // it may happen that HC-12 is already configured to communicate with
-   // Arduino with a different (than default 9600bps) speed. It is here
-   // important to set software serial to the correct speed.
+   // As it stays in the HC-12 documentation: serial port and transceiver 
+   // configurations are held in onboard non-volatile (STM8S microcontroller)
+   // flash memory.
+   // It is here important to set software serial to the correct speed in 
+   // order to perform a correct communication with HC-12.
    
    // Try first with default speed...
    softwareSerial.begin(HC12_DEFAULT_BAUDRATE);
    if(isChipConnected())
    {
-      return;
+      enterTransparentMode();
+      return true;
    }
 
    // ... then try with lowered speed
    softwareSerial.begin(HC12_BAUDRATE);
-   
+   if(isChipConnected())
+   {
+      enterTransparentMode();
+      return true;
+   }
+
    enterTransparentMode();
+   return false;
+}
+
+bool HC12::setDefault()
+{
+   enterCommandMode();
+   softwareSerial.print(F("AT+DEFAULT"));
+   String response = getCommandResponse();
+   enterTransparentMode();
+
+   if (response.equals(F("OK+DEFAULT")))
+   {
+      return true;
+   }
+
+   Serial.println(response);
+   return false;
 }
 
 bool HC12::isChipConnected()
@@ -79,6 +103,7 @@ uint16_t HC12::getAirDataRateInKbs()
 
    String valueAsString = response.substring(4);
    long int uartBaudRate = valueAsString.toInt();
+   Serial.println(uartBaudRate);
    if (uartBaudRate <= 2400)
    {
       return 5;

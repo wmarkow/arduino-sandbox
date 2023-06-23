@@ -14,17 +14,33 @@ void setup()
 {
     Serial.begin(115200);
 
-    hc12.begin();
+    if(hc12.begin())
+    {
+        Serial.println(F("HC12.begin() success"));
+    }
+    else
+    {
+        Serial.println(F("HC12.begin() failed"));
+    }
+
+    if(hc12.setDefault())
+    {
+        Serial.println(F("HC12.setDefault() success"));
+    }
+    else
+    {
+        Serial.println(F("HC12.setDefault() failed"));
+    }
 
    //hc12.switchSerialPortTo2400bps();
 
     if(hc12.setTxPowerValue(1) == 0)
     {
-        Serial.println("Setting Tx power to -1dBm");
+        Serial.println("HC12 Setting Tx power to -1dBm");
     }
     else
     {
-        Serial.println("Setting Tx power failed");
+        Serial.println("HC12 Setting Tx power failed");
     }
 
     uint16_t dataRate =  hc12.getAirDataRateInKbs();

@@ -26,7 +26,8 @@ private:
    String getCommandResponse();
 public:
    HC12();
-   void begin();
+   bool begin();
+   bool setDefault();
    bool isChipConnected();
    int8_t getTransmitterPowerInDbm();
    uint16_t getAirDataRateInKbs();

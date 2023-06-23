@@ -15,7 +15,23 @@ void setup()
 {
     Serial.begin(115200);
 
-    hc12.begin();
+    if(hc12.begin())
+    {
+        Serial.println(F("HC12.begin() success"));
+    }
+    else
+    {
+        Serial.println(F("HC12.begin() failed"));
+    }
+
+    if(hc12.setDefault())
+    {
+        Serial.println(F("HC12.setDefault() success"));
+    }
+    else
+    {
+        Serial.println(F("HC12.setDefault() failed"));
+    }
 
     pinMode(BUZZER_PIN, OUTPUT);
 
