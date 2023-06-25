@@ -619,8 +619,10 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     // Wait for transmitter to become available
     waitPacketSent();
 
-    if (!waitCAD()) 
-	return false;  // Check channel activity
+    // PATCH wmarkow begin
+    //if (!waitCAD()) 
+	//return false;  // Check channel activity
+    // PATCH wmarkow end
 
     // Encode the message length
     crc = RHcrc_ccitt_update(crc, count);
