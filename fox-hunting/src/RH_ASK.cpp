@@ -594,10 +594,17 @@ bool RH_INTERRUPT_ATTR RH_ASK::recv(uint8_t* buf, uint8_t* len)
     {
 	// Skip the length and 4 headers that are at the beginning of the rxBuf
 	// and drop the trailing 2 bytes of FCS
-	uint8_t message_len = _rxBufLen-RH_ASK_HEADER_LEN - 3;
+    // PATCH wmarkow begin
+	//uint8_t message_len = _rxBufLen-RH_ASK_HEADER_LEN - 3;
+    uint8_t message_len = _rxBufLen - 3;
+    // PATCH wmarkow end
 	if (*len > message_len)
 	    *len = message_len;
-	memcpy(buf, _rxBuf+RH_ASK_HEADER_LEN+1, *len);
+    
+    // PATCH wmarkow begin
+	//memcpy(buf, _rxBuf+RH_ASK_HEADER_LEN+1, *len);
+    memcpy(buf, _rxBuf + 1, *len);
+    // PATCH wmarkow end
     }
     _rxBufValid = false; // Got the most recent message, delete it
 //    printBuffer("recv:", buf, *len);
@@ -611,7 +618,10 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     uint16_t index = 0;
     uint16_t crc = 0xffff;
     uint8_t *p = _txBuf + RH_ASK_PREAMBLE_LEN; // start of the message area
-    uint8_t count = len + 3 + RH_ASK_HEADER_LEN; // Added byte count and FCS and headers to get total number of bytes
+    // PATCH wmarkow begin
+    //uint8_t count = len + 3 + RH_ASK_HEADER_LEN; // Added byte count and FCS and headers to get total number of bytes
+    uint8_t count = len + 1 + 2; // Added "byte count" and FCS to get total number of bytes
+    // PATCH wmarkow end
 
     if (len > RH_ASK_MAX_MESSAGE_LEN)
 	return false;
@@ -629,19 +639,21 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     p[index++] = symbols[count >> 4];
     p[index++] = symbols[count & 0xf];
 
+    // PATCH wmarkow begin 
     // Encode the headers
-    crc = RHcrc_ccitt_update(crc, _txHeaderTo);
-    p[index++] = symbols[_txHeaderTo >> 4];
-    p[index++] = symbols[_txHeaderTo & 0xf];
-    crc = RHcrc_ccitt_update(crc, _txHeaderFrom);
-    p[index++] = symbols[_txHeaderFrom >> 4];
-    p[index++] = symbols[_txHeaderFrom & 0xf];
-    crc = RHcrc_ccitt_update(crc, _txHeaderId);
-    p[index++] = symbols[_txHeaderId >> 4];
-    p[index++] = symbols[_txHeaderId & 0xf];
-    crc = RHcrc_ccitt_update(crc, _txHeaderFlags);
-    p[index++] = symbols[_txHeaderFlags >> 4];
-    p[index++] = symbols[_txHeaderFlags & 0xf];
+    //crc = RHcrc_ccitt_update(crc, _txHeaderTo);
+    //p[index++] = symbols[_txHeaderTo >> 4];
+    //p[index++] = symbols[_txHeaderTo & 0xf];
+    //crc = RHcrc_ccitt_update(crc, _txHeaderFrom);
+    //p[index++] = symbols[_txHeaderFrom >> 4];
+    //p[index++] = symbols[_txHeaderFrom & 0xf];
+    //crc = RHcrc_ccitt_update(crc, _txHeaderId);
+    //p[index++] = symbols[_txHeaderId >> 4];
+    //p[index++] = symbols[_txHeaderId & 0xf];
+    //crc = RHcrc_ccitt_update(crc, _txHeaderFlags);
+    //p[index++] = symbols[_txHeaderFlags >> 4];
+    //p[index++] = symbols[_txHeaderFlags & 0xf];
+    // PATCH wmarkow end
 
     // Encode the message into 6 bit symbols. Each byte is converted into 
     // 2 6-bit symbols, high nybble first, low nybble second
@@ -892,18 +904,22 @@ void RH_ASK::validateRxBuf()
 	return;
     }
 
+    // PATCH wmarkow begin
     // Extract the 4 headers that follow the message length
-    _rxHeaderTo    = _rxBuf[1];
-    _rxHeaderFrom  = _rxBuf[2];
-    _rxHeaderId    = _rxBuf[3];
-    _rxHeaderFlags = _rxBuf[4];
-    if (_promiscuous ||
-	_rxHeaderTo == _thisAddress ||
-	_rxHeaderTo == RH_BROADCAST_ADDRESS)
-    {
-	_rxGood++;
-	_rxBufValid = true;
-    }
+    //_rxHeaderTo    = _rxBuf[1];
+    //_rxHeaderFrom  = _rxBuf[2];
+    //_rxHeaderId    = _rxBuf[3];
+    //_rxHeaderFlags = _rxBuf[4];
+    //if (_promiscuous ||
+	//_rxHeaderTo == _thisAddress ||
+	//_rxHeaderTo == RH_BROADCAST_ADDRESS)
+    //{
+	//_rxGood++;
+	//_rxBufValid = true;
+    //}
+    _rxGood++;
+    _rxBufValid = true;
+    // PATCH wmarkow end
 }
 
 void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
@@ -964,7 +980,12 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 		    // Check it for sensibility. It cant be less than 7, since it
 		    // includes the byte count itself, the 4 byte header and the 2 byte FCS
 		    _rxCount = this_byte;
-		    if (_rxCount < 7 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
+            // PATCH wmarkow begin
+		    //if (_rxCount < 7 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
+            // Check it for sensibility. It cant be less than 3, since it
+		    // includes the 'byte count' itself and the 2 byte FCS
+            if (_rxCount < 3 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
+            // PATCH wmarkow end
 		    {
 			// Stupid message length, drop the whole thing
 			_rxActive = false;
