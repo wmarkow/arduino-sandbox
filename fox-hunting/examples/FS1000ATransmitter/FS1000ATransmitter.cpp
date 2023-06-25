@@ -55,7 +55,6 @@ void sendDot()
     {
         const char *msg = "Hello World!";
         driver.send((uint8_t *)msg, strlen(msg));
-        driver.waitPacketSent();
     }
 
     Serial.print(millis());
@@ -71,7 +70,6 @@ void sendDash()
     {
         const char *msg = "Hello World!";
         driver.send((uint8_t *)msg, strlen(msg));
-        driver.waitPacketSent();
     }
 
     Serial.print(millis());
