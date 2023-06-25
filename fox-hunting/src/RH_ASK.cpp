@@ -577,11 +577,20 @@ bool RH_ASK::available()
     if (_mode == RHModeTx)
 	return false;
     setModeRx();
+    // PATCH wmarkow begin
+    //if (_rxBufFull)
+    //{
+	//validateRxBuf();
+	//_rxBufFull= false;
+    //}
     if (_rxBufFull)
     {
-	validateRxBuf();
-	_rxBufFull= false;
+        // Full buffer means that preamble has been correctly received.
+	    _rxBufFull= false;
+        _rxBufValid = true;
+        _rxGood++; 
     }
+    // PATCH wmarkow end
     return _rxBufValid;
 }
 
@@ -674,7 +683,11 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     p[index++] = symbols[(crc >> 8)  & 0xf];
 
     // Total number of 6-bit symbols to send
-    _txBufLen = index + RH_ASK_PREAMBLE_LEN;
+    // PATCH wmarkow begin
+    //_txBufLen = index + RH_ASK_PREAMBLE_LEN;
+    // Just send the preamble
+    _txBufLen = RH_ASK_PREAMBLE_LEN;
+    // PATCH wmarkow end
 
     // Start the low level interrupt handler sending symbols
     setModeTx();
@@ -1012,6 +1025,12 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 	    _rxActive = true;
 	    _rxBitCount = 0;
 	    _rxBufLen = 0;
+        // PATCH wmarkow begin
+        // Receiving the preamble is good enough
+        _rxActive = false;
+		_rxBufFull = true;
+		setModeIdle();
+        // PATCh wmarkow end
 	}
     }
 }
