@@ -53,7 +53,7 @@ void sendDot()
     uint32_t startTime = millis();
     while(millis() < startTime + DOT_DURATION_MILLIS)
     {
-        const char *msg = "Hello World!";
+        const char *msg = "H";
         driver.send((uint8_t *)msg, strlen(msg));
     }
 
@@ -68,7 +68,7 @@ void sendDash()
     uint32_t startTime = millis();
     while(millis() < startTime + DASH_DURATION_MILLIS)
     {
-        const char *msg = "Hello World!";
+        const char *msg = "H";
         driver.send((uint8_t *)msg, strlen(msg));
     }
 
