@@ -941,97 +941,101 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 
     // Integrate each sample
     if (rxSample)
-	_rxIntegrator++;
+    {
+        _rxIntegrator++;
+    }
 
     if (rxSample != _rxLastSample)
     {
-	// Transition, advance if ramp > 80, retard if < 80
-	_rxPllRamp += ((_rxPllRamp < RH_ASK_RAMP_TRANSITION) 
-			   ? RH_ASK_RAMP_INC_RETARD 
-			   : RH_ASK_RAMP_INC_ADVANCE);
-	_rxLastSample = rxSample;
+        // Transition, advance if ramp > 80, retard if < 80
+        _rxPllRamp += ((_rxPllRamp < RH_ASK_RAMP_TRANSITION) 
+                ? RH_ASK_RAMP_INC_RETARD 
+                : RH_ASK_RAMP_INC_ADVANCE);
+        _rxLastSample = rxSample;
     }
     else
     {
-	// No transition
-	// Advance ramp by standard 20 (== 160/8 samples)
-	_rxPllRamp += RH_ASK_RAMP_INC;
+        // No transition
+        // Advance ramp by standard 20 (== 160/8 samples)
+        _rxPllRamp += RH_ASK_RAMP_INC;
     }
     if (_rxPllRamp >= RH_ASK_RX_RAMP_LEN)
     {
-	// Add this to the 12th bit of _rxBits, LSB first
-	// The last 12 bits are kept
-	_rxBits >>= 1;
+        // Add this to the 12th bit of _rxBits, LSB first
+        // The last 12 bits are kept
+        _rxBits >>= 1;
 
-	// Check the integrator to see how many samples in this cycle were high.
-	// If < 5 out of 8, then its declared a 0 bit, else a 1;
-	if (_rxIntegrator >= 5)
-	    _rxBits |= 0x800;
+        // Check the integrator to see how many samples in this cycle were high.
+        // If < 5 out of 8, then its declared a 0 bit, else a 1;
+        if (_rxIntegrator >= 5)
+        {
+            _rxBits |= 0x800;
+        }
 
-	_rxPllRamp -= RH_ASK_RX_RAMP_LEN;
-	_rxIntegrator = 0; // Clear the integral for the next cycle
+        _rxPllRamp -= RH_ASK_RX_RAMP_LEN;
+        _rxIntegrator = 0; // Clear the integral for the next cycle
 
-	if (_rxActive)
-	{
-	    // We have the start symbol and now we are collecting message bits,
-	    // 6 per symbol, each which has to be decoded to 4 bits
-	    if (++_rxBitCount >= 12)
-	    {
-		// Have 12 bits of encoded message == 1 byte encoded
-		// Decode as 2 lots of 6 bits into 2 lots of 4 bits
-		// The 6 lsbits are the high nybble
-		uint8_t this_byte = 
-		    (symbol_6to4(_rxBits & 0x3f)) << 4 
-		    | symbol_6to4(_rxBits >> 6);
+        if (_rxActive)
+        {
+            // We have the start symbol and now we are collecting message bits,
+            // 6 per symbol, each which has to be decoded to 4 bits
+            if (++_rxBitCount >= 12)
+            {
+                // Have 12 bits of encoded message == 1 byte encoded
+                // Decode as 2 lots of 6 bits into 2 lots of 4 bits
+                // The 6 lsbits are the high nybble
+                uint8_t this_byte = 
+                    (symbol_6to4(_rxBits & 0x3f)) << 4 
+                    | symbol_6to4(_rxBits >> 6);
 
-		// The first decoded byte is the byte count of the following message
-		// the count includes the byte count and the 2 trailing FCS bytes
-		// REVISIT: may also include the ACK flag at 0x40
-		if (_rxBufLen == 0)
-		{
-		    // The first byte is the byte count
-		    // Check it for sensibility. It cant be less than 7, since it
-		    // includes the byte count itself, the 4 byte header and the 2 byte FCS
-		    _rxCount = this_byte;
-            // PATCH wmarkow begin
-		    //if (_rxCount < 7 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
-            // Check it for sensibility. It cant be less than 3, since it
-		    // includes the 'byte count' itself and the 2 byte FCS
-            if (_rxCount < 3 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
-            // PATCH wmarkow end
-		    {
-			// Stupid message length, drop the whole thing
-			_rxActive = false;
-			_rxBad++;
+                // The first decoded byte is the byte count of the following message
+                // the count includes the byte count and the 2 trailing FCS bytes
+                // REVISIT: may also include the ACK flag at 0x40
+                if (_rxBufLen == 0)
+                {
+                    // The first byte is the byte count
+                    // Check it for sensibility. It cant be less than 7, since it
+                    // includes the byte count itself, the 4 byte header and the 2 byte FCS
+                    _rxCount = this_byte;
+                    // PATCH wmarkow begin
+                    //if (_rxCount < 7 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
+                    // Check it for sensibility. It cant be less than 3, since it
+                    // includes the 'byte count' itself and the 2 byte FCS
+                    if (_rxCount < 3 || _rxCount > RH_ASK_MAX_PAYLOAD_LEN)
+                    // PATCH wmarkow end
+                    {
+                        // Stupid message length, drop the whole thing
+                        _rxActive = false;
+                        _rxBad++;
                         return;
-		    }
-		}
-		_rxBuf[_rxBufLen++] = this_byte;
+                    }
+                }
+                _rxBuf[_rxBufLen++] = this_byte;
 
-		if (_rxBufLen >= _rxCount)
-		{
-		    // Got all the bytes now
-		    _rxActive = false;
-		    _rxBufFull = true;
-		    setModeIdle();
-		}
-		_rxBitCount = 0;
-	    }
-	}
-	// Not in a message, see if we have a start symbol
-	else if (_rxBits == RH_ASK_START_SYMBOL)
-	{
-	    // Have start symbol, start collecting message
-	    _rxActive = true;
-	    _rxBitCount = 0;
-	    _rxBufLen = 0;
-        // PATCH wmarkow begin
-        // Receiving the preamble is good enough
-        _rxActive = false;
-		_rxBufFull = true;
-		setModeIdle();
-        // PATCh wmarkow end
-	}
+                if (_rxBufLen >= _rxCount)
+                {
+                    // Got all the bytes now
+                    _rxActive = false;
+                    _rxBufFull = true;
+                    setModeIdle();
+                }
+                _rxBitCount = 0;
+            }
+        }
+        // Not in a message, see if we have a start symbol
+        else if (_rxBits == RH_ASK_START_SYMBOL)
+        {
+            // Have start symbol, start collecting message
+            _rxActive = true;
+            _rxBitCount = 0;
+            _rxBufLen = 0;
+            // PATCH wmarkow begin
+            // Receiving the preamble is good enough
+            _rxActive = false;
+            _rxBufFull = true;
+            setModeIdle();
+            // PATCh wmarkow end
+        }
     }
 }
 
@@ -1039,36 +1043,42 @@ void RH_INTERRUPT_ATTR RH_ASK::transmitTimer()
 {
     if (_txSample++ == 0)
     {
-	// Send next bit
-	// Symbols are sent LSB first
-	// Finished sending the whole message? (after waiting one bit period 
-	// since the last bit)
-	if (_txIndex >= _txBufLen)
-	{
-	    setModeIdle();
-	    _txGood++;
-	}
-	else
-	{
-	    writeTx(_txBuf[_txIndex] & (1 << _txBit++));
-	    if (_txBit >= 6)
-	    {
-		_txBit = 0;
-		_txIndex++;
-	    }
-	}
+        // Send next bit
+        // Symbols are sent LSB first
+        // Finished sending the whole message? (after waiting one bit period 
+        // since the last bit)
+        if (_txIndex >= _txBufLen)
+        {
+            setModeIdle();
+            _txGood++;
+        }
+        else
+        {
+            writeTx(_txBuf[_txIndex] & (1 << _txBit++));
+            if (_txBit >= 6)
+            {
+                _txBit = 0;
+                _txIndex++;
+            }
+        }
     }
-	
+        
     if (_txSample > 7)
-	_txSample = 0;
+    {
+        _txSample = 0;
+    }
 }
 
 void RH_INTERRUPT_ATTR RH_ASK::handleTimerInterrupt()
 {
     if (_mode == RHModeRx)
-	receiveTimer(); // Receiving
+    {
+    receiveTimer(); // Receiving
+    }
     else if (_mode == RHModeTx)
+    {
         transmitTimer(); // Transmitting
+    }
 }
 
 #endif //_SAMD51__
