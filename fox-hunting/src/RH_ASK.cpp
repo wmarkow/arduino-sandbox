@@ -685,8 +685,8 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     // Total number of 6-bit symbols to send
     // PATCH wmarkow begin
     //_txBufLen = index + RH_ASK_PREAMBLE_LEN;
-    // Just send the preamble
-    _txBufLen = RH_ASK_PREAMBLE_LEN;
+    // Just send the two symbols (one byte) of preamble
+    _txBufLen = 2;
     // PATCH wmarkow end
 
     // Start the low level interrupt handler sending symbols
@@ -1034,8 +1034,25 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
             _rxActive = false;
             _rxBufFull = true;
             setModeIdle();
-            // PATCh wmarkow end
+            // PATCH wmarkow end
         }
+        // PATCH wmarkow begin
+        else
+        {
+            // Receiver constantly probes the input data pin, even receiving some garbage from the hardware
+            // at no transmission
+            if( _rxBits == 0xAAA )
+            {
+                // two symbols of preamble received: 0b101010101010 = 0xAAA
+                // it is good enough
+                _rxActive = false;
+                _rxBufFull = true; 
+                //_rxBits = 0;
+                setModeIdle();
+                //_rxBitCount = 0; 
+            }     
+        }
+        // PATCH wmarkow end
     }
 }
 
