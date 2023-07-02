@@ -29,18 +29,11 @@ void loop()
     uint8_t buflen = sizeof(buf);
     if (driver.recv(buf, &buflen)) // Non-blocking
     {
-        // Message with a good checksum received, dump it.
-        Serial.print(millis());
-        Serial.print(" Message: ");
-        Serial.println((char*)buf);   
-
         newBuzzerState = 1;
         lastBeepMillis = millis();  
 
         if(buzzerState == 0 && newBuzzerState == 1)
         {
-            Serial.print(millis());
-            Serial.println(" BUZZ");
             buzzerState = 1;
             analogWrite(BUZZER_PIN, 127);
         }    
@@ -48,8 +41,6 @@ void loop()
 
     if((lastBeepMillis + 60 < millis()) && buzzerState == 1)
     {
-        Serial.print(millis());
-        Serial.println(" OFF");
         analogWrite(BUZZER_PIN, 0);
         buzzerState = 0;
     }
