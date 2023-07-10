@@ -440,6 +440,11 @@ protected:
     /// Number of symbols in _txBuf to be sent;
     uint8_t _txBufLen;
 
+    // PATCH wmarkow begin
+    bool _inRSSIMeassure;
+    void triggerRSSIMeassure();
+    void meassureRSSI();
+    // PATCH wmarkow end
 };
 
 /// @example ask_reliable_datagram_client.pde

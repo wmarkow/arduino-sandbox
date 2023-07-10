@@ -103,6 +103,9 @@ bool RH_ASK::init()
     setModeIdle();
     timerSetup();
 
+    // PATCH wmarkow begin
+    _inRSSIMeassure = false;
+    // PATCH wmarkow end
     return true;
 }
 
@@ -1054,6 +1057,13 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
         {
             // Receiver constantly probes the input data pin, even receiving some garbage from the hardware
             // at no transmission
+            if( (_inRSSIMeassure == false) && ((_rxBits & 0b111111000000) == 0b101010000000) )
+            {
+                // One symbol of preamble received: 0b101010xxxxxx
+                // Start RSSI meassure
+                triggerRSSIMeassure();
+            }
+            
             if( _rxBits == 0xAAA )
             {
                 // two symbols of preamble received: 0b101010101010 = 0xAAA
@@ -1062,7 +1072,9 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 _rxBufFull = true; 
                 //_rxBits = 0;
                 setModeIdle();
-                //_rxBitCount = 0; 
+                //_rxBitCount = 0;
+                _lastRssi = 0;
+                meassureRSSI();
             }     
         }
         // PATCH wmarkow end
@@ -1110,5 +1122,38 @@ void RH_INTERRUPT_ATTR RH_ASK::handleTimerInterrupt()
         transmitTimer(); // Transmitting
     }
 }
+
+// PATCH wmarkow begin
+void RH_ASK::triggerRSSIMeassure()
+{
+    uint8_t analog_reference = 1;
+    uint8_t pin = 0; // means A0
+    ADMUX = (analog_reference << 6) | (pin & 0x07);
+
+    // start the conversion
+    _SFR_BYTE(ADCSRA) |= _BV(ADSC);
+    _inRSSIMeassure = true;
+}
+
+void RH_ASK::meassureRSSI()
+{
+    if(_inRSSIMeassure == false)
+    {
+        return;
+    }
+    
+    if(bit_is_set(ADCSRA, ADSC))
+    {
+        // ADC conversion not done yet
+        return;
+    }
+
+    _inRSSIMeassure = false;
+    uint8_t low, high;
+    low  = ADCL;
+	high = ADCH;
+    _lastRssi = (high << 8) | low;
+}
+// PATCH wmarkow end
 
 #endif //_SAMD51__
