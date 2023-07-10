@@ -159,7 +159,6 @@ uint8_t RH_ASK::timerCalc(uint16_t speed, uint16_t max_ticks, uint16_t *nticks)
         // Won't fit, check with next prescaler value
     }
 
-
     // Check for error
     if ((prescaler == 6) || (ulticks < 2) || (ulticks > max_ticks))
     {
@@ -453,6 +452,20 @@ void RH_ASK::timerSetup()
   #else
     // Use timer 1
     prescaler = timerCalc(_speed, (uint16_t)-1, &nticks);    
+    // PATCH wmarkow begin
+    Serial.print(F("[RH_ASK] Prescaler is "));
+    Serial.println(prescaler);
+    Serial.print(F("[RH_ASK] nticks is "));
+    Serial.println(nticks);
+    if (!prescaler) // that's the same as if(prescaler == 0)
+    {
+        Serial.println(F("[RH_ASK] !prescaler is true "));
+    }
+    else
+    {
+        Serial.println(F("[RH_ASK] !prescaler is false "));
+    }
+    // PATCH wmarkow end
     if (!prescaler)
         return; // fault
     TCCR1A = 0; // Output Compare pins disconnected

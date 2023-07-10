@@ -1,7 +1,7 @@
 #include "RH_ASK.h"
 #include <SPI.h> // Not actualy used but needed to compile
 
-RH_ASK driver;
+RH_ASK driver(1200);
 
 const uint8_t BUZZER_PIN = 3;
 uint32_t lastBeepMillis = 0;
@@ -13,11 +13,14 @@ void setup()
     Serial.begin(115200);	// Debugging only
     if (driver.init())
     {
-        Serial.println("init succeeded");
+        Serial.println("[RH_ASK] init succeeded");
+        Serial.print(F("[RH_ASK] speed is "));
+        Serial.print(driver.speed());
+        Serial.println(F(" bps"));
     }
     else
     {
-        Serial.println("init failed");
+        Serial.println("[RH_ASK] init failed");
     }   
 }
 

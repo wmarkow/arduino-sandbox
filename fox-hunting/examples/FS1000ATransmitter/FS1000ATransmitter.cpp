@@ -4,7 +4,7 @@
 const uint16_t DOT_DURATION_MILLIS = 150;
 const uint16_t DASH_DURATION_MILLIS = 3 * DOT_DURATION_MILLIS;
 
-RH_ASK driver;
+RH_ASK driver(1200);
 
 void sendDot();
 void sendDash();
@@ -15,11 +15,14 @@ void setup()
     Serial.begin(115200);	  // Debugging only
     if (driver.init())
     {
-         Serial.println("init succeeded");
+         Serial.println("[RH_ASK] init succeeded");
+         Serial.print(F("[RH_ASK] speed is "));
+         Serial.print(driver.speed());
+         Serial.println(F(" bps"));
     }
     else
     {
-        Serial.println("init failed");
+        Serial.println("[RH_ASK] init failed");
     }
 }
 
