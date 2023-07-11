@@ -48,15 +48,18 @@ void loop()
         if(buzzerState == 0 && newBuzzerState == 1)
         {
             buzzerState = 1;
-            analogWrite(BUZZER_PIN, 127);
+            // RSPI = 0 map to 1000 Hz
+            // RSPI = 100 map to 3000 Hz
+            unsigned int freq = map(averageRspi, 0, 100, 1000, 3000);
+            tone(BUZZER_PIN, freq);
 
-             Serial.println(averageRspi); 
+            //Serial.println(averageRspi); 
         }
     }
 
     if((lastBeepMillis + 60 < millis()) && buzzerState == 1)
     {
-        analogWrite(BUZZER_PIN, 0);
+        noTone(BUZZER_PIN);
         buzzerState = 0;
     }
 }
