@@ -341,9 +341,9 @@ public:
     // PATCH wmarkow begin
     /// Returns the most recent RSPI (Receiver Signal Preamble Indicator).
     /// It is measured when the preamble is received.
-    /// Max value is 100 which means the received presmble is in a very good condition (close to the transmitter).
+    /// Max value is 1023 which means the received presmble is in a very good condition (close to the transmitter).
     /// Min value is 0 which means no preamble is received (far from the transmitter).
-    /// \return The most recent RSPI measurement as a number between 0 and 100
+    /// \return The most recent RSPI measurement as a number between 0 and 1023
     int16_t lastRspi();
     // PATCH wmarkow end
 protected:

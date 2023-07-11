@@ -50,7 +50,11 @@ void loop()
             buzzerState = 1;
             // RSPI = 0 map to 1000 Hz
             // RSPI = 100 map to 3000 Hz
-            unsigned int freq = map(averageRspi, 0, 100, 1000, 3000);
+            if(averageRspi > 1023)
+            {
+                averageRspi = 1023;
+            }
+            unsigned int freq = map(averageRspi, 0, 1023, 1000, 3000);
             tone(BUZZER_PIN, freq);
 
             //Serial.println(averageRspi); 

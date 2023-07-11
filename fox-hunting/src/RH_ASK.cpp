@@ -1089,7 +1089,7 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 meassureRSSI();
 
                 // meassure RSPI
-                _lastRspi = (int16_t)((double)600.0  / (double)_lastRspi01Count);
+                _lastRspi = (int16_t)((double)6138.0  / (double)_lastRspi01Count);
                 _lastRspi01Count = 0;
                 _rxBits = 0;
             }     
