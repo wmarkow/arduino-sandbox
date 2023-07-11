@@ -105,6 +105,7 @@ bool RH_ASK::init()
 
     // PATCH wmarkow begin
     _inRSSIMeassure = false;
+    _lastRspi01Count = 0;
     // PATCH wmarkow end
     return true;
 }
@@ -1038,20 +1039,22 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 _rxBitCount = 0;
             }
         }
+        // PATCH wmarkow begin
         // Not in a message, see if we have a start symbol
-        else if (_rxBits == RH_ASK_START_SYMBOL)
-        {
-            // Have start symbol, start collecting message
-            _rxActive = true;
-            _rxBitCount = 0;
-            _rxBufLen = 0;
-            // PATCH wmarkow begin
-            // Receiving the preamble is good enough
-            _rxActive = false;
-            _rxBufFull = true;
-            setModeIdle();
-            // PATCH wmarkow end
-        }
+        //else if (_rxBits == RH_ASK_START_SYMBOL)
+        //{
+        //    // Have start symbol, start collecting message
+        //    _rxActive = true;
+        //    _rxBitCount = 0;
+        //    _rxBufLen = 0;
+        //    // PATCH wmarkow begin
+        //    // Receiving the preamble is good enough
+        //    _rxActive = false;
+        //    _rxBufFull = true;
+        //    setModeIdle();
+        //    // PATCH wmarkow end
+        //}
+        // PATCH wmarkow end
         // PATCH wmarkow begin
         else
         {
@@ -1063,6 +1066,13 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 // Start RSSI meassure
                 triggerRSSIMeassure();
             }
+
+            if( (_rxBits & 0b110000000000) == 0b100000000000 )
+            {
+                // One transition from 0 to 1 detected
+                // Count it
+                _lastRspi01Count ++;
+            }
             
             if( _rxBits == 0xAAA )
             {
@@ -1073,8 +1083,15 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 //_rxBits = 0;
                 setModeIdle();
                 //_rxBitCount = 0;
+                
+                // meassure RSSI
                 _lastRssi = 0;
                 meassureRSSI();
+
+                // meassure RSPI
+                _lastRspi = (int16_t)((double)600.0  / (double)_lastRspi01Count);
+                _lastRspi01Count = 0;
+                _rxBits = 0;
             }     
         }
         // PATCH wmarkow end
@@ -1153,6 +1170,11 @@ void RH_ASK::meassureRSSI()
     low  = ADCL;
 	high = ADCH;
     _lastRssi = (high << 8) | low;
+}
+
+int16_t RH_ASK::lastRspi()
+{
+    return _lastRspi;
 }
 // PATCH wmarkow end
 

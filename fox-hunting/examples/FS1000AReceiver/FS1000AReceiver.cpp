@@ -6,11 +6,13 @@ RH_ASK driver(1200);
 const uint8_t BUZZER_PIN = 3;
 uint32_t lastBeepMillis = 0;
 uint8_t buzzerState = 0;
-#define RSSI_NUMBER_OF_SAMPLES 32
-uint16_t rssi[RSSI_NUMBER_OF_SAMPLES];
+uint16_t rssi[32];
+uint16_t rspi[32];
 
 uint16_t calculateAverageRssi(uint16_t currentRssi);
+uint16_t calculateAverageRspi(uint16_t currentRspi);
 uint16_t averageRssi;
+uint16_t averageRspi;
 
 void setup()
 {
@@ -40,16 +42,16 @@ void loop()
         newBuzzerState = 1;
         lastBeepMillis = millis();  
 
+        uint16_t lastRSPI = driver.lastRspi();
+        averageRspi = calculateAverageRspi(lastRSPI);
+        
         if(buzzerState == 0 && newBuzzerState == 1)
         {
             buzzerState = 1;
             analogWrite(BUZZER_PIN, 127);
 
-             Serial.println(averageRssi); 
+             Serial.println(averageRspi); 
         }
-
-        uint16_t lastRSSI = driver.lastRssi();
-        averageRssi = calculateAverageRssi(lastRSSI);
     }
 
     if((lastBeepMillis + 60 < millis()) && buzzerState == 1)
@@ -62,14 +64,30 @@ void loop()
 uint16_t calculateAverageRssi(uint16_t currentRssi)
 {
     uint16_t summ = 0;
-    for(uint8_t index = 0 ; index < RSSI_NUMBER_OF_SAMPLES - 1; index ++)
+    for(uint8_t index = 0 ; index < 32 - 1; index ++)
     {
         rssi[index] = rssi[index + 1];
         summ += rssi[index];
     }
 
-    rssi[RSSI_NUMBER_OF_SAMPLES - 1] = currentRssi;
+    rssi[32 - 1] = currentRssi;
     summ += currentRssi;
+
+    // divide by 32
+    return summ >> 5;
+}
+
+uint16_t calculateAverageRspi(uint16_t currentRspi)
+{
+    uint16_t summ = 0;
+    for(uint8_t index = 0 ; index < 32 - 1; index ++)
+    {
+        rspi[index] = rspi[index + 1];
+        summ += rspi[index];
+    }
+
+    rspi[32 - 1] = currentRspi;
+    summ += currentRspi;
 
     // divide by 32
     return summ >> 5;

@@ -338,6 +338,9 @@ public:
     uint32_t _timerIncrement;
 #endif
 
+    // PATCH wmarkow begin
+    int16_t lastRspi();
+    // PATCH wmarkow end
 protected:
     /// Helper function for calculating timer ticks
     uint8_t         timerCalc(uint16_t speed, uint16_t max_ticks, uint16_t *nticks);
@@ -444,6 +447,11 @@ protected:
     bool _inRSSIMeassure;
     void triggerRSSIMeassure();
     void meassureRSSI();
+
+    /// The value of the last received RSPI (Received Signal Preamble Indicator),
+    /// which tells about the conditiona of received preamble
+    volatile int16_t _lastRspi;
+    uint16_t _lastRspi01Count;
     // PATCH wmarkow end
 };
 
