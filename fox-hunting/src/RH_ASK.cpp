@@ -1074,7 +1074,7 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 _lastRspi01Count ++;
             }
             
-            if( _rxBits == 0xAAA )
+            if( isPreambleReceived(_rxBits) )
             {
                 // two symbols of preamble received: 0b101010101010 = 0xAAA
                 // it is good enough
@@ -1097,6 +1097,18 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
         // PATCH wmarkow end
     }
 }
+
+// PATCH wmarkow begin
+bool RH_ASK::isPreambleReceived(uint16_t rxBits)
+{
+    if( rxBits == 0xAAA )
+    {
+        return true;
+    }
+
+    return false;
+}
+// PATCH wmarkow end
 
 void RH_INTERRUPT_ATTR RH_ASK::transmitTimer()
 {

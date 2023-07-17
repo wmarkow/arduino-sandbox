@@ -368,6 +368,10 @@ protected:
     /// The receiver handler function, called a 8 times the bit rate
     void            receiveTimer();
 
+    // PATCH wmarkow begin
+    bool isPreambleReceived(uint16_t rxBits);
+    // PATCH wmarkow end
+
     /// The transmitter handler function, called a 8 times the bit rate 
     void            transmitTimer();
 
