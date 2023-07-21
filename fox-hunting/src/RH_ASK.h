@@ -456,6 +456,7 @@ protected:
     bool _inRSSIMeassure;
     void triggerRSSIMeassure();
     void meassureRSSI();
+    uint8_t countSetBits(uint16_t n);
 
     /// The value of the last received RSPI (Received Signal Preamble Indicator),
     /// which tells about the conditiona of received preamble

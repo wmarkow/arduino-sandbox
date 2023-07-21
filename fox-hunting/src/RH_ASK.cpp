@@ -1101,13 +1101,27 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 // PATCH wmarkow begin
 bool RH_ASK::isPreambleReceived(uint16_t rxBits)
 {
-    if( rxBits == 0xAAA )
+    // This below doesn't work nice because the receiver 
+    // gets some nasty noise and the beeper beeps constantly
+    //0b101010101010
+    if( countSetBits(rxBits) == 6 )
     {
+        // we have preamble
         return true;
     }
 
     return false;
 }
+
+uint8_t RH_ASK::countSetBits(uint16_t n)
+{
+    uint8_t count = 0;
+    while (n) {
+        count += n & 1;
+        n >>= 1;
+    }
+    return count;
+ }
 // PATCH wmarkow end
 
 void RH_INTERRUPT_ATTR RH_ASK::transmitTimer()
