@@ -1058,6 +1058,10 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
         // PATCH wmarkow begin
         else
         {
+            // meassure RSSI constantly
+            triggerRSSIMeassure();
+            meassureRSSI();
+
             // Receiver constantly probes the input data pin, even receiving some garbage from the hardware
             // at no transmission
             if( (_inRSSIMeassure == false) && ((_rxBits & 0b111111000000) == 0b101010000000) )
@@ -1180,6 +1184,11 @@ void RH_INTERRUPT_ATTR RH_ASK::handleTimerInterrupt()
 // PATCH wmarkow begin
 void RH_ASK::triggerRSSIMeassure()
 {
+    if(_inRSSIMeassure == true)
+    {
+        return;
+    }
+
     uint8_t analog_reference = 1;
     uint8_t pin = 0; // means A0
     ADMUX = (analog_reference << 6) | (pin & 0x07);

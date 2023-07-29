@@ -5,6 +5,7 @@ RH_ASK driver(1200);
 
 const uint8_t BUZZER_PIN = 3;
 uint32_t lastBeepMillis = 0;
+uint32_t lastRssiPrintMillis = 0;
 uint8_t buzzerState = 0;
 uint16_t rssi[32];
 uint16_t rspi[32];
@@ -65,6 +66,12 @@ void loop()
     {
         noTone(BUZZER_PIN);
         buzzerState = 0;
+    }
+
+    if(millis() - lastRssiPrintMillis > 100)
+    {
+        Serial.println(driver.lastRssi());
+        lastRssiPrintMillis = millis();
     }
 }
 
