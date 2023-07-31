@@ -1088,10 +1088,6 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 setModeIdle();
                 //_rxBitCount = 0;
                 
-                // meassure RSSI
-                _lastRssi = 0;
-                meassureRSSI();
-
                 // meassure RSPI
                 _lastRspi = (int16_t)((double)6138.0  / (double)_lastRspi01Count);
                 _lastRspi01Count = 0;
