@@ -457,11 +457,13 @@ protected:
     void triggerRSSIMeassure();
     void meassureRSSI();
     uint8_t countSetBits(uint16_t n);
+    void calculateLastRssi(uint16_t currentRssi);
 
     /// The value of the last received RSPI (Received Signal Preamble Indicator),
     /// which tells about the conditiona of received preamble
     volatile int16_t _lastRspi;
     uint16_t _lastRspi01Count;
+    uint16_t rssi[8];
     // PATCH wmarkow end
 };
 

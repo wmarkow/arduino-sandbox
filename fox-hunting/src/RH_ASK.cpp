@@ -1060,7 +1060,7 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
         {
             // meassure RSSI constantly
             triggerRSSIMeassure();
-            meassureRSSI();
+            //meassureRSSI();
 
             // Receiver constantly probes the input data pin, even receiving some garbage from the hardware
             // at no transmission
@@ -1068,7 +1068,7 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
             {
                 // One symbol of preamble received: 0b101010xxxxxx
                 // Start RSSI meassure
-                triggerRSSIMeassure();
+                //triggerRSSIMeassure();
             }
 
             if( (_rxBits & 0b110000000000) == 0b100000000000 )
@@ -1092,7 +1092,8 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 _lastRspi = (int16_t)((double)6138.0  / (double)_lastRspi01Count);
                 _lastRspi01Count = 0;
                 _rxBits = 0;
-            }     
+            }   
+            meassureRSSI();  
         }
         // PATCH wmarkow end
     }
@@ -1211,7 +1212,23 @@ void RH_ASK::meassureRSSI()
     uint8_t low, high;
     low  = ADCL;
 	high = ADCH;
-    _lastRssi = (high << 8) | low;
+    calculateLastRssi((high << 8) | low);
+}
+
+void RH_ASK::calculateLastRssi(uint16_t currentRssi)
+{
+    uint16_t summ = 0;
+    for(uint8_t index = 0 ; index < 7; index ++)
+    {
+        rssi[index] = rssi[index + 1];
+        summ += rssi[index + 1];
+    }
+
+    rssi[7] = currentRssi;
+    summ += currentRssi;
+
+    // divide by 8
+    _lastRssi = (summ >> 3);
 }
 
 int16_t RH_ASK::lastRspi()
