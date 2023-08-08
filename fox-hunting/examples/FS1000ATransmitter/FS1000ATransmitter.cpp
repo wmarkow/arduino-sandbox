@@ -4,7 +4,7 @@
 const uint16_t DOT_DURATION_MILLIS = 150;
 const uint16_t DASH_DURATION_MILLIS = 3 * DOT_DURATION_MILLIS;
 
-RH_ASK driver(2400);
+RH_ASK driver(4800);
 
 void sendDot();
 void sendDash();

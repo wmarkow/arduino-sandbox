@@ -1102,27 +1102,12 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 // PATCH wmarkow begin
 bool RH_ASK::isPreambleReceived(uint16_t rxBits)
 {
-    // This below works quite nice. We accept some error bits
-    // in preamble.
-    for(uint8_t q = 0 ; q < 12 ; q++)
+    if(rxBits == 0b101010101010)
     {
-        if( (rxBits & 0b000000000111) == 0b000000000111)
-        {
-            // ...three one bits in a row is bad...
-            return false;
-        }
-
-        if( (rxBits & 0b000000000111) == 0b000000000000)
-        {
-            // ...also three zero bits in a row is bad
-            return false;
-        }
-
-        rxBits >>= 1;
+        return true;
     }
-	
-	// ... otherwise we have preamble
-    return true;
+
+    return false;
 }
 
 uint8_t RH_ASK::countSetBits(uint16_t n)

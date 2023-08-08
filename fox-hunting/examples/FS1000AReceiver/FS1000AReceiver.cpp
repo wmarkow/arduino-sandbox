@@ -1,7 +1,7 @@
 #include "RH_ASK.h"
 #include <SPI.h> // Not actualy used but needed to compile
 
-RH_ASK driver(2400);
+RH_ASK driver(4800);
 
 const uint8_t BUZZER_PIN = 3;
 uint32_t lastBeepMillis = 0;
