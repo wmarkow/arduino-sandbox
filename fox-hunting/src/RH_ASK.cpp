@@ -955,6 +955,7 @@ void RH_ASK::validateRxBuf()
 void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 {
     bool rxSample = readRx();
+    meassureRSSI(); 
 
     // Integrate each sample
     if (rxSample)
@@ -1058,10 +1059,6 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
         // PATCH wmarkow begin
         else
         {
-            // meassure RSSI constantly
-            triggerRSSIMeassure();
-            //meassureRSSI();
-
             // Receiver constantly probes the input data pin, even receiving some garbage from the hardware
             // at no transmission
             if( (_inRSSIMeassure == false) && ((_rxBits & 0b111111000000) == 0b101010000000) )
@@ -1092,11 +1089,11 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
                 _lastRspi = (int16_t)((double)6138.0  / (double)_lastRspi01Count);
                 _lastRspi01Count = 0;
                 _rxBits = 0;
-            }   
-            meassureRSSI();  
+            }    
         }
         // PATCH wmarkow end
     }
+    triggerRSSIMeassure();
 }
 
 // PATCH wmarkow begin
