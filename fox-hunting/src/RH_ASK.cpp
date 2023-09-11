@@ -1099,12 +1099,43 @@ void RH_INTERRUPT_ATTR RH_ASK::receiveTimer()
 // PATCH wmarkow begin
 bool RH_ASK::isPreambleReceived(uint16_t rxBits)
 {
-    if(rxBits == 0b101010101010)
+    // FPS - frames per second
+    // This condition is very strong: the range is low, FPS is low but antenna directional sensitivity is the best.
+    if(rxBits == 0b101010101010 )
     {
         return true;
     }
 
-    return false;
+    // This condition is not so strong: the range is better, FPS a bit better but antenna directional sensitivity is a bit bad.
+    if((rxBits & 0b11111111) == 0b10101010 )
+    {
+        return true;
+    }
+    if((rxBits & 0b11111111) == 0b01010101 )
+    {
+        return true;
+    }
+
+    // This condition is the weakest: some bit errors are allowed (two zeros next to each other, 
+    // or two ones next to each other). We gain more range, more FPS but the antenna directional sensitivity is the worse.
+    for(uint8_t q = 0 ; q < 12 ; q++)
+    {
+        if( (rxBits & 0b000000000111) == 0b000000000111)
+        {
+            // ...three one bits in a row is bad...
+            return false;
+        }
+
+        if( (rxBits & 0b000000000111) == 0b000000000000)
+        {
+            // ...also three zero bits in a row is bad
+            return false;
+        }
+
+        rxBits >>= 1;
+    }
+
+    return true;
 }
 
 uint8_t RH_ASK::countSetBits(uint16_t n)
