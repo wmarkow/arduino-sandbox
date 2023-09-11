@@ -1,12 +1,21 @@
 #include "RH_ASK.h"
 #include <SPI.h> // Not actualy used but needed to compile
 
+// Uncomment the line below to enable dumping RSSI values to the serial port.
+// Attention: dumping RSSI values to serial port has influence to the sensitivity of the receiver;
+// probably the time spent on sending data to serial port is too big and the receiver loses some frames.
+// It has been tested: with debug off the device seems to beep more often in the same place.
+#define ENABLE_DUMP_RSSI
+
 RH_ASK driver(2400);
 
 const uint8_t BUZZER_PIN = 3;
 uint32_t lastBeepMillis = 0;
 uint32_t lastRssiPrintMillis = 0;
 uint8_t buzzerState = 0;
+
+// WHen low FPS then bigger size of rssi has negative impact to the directional antenna sensitivity of the receiver,
+// because it takes more time to calculate the average RSSI
 uint16_t rssi[32];
 uint16_t rspi[32];
 
@@ -48,8 +57,11 @@ void loop()
         uint16_t lastRSPI = driver.lastRspi();
         averageRspi = calculateAverageRspi(lastRSPI);
         
+        #ifdef ENABLE_DUMP_RSSI
         Serial.print("r");
         Serial.println(lastRssi);
+        #endif
+
         // RSSI is a number between 0 and 1023, with the following meaning:
         // 0 - 199 transmitter is off but receiver gets some garbage (noise)
         // 200 - 450 transmitter is on and receiver gets the carrier
@@ -76,18 +88,16 @@ void loop()
             }
             unsigned int freq = map(averageRssi, 200, 450, 2000, 4000);
             tone(BUZZER_PIN, freq);
-
-            //Serial.print(averageRssi); 
-            //Serial.print("   ");
-            //Serial.println(driver.lastRssi());
         }
     }
     else
     {
         if(millis() - lastRssiPrintMillis > 100)
         {
+            #ifdef ENABLE_DUMP_RSSI
             Serial.print("n");
             Serial.println(lastRssi);
+            #endif
             lastRssiPrintMillis = millis();
         }
     }
