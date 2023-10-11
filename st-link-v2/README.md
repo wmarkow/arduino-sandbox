@@ -59,11 +59,11 @@ and later only **blue** is on (while **red** is turned off):
  
  
  
-Almost there to finally fix the programming issue. First need to write OPTION BYTE with disabled protection.
+ * Almost there to finally fix the programming issue. First need to write OPTION BYTE with disabled protection.
 
 <img src="https://raw.githubusercontent.com/wmarkow/arduino-sandbox/master/st-link-v2/doc/30.png" width="50%" >
  
-During the process the entire device will be erased, but it will be possible to upload new firmware. Now it reads the FLASH,
+ * During the process the entire device will be erased, but it will be possible to upload new firmware. Now it reads the FLASH,
 however we have all zeros. 
 
 <img src="https://raw.githubusercontent.com/wmarkow/arduino-sandbox/master/st-link-v2/doc/35.png" width="50%" >
