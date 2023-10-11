@@ -63,6 +63,7 @@ Almost there to finally fix the programming issue. First need to write OPTION BY
 
 <img src="https://raw.githubusercontent.com/wmarkow/arduino-sandbox/master/st-link-v2/doc/30.png" width="50%" >
  
-During the process the entire device will be erased, but it will be possible to upload new firmware. It is possiible now to read
-the FLASH, however it reads all zeros. 
+During the process the entire device will be erased, but it will be possible to upload new firmware. Now it reads the FLASH,
+however we have all zeros. 
+
 <img src="https://raw.githubusercontent.com/wmarkow/arduino-sandbox/master/st-link-v2/doc/35.png" width="50%" >
