@@ -1,18 +1,21 @@
 #include <Arduino.h>
 #include "drivers/si4438.h"
 #include "services/fake_f3e.h"
+#include "services/cw.h"
 
-bool chipConnected = false;
-unsigned long lastTxStartMillis = 0;
-bool isTx = false;
+#define FOX_STATE_RX 0
+#define FOX_STATE_TX 1
+
+uint8_t foxState;
 
 #define DOT_DURATION_MILLIS  150
 #define DASH_DURATION_MILLIS 3 * DOT_DURATION_MILLIS
 
 void stm8s_sleep(uint8_t tbr, uint8_t apr);
-#define STM8_S_SLEEP_5_SEC() stm8s_sleep(14, 62)
 #define STM8_S_SLEEP_250_MILLISEC() stm8s_sleep(10, 62)
 #define STM8_S_SLEEP_500_MILLISEC() stm8s_sleep(11, 62)
+#define STM8_S_SLEEP_2_25_SEC() stm8s_sleep(14, 28)
+#define STM8_S_SLEEP_5_SEC() stm8s_sleep(14, 62)
 #define STM8_S_SLEEP_20_SEC() stm8s_sleep(15, 41)
 
 void sendDot();
@@ -27,6 +30,8 @@ void setup()
 {
     delay(3000);
 
+    foxState = FOX_STATE_RX;
+
     Serial_begin(115200);
     Serial_println_s("Serial init.");
     si4438_init_hw();
@@ -34,8 +39,7 @@ void setup()
 
     // at first check if the hardware is connected
     Serial_print_s("Si4438 checking hardware...");
-    chipConnected = si4438_is_chip_connected();
-    if(chipConnected == false)
+    if(si4438_is_chip_connected() == false)
     {
         Serial_println_s(" failed");
     }
@@ -77,26 +81,90 @@ void setup()
     {
         Serial_println_s(" OK");
     }
+
+    Serial_print_s("Si4438 setting modem RSSI treshold...");
+    if(setProperty(SI4438_PROPERTY_MODEM_RSSI_THRESH, 0x7f) == false)
+    {
+        Serial_println_s(" failed");
+    }
+    else
+    {
+        Serial_println_s(" OK");
+    }
 }
 
 void loop()
 {
-    Serial_println_s("loop() begin");
-
-    for(uint8_t q = 0 ; q < 20 ; q ++)
+    if(foxState == FOX_STATE_RX)
     {
-        // 20 * (500ms + 500ms) = 20 * 1s = 20s
-        fake_f3e_start_tx(0); // channel 0: 434.100 MHz
-        fake_f3e_tone(700, 500000ul);
-        fake_f3e_stop_tx();
+        Serial_print_s("Fox in RX state.");
+
+        // 1. go to RX state
+        cw_init_rx();
+        cw_start_rx(0);
+
+        // 2. for 250ms check for carrier presence
+        unsigned long timestamp = millis();
+        do
+        {
+            if(digitalRead(PB4) == HIGH)
+            {
+                foxState = FOX_STATE_TX;
+                return;
+            }
+        } while (millis() - timestamp < 250);
+        
+        // 3. sleep for 2.25s
         si4438_enter_sleep_state();
-        STM8_S_SLEEP_500_MILLISEC();
+        STM8_S_SLEEP_2_25_SEC();
+
+        return;
     }
 
-    STM8_S_SLEEP_20_SEC();
-    STM8_S_SLEEP_20_SEC();
+    if(foxState == FOX_STATE_TX)
+    {
+        Serial_print_s("Fox in TX state.");
 
-    Serial_println_s("loop() end");
+        // 1. go to TX state
+        fake_f3e_init_tx_direct_sync_2gfsk();
+
+        // 2. transmit beeps for 30 minutes
+        // for(uint8_t w = 0 ; w < 30 ; w ++)
+        // {
+        //     // the loop below takes 20 seconds
+        //     for(uint8_t q = 0 ; q < 20 ; q ++)
+        //     {
+        //         // 20 * (500ms + 500ms) = 20 * 1s = 20s
+        //         fake_f3e_start_tx(0); // channel 0: 434.100 MHz
+        //         fake_f3e_tone(700, 500000ul);
+        //         fake_f3e_stop_tx();
+        //         si4438_enter_sleep_state();
+        //         STM8_S_SLEEP_250_MILLISEC();
+        //         STM8_S_SLEEP_500_MILLISEC();
+        //     }
+
+        //     // sleep for 40 seconds
+        //     STM8_S_SLEEP_20_SEC();
+        //     STM8_S_SLEEP_20_SEC();
+        // }
+
+        // 2. transmit beeps for 20 seconds
+        for(uint8_t q = 0 ; q < 20 ; q ++)
+        {
+            // 20 * (500ms + 500ms) = 20 * 1s = 20s
+            fake_f3e_start_tx(0); // channel 0: 434.100 MHz
+            fake_f3e_tone(700, 500000ul);
+            fake_f3e_stop_tx();
+            si4438_enter_sleep_state();
+            STM8_S_SLEEP_250_MILLISEC();
+            STM8_S_SLEEP_500_MILLISEC();
+        }
+
+        // 3. go to RX mode
+        foxState = FOX_STATE_RX;
+
+        return;
+    }
 }
 
 void sendMOE()
@@ -246,7 +314,7 @@ void inline sendDash()
 
 void stm8s_sleep(uint8_t tbr, uint8_t apr)
 {
-    Serial_println_s("stm8s_sleep_5sec() begin");
+    Serial_println_s("stm8s_sleep() begin");
     // How to calculate the register values:
     // RM0016_STM8S_and_STM8AF.pdf page 116 Table 25
 
